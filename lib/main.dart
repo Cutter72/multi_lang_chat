@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl_standalone.dart';
 import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/sub_title_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/title_text.dart';
@@ -7,11 +10,14 @@ void main() {
   runApp(const MyApp());
 }
 
+bool _isLocaleInitiated = false;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    initLocale();
     return MaterialApp(
       title: "Multi lang chat",
       theme: ThemeData(
@@ -19,6 +25,14 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(),
     );
+  }
+
+  void initLocale() {
+    if (!_isLocaleInitiated) {
+      Future.wait([findSystemLocale()]);
+      initializeDateFormatting(Intl.systemLocale);
+      _isLocaleInitiated = true;
+    }
   }
 }
 
