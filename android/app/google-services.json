@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "903340585593",
+    "project_id": "multi-lang-chat-aec00",
+    "storage_bucket": "multi-lang-chat-aec00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903340585593:android:52634aca07eb8422c15aa8",
+        "android_client_info": {
+          "package_name": "pl.drelich.multi_lang_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903340585593-db6pda0u09jj0a0t3nc2nk79cbhco2ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPkQDcayRMFA7SIZwKHXuo2d_zD6mHm8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903340585593-db6pda0u09jj0a0t3nc2nk79cbhco2ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
