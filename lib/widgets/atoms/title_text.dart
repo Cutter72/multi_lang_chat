@@ -10,16 +10,30 @@ import 'text_styles.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+class _TitleText extends Text {
+  const _TitleText(data, {TextStyle? style})
+      : super(
+          data,
+          style: style,
+          textAlign: TextAlign.justify,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 3,
+        );
+}
+
 class TitleTextH extends StatelessWidget {
   final String text;
 
-  const TitleTextH({Key? key, required this.text}) : super(key: key);
+  const TitleTextH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.titleH,
+    return Container(
+      margin: TextStyles.titleMarginsH,
+      child: _TitleText(
+        text,
+        style: TextStyles.titleH,
+      ),
     );
   }
 }
@@ -27,13 +41,16 @@ class TitleTextH extends StatelessWidget {
 class TitleTextHH extends StatelessWidget {
   final String text;
 
-  const TitleTextHH({Key? key, required this.text}) : super(key: key);
+  const TitleTextHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.titleHH,
+    return Container(
+      margin: TextStyles.titleMarginsHH,
+      child: _TitleText(
+        text,
+        style: TextStyles.titleHH,
+      ),
     );
   }
 }
@@ -41,13 +58,16 @@ class TitleTextHH extends StatelessWidget {
 class TitleTextHHH extends StatelessWidget {
   final String text;
 
-  const TitleTextHHH({Key? key, required this.text}) : super(key: key);
+  const TitleTextHHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.titleHHH,
+    return Container(
+      margin: TextStyles.titleMarginsHHH,
+      child: _TitleText(
+        text,
+        style: TextStyles.titleHHH,
+      ),
     );
   }
 }

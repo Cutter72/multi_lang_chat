@@ -10,6 +10,8 @@ void main() {
   runApp(const MyApp());
 }
 
+const loremIpsum =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 bool _isLocaleInitiated = false;
 
 class MyApp extends StatelessWidget {
@@ -50,31 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const SelectionContainer.disabled(child: Text("Multi lang chat")),
       ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            children: const [
-              TitleTextH(text: "Title H"),
-              SubTitleTextH(text: "Sub Title H"),
-              ContentTextH(text: "Content H"),
-            ],
-          ),
-          Row(
-            children: const [
-              TitleTextHH(text: "Title HH"),
-              SubTitleTextHH(text: "Sub Title HH"),
-              ContentTextHH(text: "Content HH"),
-            ],
-          ),
-          Row(
-            children: const [
-              TitleTextHHH(text: "Title HHH"),
-              SubTitleTextHHH(text: "Sub Title HHH"),
-              ContentTextHHH(text: "Content HHH"),
-            ],
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            TitleTextH("Title H $loremIpsum"),
+            SubTitleTextH("Sub Title H $loremIpsum"),
+            ContentTextH("Content H $loremIpsum"),
+            TitleTextHH("Title HH $loremIpsum"),
+            SubTitleTextHH("Sub Title HH $loremIpsum"),
+            ContentTextHH("Content HH $loremIpsum"),
+            TitleTextHHH("Title HHH $loremIpsum"),
+            SubTitleTextHHH("Sub Title HHH $loremIpsum"),
+            ContentTextHHH("Content HHH $loremIpsum"),
+          ],
+        ),
       ),
     );
   }

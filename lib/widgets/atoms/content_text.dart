@@ -10,16 +10,28 @@ import 'text_styles.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+class _ContentText extends Text {
+  const _ContentText(data, {TextStyle? style})
+      : super(
+          data,
+          style: style,
+          textAlign: TextAlign.justify,
+        );
+}
+
 class ContentTextH extends StatelessWidget {
   final String text;
 
-  const ContentTextH({Key? key, required this.text}) : super(key: key);
+  const ContentTextH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.contentH,
+    return Container(
+      margin: TextStyles.contentMarginsH,
+      child: _ContentText(
+        text,
+        style: TextStyles.contentH,
+      ),
     );
   }
 }
@@ -27,13 +39,16 @@ class ContentTextH extends StatelessWidget {
 class ContentTextHH extends StatelessWidget {
   final String text;
 
-  const ContentTextHH({Key? key, required this.text}) : super(key: key);
+  const ContentTextHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.contentHH,
+    return Container(
+      margin: TextStyles.contentMarginsHH,
+      child: _ContentText(
+        text,
+        style: TextStyles.contentHH,
+      ),
     );
   }
 }
@@ -41,13 +56,16 @@ class ContentTextHH extends StatelessWidget {
 class ContentTextHHH extends StatelessWidget {
   final String text;
 
-  const ContentTextHHH({Key? key, required this.text}) : super(key: key);
+  const ContentTextHHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.contentHHH,
+    return Container(
+      margin: TextStyles.contentMarginsHHH,
+      child: _ContentText(
+        text,
+        style: TextStyles.contentHHH,
+      ),
     );
   }
 }

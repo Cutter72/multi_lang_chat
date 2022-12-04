@@ -10,16 +10,30 @@ import 'text_styles.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+class _SubTitleText extends Text {
+  const _SubTitleText(data, {TextStyle? style})
+      : super(
+          data,
+          style: style,
+          textAlign: TextAlign.justify,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 5,
+        );
+}
+
 class SubTitleTextH extends StatelessWidget {
   final String text;
 
-  const SubTitleTextH({Key? key, required this.text}) : super(key: key);
+  const SubTitleTextH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.subTitleH,
+    return Container(
+      margin: TextStyles.subTitleMarginsH,
+      child: _SubTitleText(
+        text,
+        style: TextStyles.subTitleH,
+      ),
     );
   }
 }
@@ -27,13 +41,16 @@ class SubTitleTextH extends StatelessWidget {
 class SubTitleTextHH extends StatelessWidget {
   final String text;
 
-  const SubTitleTextHH({Key? key, required this.text}) : super(key: key);
+  const SubTitleTextHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.subTitleHH,
+    return Container(
+      margin: TextStyles.subTitleMarginsHH,
+      child: _SubTitleText(
+        text,
+        style: TextStyles.subTitleHH,
+      ),
     );
   }
 }
@@ -41,13 +58,16 @@ class SubTitleTextHH extends StatelessWidget {
 class SubTitleTextHHH extends StatelessWidget {
   final String text;
 
-  const SubTitleTextHHH({Key? key, required this.text}) : super(key: key);
+  const SubTitleTextHHH(this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyles.subTitleHHH,
+    return Container(
+      margin: TextStyles.subTitleMarginsHHH,
+      child: _SubTitleText(
+        text,
+        style: TextStyles.subTitleHHH,
+      ),
     );
   }
 }
