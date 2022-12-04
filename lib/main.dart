@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -84,6 +85,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        FirebaseFirestore.instance.collection("msgs/").snapshots().listen((collectionSnapshot) {
+          collectionSnapshot.docs.forEach((documentSnapshot) {
+            print(documentSnapshot['text']);
+          });
+        });
+      }),
     );
   }
 }
