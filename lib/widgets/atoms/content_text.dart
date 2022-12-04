@@ -4,6 +4,10 @@ import 'text_styles.dart';
 
 /// Content text to show
 ///
+/// H is referred to <h1> from HTML web development
+/// HH is referred to <h2> from HTML web development
+/// HHH is referred to <h3> from HTML web development
+///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class ContentTextH extends StatelessWidget {
