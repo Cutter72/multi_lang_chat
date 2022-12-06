@@ -52,19 +52,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Multi lang chat",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // home: const MyHomePage(),
-      home: SignInScreen(
-        actions: [
-          VerifyPhoneAction((context, _) {
-            Navigator.pushNamed(context, '/phone');
-          }),
-        ],
-      ),
-    );
+        title: "Multi lang chat",
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: const MyHomePage(),
+
+        home: SignInScreen(
+          actions: [
+            AuthStateChangeAction<SignedIn>((context, state) {
+              if (!state.user!.emailVerified) {
+                Navigator.pushNamed(context, '/verify-email');
+              } else {
+                Navigator.pushReplacementNamed(context, '/profile');
+              }
+            }),
+            VerifyPhoneAction((context, _) {
+              Navigator.pushNamed(context, '/phone');
+            }),
+          ],
+        ),
+        routes: {
+          // ...other routes
+          '/phone': (context) => PhoneInputScreen(actions: [
+                SMSCodeRequestedAction((context, action, flowKey, phoneNumber) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => SMSCodeInputScreen(
+                        flowKey: flowKey,
+                      ),
+                    ),
+                  );
+                }),
+              ]),
+        });
   }
 }
 
