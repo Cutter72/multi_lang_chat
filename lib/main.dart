@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,11 @@ const loremIpsum =
 void main() async {
   await initFirebase();
   await initLocale();
+  FirebaseUIAuth.configureProviders([
+    PhoneAuthProvider(),
+    EmailAuthProvider(),
+    // ... other providers
+  ]);
   runApp(const MyApp());
 }
 
@@ -50,7 +56,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      // home: const MyHomePage(),
+      home: SignInScreen(
+        actions: [
+          VerifyPhoneAction((context, _) {
+            Navigator.pushNamed(context, '/phone');
+          }),
+        ],
+      ),
     );
   }
 }
