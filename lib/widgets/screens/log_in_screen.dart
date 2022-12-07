@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/widgets/atoms/sub_title_text.dart';
@@ -13,6 +14,15 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SignInScreen(
+      actions: [
+        AuthStateChangeAction<AuthState>(
+          (context, state) {
+            if (state is UserCreated) {
+              createUser(FirebaseAuth.instance.currentUser);
+            }
+          },
+        )
+      ],
       providers: authProviders,
       subtitleBuilder: (context, action) {
         return Padding(
@@ -23,5 +33,20 @@ class LogInScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  void createUser(User? user) {
+    if (user != null) {
+      var displayName = user.displayName;
+      if (displayName == null && user.email != null) {
+        displayName = user.email?.split("@").first ?? "anonymous";
+        user.updateDisplayName(displayName);
+      }
+      db.collection("users").doc(user.uid).set({
+        'email': user.email,
+        'displayName': displayName,
+        'photoURL': user.photoURL,
+      });
+    }
   }
 }

@@ -19,20 +19,11 @@ class AuthGateScreen extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          initUserData(snapshot.data);
+          loggedUser = snapshot.data!;
           return const ContactsScreen();
         }
         return const LogInScreen();
       },
     );
-  }
-
-  void initUserData(User? user) {
-    if (user != null) {
-      loggedUser = user;
-      if (loggedUser.displayName == null) {
-        loggedUser.updateDisplayName(loggedUser.email?.split("@").first);
-      }
-    }
   }
 }
