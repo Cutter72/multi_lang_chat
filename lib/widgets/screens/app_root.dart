@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'auth_gate_screen.dart';
 import 'contacts_screen.dart';
+import 'contacts_search_screen.dart';
 import 'user_settings_screen.dart';
 
 ///
@@ -25,6 +26,9 @@ class AppRoot extends StatelessWidget {
         },
         ContactsScreen.routeName: (context) {
           return const ContactsScreen();
+        },
+        ContactsSearchScreen.routeName: (context) {
+          return const ContactsSearchScreen();
         },
         UserSettingsScreen.routeName: (context) {
           return const UserSettingsScreen();

@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/widgets/screens/user_settings_screen.dart';
 
+import 'contacts_search_screen.dart';
+
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class ContactsScreen extends StatelessWidget {
-  static const routeName = '/home';
+  static const routeName = '/contacts';
 
   const ContactsScreen({Key? key}) : super(key: key);
 
@@ -14,7 +16,10 @@ class ContactsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const SelectionContainer.disabled(child: Text("Contacts")),
+        title: const Text("Contacts"),
+        actions: [
+          IconButton(onPressed: () => _goToContactsSearchScreen(context), icon: const Icon(Icons.add)),
+        ],
       ),
       body: Center(
           child: Column(
@@ -34,5 +39,9 @@ class ContactsScreen extends StatelessWidget {
         ],
       )),
     );
+  }
+
+  void _goToContactsSearchScreen(BuildContext context) {
+    Navigator.pushNamed(context, ContactsSearchScreen.routeName);
   }
 }
