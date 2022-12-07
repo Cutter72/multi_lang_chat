@@ -22,22 +22,18 @@ class TextStyles {
   static const double _contentSizeHHH = 3 * _em;
 
   /// Text styles
-  static const TextStyle titleH = TextStyle(fontSize: _titleSizeH, color: Colors.black, fontWeight: FontWeight.w700);
-  static const TextStyle titleHH = TextStyle(fontSize: _titleSizeHH, color: Colors.black, fontWeight: FontWeight.w700);
-  static const TextStyle titleHHH =
-      TextStyle(fontSize: _titleSizeHHH, color: Colors.black, fontWeight: FontWeight.w700);
-  static const TextStyle subTitleH = TextStyle(
-      fontSize: _subTitleSizeH, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
-  static const TextStyle subTitleHH = TextStyle(
-      fontSize: _subTitleSizeHH, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
-  static const TextStyle subTitleHHH = TextStyle(
-      fontSize: _subTitleSizeHHH, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
-  static const TextStyle contentH =
-      TextStyle(fontSize: _contentSizeH, color: Colors.black, fontWeight: FontWeight.w400);
-  static const TextStyle contentHH =
-      TextStyle(fontSize: _contentSizeHH, color: Colors.black, fontWeight: FontWeight.w400);
-  static const TextStyle contentHHH =
-      TextStyle(fontSize: _contentSizeHHH, color: Colors.black, fontWeight: FontWeight.w400);
+  static const TextStyle titleH = TextStyle(fontSize: _titleSizeH, fontWeight: FontWeight.w700);
+  static const TextStyle titleHH = TextStyle(fontSize: _titleSizeHH, fontWeight: FontWeight.w700);
+  static const TextStyle titleHHH = TextStyle(fontSize: _titleSizeHHH, fontWeight: FontWeight.w700);
+  static const TextStyle subTitleH =
+      TextStyle(fontSize: _subTitleSizeH, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
+  static const TextStyle subTitleHH =
+      TextStyle(fontSize: _subTitleSizeHH, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
+  static const TextStyle subTitleHHH =
+      TextStyle(fontSize: _subTitleSizeHHH, fontStyle: FontStyle.italic, fontWeight: FontWeight.w500);
+  static const TextStyle contentH = TextStyle(fontSize: _contentSizeH, fontWeight: FontWeight.w400);
+  static const TextStyle contentHH = TextStyle(fontSize: _contentSizeHH, fontWeight: FontWeight.w400);
+  static const TextStyle contentHHH = TextStyle(fontSize: _contentSizeHHH, fontWeight: FontWeight.w400);
   static const EdgeInsets titleMarginsH = EdgeInsets.only(top: _titleSizeH / 4);
   static const EdgeInsets titleMarginsHH = EdgeInsets.only(top: _titleSizeHH / 4);
   static const EdgeInsets titleMarginsHHH = EdgeInsets.only(top: _titleSizeHHH / 4);
