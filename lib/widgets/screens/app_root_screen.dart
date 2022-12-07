@@ -8,8 +8,8 @@ import 'user_settings_screen.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class AppRoot extends StatelessWidget {
-  const AppRoot({super.key});
+class AppRootScreen extends StatelessWidget {
+  const AppRootScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

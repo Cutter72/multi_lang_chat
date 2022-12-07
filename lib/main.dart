@@ -8,7 +8,7 @@ import 'package:intl/intl_standalone.dart';
 
 import 'firebase_options.dart';
 import 'model/app_globals.dart';
-import 'widgets/screens/app_root.dart';
+import 'widgets/screens/app_root_screen.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -17,7 +17,7 @@ void main() async {
   await initFirebase();
   await initLocale();
   initFirebaseAuthUiProviders();
-  runApp(const AppRoot());
+  runApp(const AppRootScreen());
 }
 
 bool _isLocaleInitialized = false;

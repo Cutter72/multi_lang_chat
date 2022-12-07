@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/widgets/atoms/text_input_field.dart';
 
 import '../atoms/sub_title_text.dart';
 import '../atoms/title_text.dart';
@@ -25,22 +26,8 @@ class ContactsSearchScreen extends StatelessWidget {
           children: const [
             Divider(),
             SubTitleTextHHH("Search by:"),
-            Padding(
-              padding: EdgeInsets.only(top: 8),
-              child: TextField(
-                maxLines: 1,
-                decoration:
-                    InputDecoration(labelText: "Name", border: OutlineInputBorder(), contentPadding: EdgeInsets.all(8)),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: TextField(
-                maxLines: 1,
-                decoration: InputDecoration(
-                    labelText: "Email", border: OutlineInputBorder(), contentPadding: EdgeInsets.all(8)),
-              ),
-            ),
+            TextInputField("Name"),
+            TextInputField("Email"),
             Divider(),
             SubTitleTextHHH("Results:"),
             Expanded(child: TitleTextH("Here will be list view")),
