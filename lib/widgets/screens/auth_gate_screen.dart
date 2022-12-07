@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/widgets/screens/home_screen.dart';
+import 'package:multi_lang_chat/widgets/screens/contacts_screen.dart';
 
 import 'log_in_screen.dart';
 
@@ -18,7 +18,7 @@ class AuthGateScreen extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const HomeScreen();
+          return const ContactsScreen();
         }
         return const LogInScreen();
       },

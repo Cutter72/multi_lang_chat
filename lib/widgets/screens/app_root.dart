@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'auth_gate_screen.dart';
-import 'home_screen.dart';
+import 'contacts_screen.dart';
+import 'user_settings_screen.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -22,8 +23,11 @@ class AppRoot extends StatelessWidget {
         AuthGateScreen.routeName: (context) {
           return const AuthGateScreen();
         },
-        HomeScreen.routeName: (context) {
-          return const HomeScreen();
+        ContactsScreen.routeName: (context) {
+          return const ContactsScreen();
+        },
+        UserSettingsScreen.routeName: (context) {
+          return const UserSettingsScreen();
         },
       },
     );
