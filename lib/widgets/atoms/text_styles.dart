@@ -34,13 +34,13 @@ class TextStyles {
   static const TextStyle contentH = TextStyle(fontSize: _contentSizeH, fontWeight: FontWeight.w400);
   static const TextStyle contentHH = TextStyle(fontSize: _contentSizeHH, fontWeight: FontWeight.w400);
   static const TextStyle contentHHH = TextStyle(fontSize: _contentSizeHHH, fontWeight: FontWeight.w400);
-  static const EdgeInsets titleMarginsH = EdgeInsets.only(top: _titleSizeH / 4);
-  static const EdgeInsets titleMarginsHH = EdgeInsets.only(top: _titleSizeHH / 4);
-  static const EdgeInsets titleMarginsHHH = EdgeInsets.only(top: _titleSizeHHH / 4);
-  static const EdgeInsets subTitleMarginsH = EdgeInsets.only(top: _subTitleSizeH / 5);
-  static const EdgeInsets subTitleMarginsHH = EdgeInsets.only(top: _subTitleSizeHH / 5);
-  static const EdgeInsets subTitleMarginsHHH = EdgeInsets.only(top: _subTitleSizeHHH / 5);
-  static const EdgeInsets contentMarginsH = EdgeInsets.only(top: _contentSizeH / 7);
-  static const EdgeInsets contentMarginsHH = EdgeInsets.only(top: _contentSizeHH / 7);
-  static const EdgeInsets contentMarginsHHH = EdgeInsets.only(top: _contentSizeHHH / 7);
+  static const EdgeInsets titleMarginsH = EdgeInsets.only(top: _titleSizeH / 2);
+  static const EdgeInsets titleMarginsHH = EdgeInsets.only(top: _titleSizeHH / 2);
+  static const EdgeInsets titleMarginsHHH = EdgeInsets.only(top: _titleSizeHHH / 2);
+  static const EdgeInsets subTitleMarginsH = EdgeInsets.only(top: _subTitleSizeH / 4);
+  static const EdgeInsets subTitleMarginsHH = EdgeInsets.only(top: _subTitleSizeHH / 4);
+  static const EdgeInsets subTitleMarginsHHH = EdgeInsets.only(top: _subTitleSizeHHH / 4);
+  static const EdgeInsets contentMarginsH = EdgeInsets.only(top: _contentSizeH / 6);
+  static const EdgeInsets contentMarginsHH = EdgeInsets.only(top: _contentSizeHH / 6);
+  static const EdgeInsets contentMarginsHHH = EdgeInsets.only(top: _contentSizeHHH / 6);
 }
