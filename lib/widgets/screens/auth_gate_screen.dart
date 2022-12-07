@@ -8,6 +8,7 @@ import 'log_in_screen.dart';
 
 var _isUserChangesListenerInitialized = false;
 
+/// Widget to control authentication state and handle login/register flow.
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
