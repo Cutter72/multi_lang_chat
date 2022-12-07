@@ -1,7 +1,7 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
+import '../../model/app_globals.dart';
 import 'auth_gate_screen.dart';
 
 ///
