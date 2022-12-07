@@ -28,7 +28,7 @@ class AppRootScreen extends StatelessWidget {
           return const ContactsScreen();
         },
         ContactsSearchScreen.routeName: (context) {
-          return const ContactsSearchScreen();
+          return ContactsSearchScreen();
         },
         UserSettingsScreen.routeName: (context) {
           return const UserSettingsScreen();
