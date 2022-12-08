@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 ///
 void main() {
   test('splitIntoKeywords(String data) splits the string into keywords list with min length of 3 chars', () {
-    var data = ' fo o \t  , \n b_ar \\ ,baz  \n `~!@#\$%^&*()_+-={}[]|\\:\';"<>?,./';
+    var data = ' fo o \t  , \n b_ar \\ ,baz baz \n `~!@#\$%^&*()_+-={}[]|\\:\';"<>?,./';
     expect(KeywordsManager().splitIntoKeywords(data), equals(['b_ar', 'baz']));
   });
 }
