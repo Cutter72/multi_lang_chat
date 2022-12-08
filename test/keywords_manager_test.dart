@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:multi_lang_chat/model/keywords_manager.dart';
 import 'package:test/test.dart';
 
@@ -7,7 +9,7 @@ import 'package:test/test.dart';
 ///
 void main() {
   test(
-      'splitIntoKeywords(String data) splits the string into keywords list with min length of 3 chars and removed special chars',
+      'splitIntoKeywords(String? data) splits the string into keywords list with min length of 3 chars and removed special chars',
       () {
     // GIVEN
     var givenData = ' fo o \t -,999, 112.12- \n b_ar \\ ,baz   加入百度 推广   14/R75    ąćń  صب الخير'
@@ -19,5 +21,6 @@ void main() {
 
     // THEN
     expect(actual, equals(expected));
+    expect(KeywordsManager().splitIntoKeywords(null), equals(HashSet()));
   });
 }
