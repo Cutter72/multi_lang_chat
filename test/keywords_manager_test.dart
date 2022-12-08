@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:multi_lang_chat/model/keywords_manager.dart';
+import 'package:multi_lang_chat/model/firestore/keywords_manager.dart';
 import 'package:test/test.dart';
 
 /// KeywordsManager() test class

@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'keywords.dart';
+
 /// Class to reflect this app user data in database
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class AppUser {
+class AppUser extends Keywords {
   static const String _emailKey = "email";
   static const String _displayNameKey = "displayName";
   static const String _photoURLKey = "photoURL";
@@ -15,18 +17,31 @@ class AppUser {
   AppUser.fromUser(User user)
       : email = user.email,
         displayName = user.displayName,
-        photoURL = user.photoURL;
+        photoURL = user.photoURL,
+        super(searchableTexts: [
+          user.email,
+          user.displayName,
+        ]);
 
   AppUser.fromSnapshotData(Map<String, dynamic> fieldsMap)
       : email = fieldsMap[_emailKey],
         displayName = fieldsMap[_displayNameKey],
-        photoURL = fieldsMap[_photoURLKey];
+        photoURL = fieldsMap[_photoURLKey],
+        super(
+          keywords: Set<String>.from(fieldsMap[Keywords.keywordsKey] ?? {}),
+          searchableTexts: [
+            fieldsMap[_emailKey],
+            fieldsMap[_displayNameKey],
+          ],
+        );
 
+  @override
   Map<String, dynamic> toMap() {
-    return {
-      _emailKey: email,
-      _displayNameKey: displayName,
-      _photoURLKey: photoURL,
-    };
+    return super.toMap()
+      ..addAll({
+        _emailKey: email,
+        _displayNameKey: displayName,
+        _photoURLKey: photoURL,
+      });
   }
 }

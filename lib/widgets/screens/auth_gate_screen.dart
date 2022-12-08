@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/model/app_globals.dart';
-import 'package:multi_lang_chat/model/app_user.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_screen.dart';
 
+import '../../model/app_globals.dart';
+import '../../model/firestore/app_user.dart';
+import 'contacts_screen.dart';
 import 'log_in_screen.dart';
 
 var _isUserChangesListenerInitialized = false;
