@@ -19,7 +19,7 @@ class AppUser extends Keywords {
         displayName = user.displayName,
         photoURL = user.photoURL,
         super(searchableTexts: [
-          user.email,
+          user.email?.split("@").first,
           user.displayName,
         ]);
 
@@ -30,7 +30,7 @@ class AppUser extends Keywords {
         super(
           keywords: Set<String>.from(fieldsMap[Keywords.keywordsKey] ?? {}),
           searchableTexts: [
-            fieldsMap[_emailKey],
+            (fieldsMap[_emailKey] as String?)?.split("@").first,
             fieldsMap[_displayNameKey],
           ],
         );
