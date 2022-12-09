@@ -6,21 +6,26 @@ import 'keywords_manager.dart';
 ///
 class Keywords {
   static const String keywordsKey = "_keywords";
-  final Set<String> _keywords = {};
+  final Set<String> keywords = {};
 
   Keywords({List<String?>? searchableTexts, Set<String>? keywords}) {
     var keywordsMgr = KeywordsManager();
     if (searchableTexts != null) {
       for (var searchableText in searchableTexts) {
-        this._keywords.addAll(keywordsMgr.splitIntoKeywords(searchableText));
+        this.keywords.addAll(keywordsMgr.splitIntoKeywords(searchableText));
       }
     }
     if (keywords != null) {
-      this._keywords.addAll(keywords);
+      this.keywords.addAll(keywords);
     }
   }
 
   Map<String, dynamic> toMap() {
-    return {keywordsKey: _keywords.toList()};
+    return {keywordsKey: keywords.toList()};
+  }
+
+  @override
+  String toString() {
+    return 'Keywords{_keywords: $keywords}';
   }
 }

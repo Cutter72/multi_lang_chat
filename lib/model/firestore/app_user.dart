@@ -44,4 +44,9 @@ class AppUser extends Keywords {
         _photoURLKey: photoURL,
       });
   }
+
+  @override
+  String toString() {
+    return 'AppUser{keywords: $keywords, email: ${email?.split("@").first}, displayName: $displayName, photoURL: $photoURL}';
+  }
 }
