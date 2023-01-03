@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/app_globals.dart';
 import '../../model/firestore/app_user.dart';
+import '../../model/firestore/db_collections.dart';
 import 'contacts_screen.dart';
 import 'log_in_screen.dart';
 
@@ -36,12 +37,12 @@ class AuthGateScreen extends StatelessWidget {
     if (_isUserChangesListenerInitialized) {
       FirebaseAuth.instance.userChanges().listen((updatedUser) {
         initLoggedUser(updatedUser);
-        db.collection("users").doc(loggedFirebaseUser.uid).get().then((snapshot) {
+        db.collection(users).doc(loggedFirebaseUser.uid).get().then((snapshot) {
           var userData = snapshot.data();
           if (userData != null) {
             var oldAppUser = AppUser.fromSnapshotData(userData);
             if (loggedAppUser != oldAppUser) {
-              db.collection("users").doc(loggedFirebaseUser.uid).update(loggedAppUser.toMap());
+              db.collection(users).doc(loggedFirebaseUser.uid).update(loggedAppUser.toMap());
             }
           }
           return null;
