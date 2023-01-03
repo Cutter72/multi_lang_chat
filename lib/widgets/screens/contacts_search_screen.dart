@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/widgets/contacts_search_result.dart';
 
 import '../../model/app_globals.dart';
 import '../../model/firestore/app_user.dart';
@@ -60,29 +61,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
             const Divider(),
             const SubTitleTextHHH("Results:"),
             Expanded(
-              child: FutureBuilder(
-                  future: usersQuery,
-                  builder: (ctx, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          itemBuilder: (context, index) {
-                            if (snapshot.data?.isEmpty ?? true) {
-                              return const Text("No items");
-                            } else {
-                              return Text(
-                                  "name=${snapshot.data?[index].displayName}, email=${snapshot.data?[index].email}");
-                            }
-                          },
-                          itemCount: (snapshot.data?.length ?? 1) == 0 ? 1 : snapshot.data?.length,
-                        );
-                      } else {
-                        return Text("No data. Something went wrong: ${snapshot.error}");
-                      }
-                    }
-                  }),
+              child: ContactsSearchResult(usersQuery: usersQuery),
             ),
             const Divider(),
           ],
