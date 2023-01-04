@@ -44,27 +44,30 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   @override
   Widget build(BuildContext context) {
     initTextFieldsListeners(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Contacts search"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Divider(),
-            const SubTitleTextHHH("Search by:"),
-            TextInputField("Name", controller: nameFieldController),
-            TextInputField("Email", controller: emailFieldController),
-            const Divider(),
-            const SubTitleTextHHH("Results:"),
-            Expanded(
-              child: ContactsSearchResult(usersQuery: usersQuery),
-            ),
-            const Divider(),
-          ],
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Contacts search"),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Divider(),
+              const SubTitleTextHHH("Search by:"),
+              TextInputField("Name", controller: nameFieldController),
+              TextInputField("Email", controller: emailFieldController),
+              const Divider(),
+              const SubTitleTextHHH("Results:"),
+              Expanded(
+                child: ContactsSearchResult(usersQuery: usersQuery),
+              ),
+              const Divider(),
+            ],
+          ),
         ),
       ),
     );
