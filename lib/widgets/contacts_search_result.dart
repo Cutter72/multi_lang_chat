@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/model/app_globals.dart';
+import 'package:multi_lang_chat/widgets/contacts_search_result_list_item.dart';
 
 import '../model/firestore/app_user.dart';
 
@@ -24,7 +26,7 @@ class ContactsSearchResult extends StatelessWidget {
                   if (snapshot.data?.isEmpty ?? true) {
                     return const Text("No items");
                   } else {
-                    return Text(prepareText(snapshot.data!, index));
+                    return ContactsSearchResultListItem(user: snapshot.data?[index] ?? loggedAppUser);
                   }
                 },
                 itemCount: itemCount(snapshot.data),
