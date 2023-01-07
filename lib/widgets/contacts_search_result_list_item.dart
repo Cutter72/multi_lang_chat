@@ -30,16 +30,24 @@ class ContactsSearchResultListItem extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) => const _PhotoUrlBroken(avatarSize: avatarSize),
               )
             : const Icon(
-          Icons.account_circle,
+                Icons.account_circle,
                 size: avatarSize,
               ),
         title: TitleTextHHH(user.displayName!),
         subtitle: SubTitleTextHHH(user.email!),
-        trailing: const Icon(
-          Icons.add,
+        trailing: IconButton(
+          onPressed: () => addContact(user),
+          icon: const Icon(Icons.add),
         ),
       ),
     );
+  }
+
+  void addContact(AppUser user) {
+    // TODO
+    // db.collection("contacts").doc(loggedFirebaseUser.uid).set(user.toContact(), SetOptions(merge: true,mergeFields: ));
+    // db.collection("contacts").doc(loggedFirebaseUser.uid).update(user.toContact());
+    // db.collection('CollectionName').where(firebase.firestore.FieldPath.documentId(), '<', '100').get()
   }
 }
 
