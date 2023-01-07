@@ -97,8 +97,8 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
       List<AppUser> usersFromSnapshot = [];
       for (var user in snapshot.docs) {
         // TODO pass parsed users to List widget
-        print("My.Log.user=${AppUser.fromSnapshotData(user.data()).toString()}");
-        usersFromSnapshot.add(AppUser.fromSnapshotData(user.data()));
+        print("My.Log.user=${AppUser.fromJson(user.data()).toString()}");
+        usersFromSnapshot.add(AppUser.fromJson(user.data()));
       }
       return usersFromSnapshot;
     });

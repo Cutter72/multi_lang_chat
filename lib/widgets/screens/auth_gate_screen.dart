@@ -40,7 +40,7 @@ class AuthGateScreen extends StatelessWidget {
         db.collection(users).doc(loggedFirebaseUser.uid).get().then((snapshot) {
           var userData = snapshot.data();
           if (userData != null) {
-            var oldAppUser = AppUser.fromSnapshotData(userData);
+            var oldAppUser = AppUser.fromJson(userData);
             if (loggedAppUser != oldAppUser) {
               db.collection(users).doc(loggedFirebaseUser.uid).update(loggedAppUser.toMap());
             }

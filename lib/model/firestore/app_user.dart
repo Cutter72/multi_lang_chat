@@ -26,7 +26,7 @@ class AppUser extends Keywords {
           user.displayName,
         ]);
 
-  AppUser.fromSnapshotData(Map<String, dynamic> fieldsMap)
+  AppUser.fromJson(Map<String, dynamic> fieldsMap)
       : uid = fieldsMap[_uidKey],
         email = fieldsMap[_emailKey],
         displayName = fieldsMap[_displayNameKey],
