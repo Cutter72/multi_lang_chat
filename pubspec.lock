@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "1.0.12"
   analyzer:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
@@ -198,7 +198,7 @@ packages:
     source: hosted
     version: "2.0.0-dev.11"
   dart_mappable_builder:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: dart_mappable_builder
       url: "https://pub.dartlang.org"
