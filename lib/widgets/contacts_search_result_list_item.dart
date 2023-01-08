@@ -3,7 +3,7 @@ import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/sub_title_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/title_text.dart';
 
-import '../model/firestore/app_user.dart';
+import '../model/firestore/app_user/app_user.dart';
 
 class ContactsSearchResultListItem extends StatelessWidget {
   final AppUser user;

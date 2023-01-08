@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/widgets/contacts_search_result.dart';
 
 import '../../model/app_globals.dart';
-import '../../model/firestore/app_user.dart';
+import '../../model/firestore/app_user/app_user.dart';
 import '../../model/firestore/db_collections.dart';
 import '../../model/firestore/keywords.dart';
 import '../../model/firestore/keywords_manager.dart';
@@ -97,8 +97,8 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
       List<AppUser> usersFromSnapshot = [];
       for (var user in snapshot.docs) {
         // TODO pass parsed users to List widget
-        print("My.Log.user=${AppUser.fromJson(user.data()).toString()}");
-        usersFromSnapshot.add(AppUser.fromJson(user.data()));
+        print("My.Log.user=${AppUserMapper.fromMap(user.data()).toString()}");
+        usersFromSnapshot.add(AppUserMapper.fromMap(user.data()));
       }
       return usersFromSnapshot;
     });
