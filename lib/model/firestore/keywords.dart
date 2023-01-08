@@ -1,3 +1,5 @@
+import 'package:dart_mappable/dart_mappable.dart';
+
 import 'keywords_manager.dart';
 
 /// Class to store keywords for easier search in Firestore
@@ -6,6 +8,7 @@ import 'keywords_manager.dart';
 ///
 class Keywords {
   static const String keywordsKey = "_keywords";
+  @MappableField(key: "_keywords")
   late final Set<String> keywords;
 
   Keywords(this.keywords);
