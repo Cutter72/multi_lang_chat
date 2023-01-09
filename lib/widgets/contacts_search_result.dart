@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/app_globals.dart';
+import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 import 'package:multi_lang_chat/widgets/contacts_search_result_list_item.dart';
 
 import '../model/firestore/app_user/app_user.dart';
@@ -24,7 +25,7 @@ class ContactsSearchResult extends StatelessWidget {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   if (snapshot.data?.isEmpty ?? true) {
-                    return const Text("No items");
+                    return const Align(alignment: Alignment.topCenter, child: ContentTextHHH("No users found"));
                   } else {
                     return ContactsSearchResultListItem(user: snapshot.data?[index] ?? loggedAppUser);
                   }
@@ -32,7 +33,9 @@ class ContactsSearchResult extends StatelessWidget {
                 itemCount: itemCount(snapshot.data),
               );
             } else {
-              return Text("No data. Something went wrong: ${snapshot.error}");
+              return Align(
+                  alignment: Alignment.topCenter,
+                  child: ContentTextHHH("No data. Something went wrong: ${snapshot.error}"));
             }
           }
         });

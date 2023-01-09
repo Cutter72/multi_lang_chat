@@ -18,7 +18,7 @@ class ContactsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Contacts"),
         actions: [
-          IconButton(onPressed: () => _goToContactsSearchScreen(context), icon: const Icon(Icons.add)),
+          IconButton(onPressed: () => _goToContactsSearchScreen(context), icon: const Icon(Icons.person_search)),
         ],
       ),
       body: Center(

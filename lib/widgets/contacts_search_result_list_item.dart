@@ -37,7 +37,7 @@ class ContactsSearchResultListItem extends StatelessWidget {
         subtitle: SubTitleTextHHH(user.email!),
         trailing: IconButton(
           onPressed: () => addContact(user),
-          icon: const Icon(Icons.add),
+          icon: const Icon(Icons.person_add),
         ),
       ),
     );
