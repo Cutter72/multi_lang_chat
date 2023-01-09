@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +41,12 @@ class UsersProvider with ChangeNotifier {
       }
       _queryUsersResult
         ..clear()
-        ..addAll(usersFromSnapshot);
+        ..addAll(usersFromSnapshot)
+        ..sort(
+          (thisUser, otherUser) {
+            return thisUser.compareTo(otherUser);
+          },
+        );
       notifyListeners();
       return _queryUsersResult;
     });
@@ -65,10 +68,6 @@ class UsersProvider with ChangeNotifier {
   }
 
   Set<String> prepareKeywordsToSearch(String byName, String byEmail) {
-    var allKeywords = HashSet<String>();
-    allKeywords.addAll(keywordsManager.splitIntoKeywords(byName));
-    allKeywords.addAll(keywordsManager.splitIntoKeywords(byEmail));
-    allKeywords.difference(allKeywords);
-    return allKeywords;
+    return keywordsManager.splitIntoKeywords("$byName $byEmail");
   }
 }
