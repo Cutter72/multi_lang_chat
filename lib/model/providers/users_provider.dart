@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/firestore/db_collections.dart';
-import '../app_globals.dart';
+import '../../model/firestore/db.dart';
 import '../firestore/app_user/app_user.dart';
 import '../firestore/keywords.dart';
 import '../firestore/keywords_manager.dart';
@@ -55,12 +54,11 @@ class UsersProvider with ChangeNotifier {
     if (keywordsToSearch.length > 10) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
       // https://firebase.google.com/docs/firestore/query-data/queries?hl=en&authuser=1#query_limitations
-      query =
-          db.collection(users).where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10));
+      query = Db.users.where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10));
     } else {
       // Only one arrayContains or arrayContainsAny clause per query is allowed in Firestore.
       // https://firebase.google.com/docs/firestore/query-data/queries?authuser=1#array_membership
-      query = db.collection(users).where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList());
+      query = Db.users.where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList());
     }
     return query;
   }
