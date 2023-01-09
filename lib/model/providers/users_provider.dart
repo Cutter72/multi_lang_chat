@@ -12,19 +12,17 @@ import '../firestore/keywords_manager.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class UsersProvider with ChangeNotifier {
-  final KeywordsManager keywordsManager = KeywordsManager();
+  final KeywordsManager _keywordsManager = KeywordsManager();
   final List<AppUser> _queryUsersResult = [];
   final Set<String> _previousKeywordsToSearch = {};
 
   UsersProvider();
 
-  List<AppUser> get appUsers => _queryUsersResult;
-
   Future<List<AppUser>> queryUsers(String byName, String byEmail) async {
     if (byName.length < 3 && byEmail.length < 3) {
       return [];
     }
-    var keywordsToSearch = prepareKeywordsToSearch(byName, byEmail);
+    var keywordsToSearch = _prepareKeywordsToSearch(byName, byEmail);
     if (setEquals(keywordsToSearch, _previousKeywordsToSearch)) {
       return _queryUsersResult;
     } else {
@@ -32,7 +30,7 @@ class UsersProvider with ChangeNotifier {
         ..clear()
         ..addAll(keywordsToSearch);
     }
-    var usersQuery = prepareUsersQuery(keywordsToSearch);
+    var usersQuery = _prepareUsersQuery(keywordsToSearch);
     return await usersQuery.get().then((snapshot) {
       List<AppUser> usersFromSnapshot = [];
       for (var user in snapshot.docs) {
@@ -52,7 +50,7 @@ class UsersProvider with ChangeNotifier {
     });
   }
 
-  Query<Map<String, dynamic>> prepareUsersQuery(Set<String> keywordsToSearch) {
+  Query<Map<String, dynamic>> _prepareUsersQuery(Set<String> keywordsToSearch) {
     Query<Map<String, dynamic>> query;
     if (keywordsToSearch.length > 10) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
@@ -67,7 +65,7 @@ class UsersProvider with ChangeNotifier {
     return query;
   }
 
-  Set<String> prepareKeywordsToSearch(String byName, String byEmail) {
-    return keywordsManager.splitIntoKeywords("$byName $byEmail");
+  Set<String> _prepareKeywordsToSearch(String byName, String byEmail) {
+    return _keywordsManager.splitIntoKeywords("$byName $byEmail");
   }
 }
