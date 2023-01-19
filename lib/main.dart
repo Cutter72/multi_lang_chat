@@ -30,7 +30,7 @@ Future initFirebase() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    Db.db = FirebaseFirestore.instance;
+    Db.instance = FirebaseFirestore.instance;
     _isFirebaseInitialized = true;
   }
 }

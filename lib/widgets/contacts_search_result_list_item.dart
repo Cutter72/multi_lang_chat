@@ -74,7 +74,7 @@ class _PhotoUrlBroken extends StatelessWidget {
               color: Colors.red,
             ),
           ),
-          ContentTextHHH("Photo URL broken")
+          ContentTextHHH("Photo URL broken.")
         ],
       ),
     );

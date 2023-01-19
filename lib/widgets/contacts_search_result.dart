@@ -15,6 +15,7 @@ class ContactsSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // todo remove existing contact from result list... or!!! exclude them from query
     return FutureBuilder(
         future: usersQuery,
         builder: (ctx, snapshot) {
@@ -25,7 +26,7 @@ class ContactsSearchResult extends StatelessWidget {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   if (snapshot.data?.isEmpty ?? true) {
-                    return const Align(alignment: Alignment.topCenter, child: ContentTextHHH("No users found"));
+                    return const Align(alignment: Alignment.topCenter, child: ContentTextHHH("No users found."));
                   } else {
                     return ContactsSearchResultListItem(user: snapshot.data?[index] ?? loggedAppUser);
                   }
@@ -39,10 +40,6 @@ class ContactsSearchResult extends StatelessWidget {
             }
           }
         });
-  }
-
-  String prepareText(List<AppUser> data, int index) {
-    return "name=${data[index].displayName}, email=${data[index].email}";
   }
 
   int? itemCount(List<AppUser>? data) {
