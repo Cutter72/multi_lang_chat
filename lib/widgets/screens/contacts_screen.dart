@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/firestore/db.dart';
 import 'contacts_search_screen.dart';
 import 'user_settings_screen.dart';
 
@@ -34,6 +35,49 @@ class ContactsScreen extends StatelessWidget {
             child: Text("Go to user settings"),
             onPressed: () {
               Navigator.pushNamed(context, UserSettingsScreen.routeName);
+            },
+          ),
+          ElevatedButton(
+            child: Text("Create"),
+            onPressed: () {
+              Db.chatRooms.doc("${Db.loggedFirebaseUser.uid}").set({
+                "roleFor": {Db.loggedFirebaseUser.uid: "writerwer"}
+              }).then((value) {
+                Db.chatRooms
+                    .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                    .set({"data": "Create msg work!wer"});
+                return null;
+              });
+            },
+          ),
+          ElevatedButton(
+            child: Text("Read"),
+            onPressed: () {
+              Db.chatRooms
+                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                  .get()
+                  .then((snap) => print("Read msg work! data = $snap"));
+            },
+          ),
+          ElevatedButton(
+            child: Text("Update"),
+            onPressed: () {
+              Db.chatRooms
+                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                  .update({"data": "Update msg work!"});
+              // Db.contacts
+              //     .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"),
+              //         arrayContains: loggedAppUser.toMap())
+              //     .then((value) => print(value));
+            },
+          ),
+          ElevatedButton(
+            child: Text("Delete"),
+            onPressed: () {
+              Db.chatRooms
+                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                  .delete()
+                  .then((_) => print("Delete msg work!"));
             },
           ),
         ],

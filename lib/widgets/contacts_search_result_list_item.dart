@@ -1,26 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/sub_title_text.dart';
 import 'package:multi_lang_chat/widgets/atoms/title_text.dart';
 
 import '../model/firestore/app_user/app_user.dart';
+import '../model/firestore/contacts.dart';
+import '../model/firestore/db.dart';
 
-class ContactsSearchResultListItem extends StatelessWidget {
+class ContactsSearchResultListItem extends StatefulWidget {
   final AppUser user;
+
+  final Contacts contacts;
 
   const ContactsSearchResultListItem({
     Key? key,
     required this.user,
+    required this.contacts,
   }) : super(key: key);
 
+  @override
+  State<ContactsSearchResultListItem> createState() => _ContactsSearchResultListItemState();
+}
+
+class _ContactsSearchResultListItemState extends State<ContactsSearchResultListItem> {
   @override
   Widget build(BuildContext context) {
     const double avatarSize = 48;
     return Card(
       child: ListTile(
-        leading: user.photoURL != null
+        leading: widget.user.photoURL != null
             ? Image.network(
-                user.photoURL!,
+                widget.user.photoURL!,
                 width: avatarSize,
                 height: avatarSize,
                 fit: BoxFit.cover,
@@ -33,21 +44,34 @@ class ContactsSearchResultListItem extends StatelessWidget {
                 Icons.account_circle,
                 size: avatarSize,
               ),
-        title: TitleTextHHH(user.displayName!),
-        subtitle: SubTitleTextHHH(user.email!),
+        title: TitleTextHHH(widget.user.displayName!),
+        subtitle: SubTitleTextHHH(widget.user.email!),
         trailing: IconButton(
-          onPressed: () => addContact(user),
-          icon: const Icon(Icons.person_add),
+          onPressed: () =>
+              widget.contacts.accepted.contains(widget.user) ? removeContact(widget.user) : addContact(widget.user),
+          icon: widget.contacts.accepted.contains(widget.user)
+              ? const Icon(
+                  Icons.person_remove,
+                  color: Colors.red,
+                )
+              : const Icon(Icons.person_add),
         ),
       ),
     );
   }
 
   void addContact(AppUser user) {
-    // TODO
-    // db.collection("contacts").doc(loggedFirebaseUser.uid).set(user.toContact(), SetOptions(merge: true,mergeFields: ));
-    // db.collection("contacts").doc(loggedFirebaseUser.uid).update(user.toContact());
-    // db.collection('CollectionName').where(firebase.firestore.FieldPath.documentId(), '<', '100').get()
+    setState(() {
+      widget.contacts.accepted.add(user);
+      Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts.toMap(), SetOptions(merge: true));
+    });
+  }
+
+  void removeContact(AppUser user) {
+    setState(() {
+      widget.contacts.accepted.remove(user);
+      Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts.toMap(), SetOptions(merge: true));
+    });
   }
 }
 

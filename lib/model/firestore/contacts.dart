@@ -12,5 +12,5 @@ class Contacts with ContactsMappable {
   final List<AppUser> rejected;
   final List<AppUser> pending;
 
-  const Contacts({required this.accepted, required this.rejected, required this.pending});
+  Contacts({required this.accepted, required this.rejected, required this.pending});
 }

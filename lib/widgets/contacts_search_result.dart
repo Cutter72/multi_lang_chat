@@ -4,14 +4,18 @@ import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 import 'package:multi_lang_chat/widgets/contacts_search_result_list_item.dart';
 
 import '../model/firestore/app_user/app_user.dart';
+import '../model/firestore/contacts.dart';
 
 class ContactsSearchResult extends StatelessWidget {
+  final Future<List<AppUser>> usersQuery;
+
+  final Contacts contacts;
+
   const ContactsSearchResult({
     Key? key,
     required this.usersQuery,
+    required this.contacts,
   }) : super(key: key);
-
-  final Future<List<AppUser>> usersQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +27,16 @@ class ContactsSearchResult extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.hasData) {
+              // snapshot.data.removeWhere((element) => actualContacts.conelement)
               return ListView.builder(
                 itemBuilder: (context, index) {
                   if (snapshot.data?.isEmpty ?? true) {
                     return const Align(alignment: Alignment.topCenter, child: ContentTextHHH("No users found."));
                   } else {
-                    return ContactsSearchResultListItem(user: snapshot.data?[index] ?? loggedAppUser);
+                    return ContactsSearchResultListItem(
+                      user: snapshot.data?[index] ?? loggedAppUser,
+                      contacts: contacts,
+                    );
                   }
                 },
                 itemCount: itemCount(snapshot.data),
