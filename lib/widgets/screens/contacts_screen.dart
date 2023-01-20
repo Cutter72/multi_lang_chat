@@ -41,43 +41,37 @@ class ContactsScreen extends StatelessWidget {
               ElevatedButton(
                 child: Text("Create"),
                 onPressed: () {
-                  Db.chatRooms.doc("${Db.loggedFirebaseUser.uid}").set({
-                    "roleFor": {Db.loggedFirebaseUser.uid: "writerwer"}
-                  }).then((value) {
-                    Db.chatRooms
-                        .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                        .set({"data": "Create msg work!wer"});
-                    return null;
-                  });
-                },
+              Db.chatRooms.doc("${Db.luUid}").set({
+                "roleFor": {Db.luUid: "writerwer"}
+              }).then((value) {
+                Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
+                return null;
+              });
+            },
               ),
               ElevatedButton(
                 child: Text("Read"),
                 onPressed: () {
                   Db.chatRooms
-                      .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                      .get()
+                  .doc("${Db.luUid}/msgs/${Db.luUid}")
+                  .get()
                       .then((snap) => print("Read msg work! data = $snap"));
                 },
               ),
               ElevatedButton(
                 child: Text("Update"),
                 onPressed: () {
-                  Db.chatRooms
-                      .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                      .update({"data": "Update msg work!"});
+                  Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").update({"data": "Update msg work!"});
                   // Db.contacts
-                  //     .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"),
-                  //         arrayContains: loggedAppUser.toMap())
-                  //     .then((value) => print(value));
+              //     .where(FieldPath.fromString("pending.${Db.luUid}"),
+              //         arrayContains: loggedAppUser.toMap())
+              //     .then((value) => print(value));
                 },
           ),
           ElevatedButton(
             child: Text("Delete"),
             onPressed: () {
-              Db.chatRooms
-                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                  .delete()
+              Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").delete()
                   .then((_) => print("Delete msg work!"));
             },
           ),
@@ -85,9 +79,9 @@ class ContactsScreen extends StatelessWidget {
             child: const Text("Find contact of me"),
             onPressed: () {
               Db.contacts
-                  .where(FieldPath.fromString("accepted.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
-                  .where(FieldPath.fromString("rejected.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
-                  .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+                  .where(FieldPath.fromString("accepted.${Db.luUid}"), isNotEqualTo: null)
+                  .where(FieldPath.fromString("rejected.${Db.luUid}"), isNotEqualTo: null)
+                  .where(FieldPath.fromString("pending.${Db.luUid}"), isNotEqualTo: null)
                   .get()
                   .then((value) {
                 value.docs.forEach((element) {

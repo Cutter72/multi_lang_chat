@@ -37,7 +37,7 @@ class AuthGateScreen extends StatelessWidget {
     if (_isUserChangesListenerInitialized) {
       FirebaseAuth.instance.userChanges().listen((updatedUser) {
         setupLoggedUserGlobally(updatedUser);
-        Db.users.doc(Db.loggedFirebaseUser.uid).get().then((snapshot) {
+        Db.users.doc(Db.luUid).get().then((snapshot) {
           var userData = snapshot.data();
           if (userData != null) {
             var oldAppUser = userData;

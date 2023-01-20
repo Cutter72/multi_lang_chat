@@ -16,7 +16,7 @@ class ContactsProvider with ChangeNotifier {
 
   Future<Contacts> fetchContacts() async {
     if (_contacts == null) {
-      return await Db.contacts.doc(Db.loggedFirebaseUser.uid).get().then((snapshot) {
+      return await Db.contacts.doc(Db.luUid).get().then((snapshot) {
         if (snapshot.data() == null) {
           return contacts;
         } else {

@@ -16,6 +16,9 @@ class Db {
   static late FirebaseFirestore instance;
   static late User loggedFirebaseUser;
 
+  // luUid -> logged user UID
+  static get luUid => loggedFirebaseUser.uid;
+
   static CollectionReference<AppUser> get users => instance.collection(_usersCollectionPath).withConverter(
         fromFirestore: (snapshot, options) => AppUserMapper.fromMap(snapshot.data() ?? {}),
         toFirestore: (appUser, options) => appUser.toMap(),
@@ -30,11 +33,11 @@ class Db {
 
   static void updateAppUserData(AppUser loggedAppUser) {
     instance.runTransaction((transaction) async {
-      transaction.set(users.doc(Db.loggedFirebaseUser.uid), loggedAppUser);
+      transaction.set(users.doc(Db.luUid), loggedAppUser);
       await contacts
-          .where(FieldPath.fromString("accepted.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
-          .where(FieldPath.fromString("rejected.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
-          .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+          .where(FieldPath.fromString("accepted.${Db.luUid}"), isNotEqualTo: null)
+          .where(FieldPath.fromString("rejected.${Db.luUid}"), isNotEqualTo: null)
+          .where(FieldPath.fromString("pending.${Db.luUid}"), isNotEqualTo: null)
           .get()
           .then((queryResult) {
         for (var docSnapshot in queryResult.docs) {

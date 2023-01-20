@@ -64,14 +64,14 @@ class _ContactsSearchResultListItemState extends State<ContactsSearchResultListI
   void addContact(AppUser user) {
     setState(() {
       widget.contacts.accepted[user.uid] = user;
-      Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts, SetOptions(merge: true));
+      Db.contacts.doc(Db.luUid).set(widget.contacts, SetOptions(merge: true));
     });
   }
 
   void removeContact(AppUser user) {
     setState(() {
       widget.contacts.accepted.remove(user.uid);
-      Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts, SetOptions(merge: true));
+      Db.contacts.doc(Db.luUid).set(widget.contacts, SetOptions(merge: true));
     });
   }
 }
