@@ -19,7 +19,6 @@ class ContactsSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // todo remove existing contact from result list... or!!! exclude them from query
     return FutureBuilder(
         future: usersQuery,
         builder: (ctx, snapshot) {
@@ -27,7 +26,6 @@ class ContactsSearchResult extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.hasData) {
-              // snapshot.data.removeWhere((element) => actualContacts.conelement)
               return ListView.builder(
                 itemBuilder: (context, index) {
                   if (snapshot.data?.isEmpty ?? true) {

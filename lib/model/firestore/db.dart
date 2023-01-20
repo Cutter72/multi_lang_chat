@@ -27,4 +27,20 @@ class Db {
       );
 
   static CollectionReference<Map<String, dynamic>> get chatRooms => instance.collection(_chatRoomsCollectionPath);
+
+  static void updateAppUserData(AppUser loggedAppUser) {
+    instance.runTransaction((transaction) async {
+      transaction.set(users.doc(Db.loggedFirebaseUser.uid), loggedAppUser);
+      await contacts
+          .where(FieldPath.fromString("accepted.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+          .where(FieldPath.fromString("rejected.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+          .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+          .get()
+          .then((queryResult) {
+        for (var docSnapshot in queryResult.docs) {
+          transaction.update(docSnapshot.reference, docSnapshot.data().update(loggedAppUser).toMap());
+        }
+      });
+    });
+  }
 }

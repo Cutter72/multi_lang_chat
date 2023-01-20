@@ -27,7 +27,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   final _usersProvider = UsersProvider();
 
   final _contactsProvider = ContactsProvider();
-  var _contacts = Contacts(accepted: [], rejected: [], pending: []);
+  var _contacts = Contacts(accepted: {}, rejected: {}, pending: {});
 
   bool _isFieldsListenersInitialized = false;
   bool _isContactsInitialized = false;

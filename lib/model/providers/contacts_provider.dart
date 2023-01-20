@@ -10,7 +10,7 @@ import '../firestore/db.dart';
 class ContactsProvider with ChangeNotifier {
   Contacts? _contacts;
 
-  Contacts get contacts => _contacts == null ? Contacts(accepted: [], rejected: [], pending: []) : _contacts!;
+  Contacts get contacts => _contacts == null ? Contacts(accepted: {}, rejected: {}, pending: {}) : _contacts!;
 
   ContactsProvider();
 

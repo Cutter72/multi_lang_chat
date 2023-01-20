@@ -25,7 +25,7 @@ class AuthGateScreen extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          initLoggedUser(snapshot.data);
+          setupLoggedUserGlobally(snapshot.data);
           return const ContactsScreen();
         }
         return const LogInScreen();
@@ -36,15 +36,13 @@ class AuthGateScreen extends StatelessWidget {
   void initUserChangesListener() {
     if (_isUserChangesListenerInitialized) {
       FirebaseAuth.instance.userChanges().listen((updatedUser) {
-        initLoggedUser(updatedUser);
+        setupLoggedUserGlobally(updatedUser);
         Db.users.doc(Db.loggedFirebaseUser.uid).get().then((snapshot) {
           var userData = snapshot.data();
           if (userData != null) {
             var oldAppUser = userData;
             if (loggedAppUser != oldAppUser) {
-              Db.users.doc(Db.loggedFirebaseUser.uid).update(loggedAppUser.toMap());
-              // TODO update users data also in myContact collection in each user by query:
-              // Db.db.collection('CollectionName').where(FieldPath.documentId, isEqualTo: Db.loggedFirebaseUser.uid).get();
+              Db.updateAppUserData(loggedAppUser);
             }
           }
           return null;
@@ -54,7 +52,7 @@ class AuthGateScreen extends StatelessWidget {
     _isUserChangesListenerInitialized = true;
   }
 
-  void initLoggedUser(User? user) {
+  void setupLoggedUserGlobally(User? user) {
     if (user != null) {
       Db.loggedFirebaseUser = user;
       loggedAppUser = AppUser.fromUser(user);

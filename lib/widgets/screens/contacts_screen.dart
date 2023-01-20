@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -24,52 +25,52 @@ class ContactsScreen extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-        children: [
-          ElevatedButton(
-            child: Text("Log out"),
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
-          ),
-          ElevatedButton(
-            child: Text("Go to user settings"),
-            onPressed: () {
-              Navigator.pushNamed(context, UserSettingsScreen.routeName);
-            },
-          ),
-          ElevatedButton(
-            child: Text("Create"),
-            onPressed: () {
-              Db.chatRooms.doc("${Db.loggedFirebaseUser.uid}").set({
-                "roleFor": {Db.loggedFirebaseUser.uid: "writerwer"}
-              }).then((value) {
-                Db.chatRooms
-                    .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                    .set({"data": "Create msg work!wer"});
-                return null;
-              });
-            },
-          ),
-          ElevatedButton(
-            child: Text("Read"),
-            onPressed: () {
-              Db.chatRooms
-                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                  .get()
-                  .then((snap) => print("Read msg work! data = $snap"));
-            },
-          ),
-          ElevatedButton(
-            child: Text("Update"),
-            onPressed: () {
-              Db.chatRooms
-                  .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
-                  .update({"data": "Update msg work!"});
-              // Db.contacts
-              //     .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"),
-              //         arrayContains: loggedAppUser.toMap())
-              //     .then((value) => print(value));
-            },
+            children: [
+              ElevatedButton(
+                child: Text("Log out"),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+              ),
+              ElevatedButton(
+                child: Text("Go to user settings"),
+                onPressed: () {
+                  Navigator.pushNamed(context, UserSettingsScreen.routeName);
+                },
+              ),
+              ElevatedButton(
+                child: Text("Create"),
+                onPressed: () {
+                  Db.chatRooms.doc("${Db.loggedFirebaseUser.uid}").set({
+                    "roleFor": {Db.loggedFirebaseUser.uid: "writerwer"}
+                  }).then((value) {
+                    Db.chatRooms
+                        .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                        .set({"data": "Create msg work!wer"});
+                    return null;
+                  });
+                },
+              ),
+              ElevatedButton(
+                child: Text("Read"),
+                onPressed: () {
+                  Db.chatRooms
+                      .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                      .get()
+                      .then((snap) => print("Read msg work! data = $snap"));
+                },
+              ),
+              ElevatedButton(
+                child: Text("Update"),
+                onPressed: () {
+                  Db.chatRooms
+                      .doc("${Db.loggedFirebaseUser.uid}/msgs/${Db.loggedFirebaseUser.uid}")
+                      .update({"data": "Update msg work!"});
+                  // Db.contacts
+                  //     .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"),
+                  //         arrayContains: loggedAppUser.toMap())
+                  //     .then((value) => print(value));
+                },
           ),
           ElevatedButton(
             child: Text("Delete"),
@@ -80,8 +81,23 @@ class ContactsScreen extends StatelessWidget {
                   .then((_) => print("Delete msg work!"));
             },
           ),
+          ElevatedButton(
+            child: const Text("Find contact of me"),
+            onPressed: () {
+              Db.contacts
+                  .where(FieldPath.fromString("accepted.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+                  .where(FieldPath.fromString("rejected.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+                  .where(FieldPath.fromString("pending.${Db.loggedFirebaseUser.uid}"), isNotEqualTo: null)
+                  .get()
+                  .then((value) {
+                value.docs.forEach((element) {
+                  print("MY.LOG.contacts: ${element.data()}");
+                });
+              });
+            },
+          ),
         ],
-      )),
+          )),
     );
   }
 

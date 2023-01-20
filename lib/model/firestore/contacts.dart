@@ -8,9 +8,22 @@ part 'contacts.mapper.dart';
 ///
 @MappableClass()
 class Contacts with ContactsMappable {
-  final List<AppUser> accepted;
-  final List<AppUser> rejected;
-  final List<AppUser> pending;
+  final Map<String?, AppUser> accepted;
+  final Map<String?, AppUser> rejected;
+  final Map<String?, AppUser> pending;
 
   Contacts({required this.accepted, required this.rejected, required this.pending});
+
+  Contacts update(AppUser appUser) {
+    if (accepted.containsKey(appUser.uid)) {
+      accepted[appUser.uid] = appUser;
+    }
+    if (rejected.containsKey(appUser.uid)) {
+      rejected[appUser.uid] = appUser;
+    }
+    if (pending.containsKey(appUser.uid)) {
+      pending[appUser.uid] = appUser;
+    }
+    return this;
+  }
 }

@@ -47,9 +47,10 @@ class _ContactsSearchResultListItemState extends State<ContactsSearchResultListI
         title: TitleTextHHH(widget.user.displayName!),
         subtitle: SubTitleTextHHH(widget.user.email!),
         trailing: IconButton(
-          onPressed: () =>
-              widget.contacts.accepted.contains(widget.user) ? removeContact(widget.user) : addContact(widget.user),
-          icon: widget.contacts.accepted.contains(widget.user)
+          onPressed: () => widget.contacts.accepted.containsValue(widget.user)
+              ? removeContact(widget.user)
+              : addContact(widget.user),
+          icon: widget.contacts.accepted.containsValue(widget.user)
               ? const Icon(
                   Icons.person_remove,
                   color: Colors.red,
@@ -62,14 +63,14 @@ class _ContactsSearchResultListItemState extends State<ContactsSearchResultListI
 
   void addContact(AppUser user) {
     setState(() {
-      widget.contacts.accepted.add(user);
+      widget.contacts.accepted[user.uid] = user;
       Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts, SetOptions(merge: true));
     });
   }
 
   void removeContact(AppUser user) {
     setState(() {
-      widget.contacts.accepted.remove(user);
+      widget.contacts.accepted.remove(user.uid);
       Db.contacts.doc(Db.loggedFirebaseUser.uid).set(widget.contacts, SetOptions(merge: true));
     });
   }
