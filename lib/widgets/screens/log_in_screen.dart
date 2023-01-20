@@ -3,6 +3,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/app_globals.dart';
+import '../../model/firestore/app_user/app_user.dart';
 import '../../model/firestore/db.dart';
 import '../atoms/sub_title_text.dart';
 
@@ -43,11 +44,11 @@ class LogInScreen extends StatelessWidget {
         displayName = user.email?.split("@").first ?? "anonymous";
         user.updateDisplayName(displayName);
       }
-      Db.users.doc(user.uid).set({
-        'email': user.email,
-        'displayName': displayName,
-        'photoURL': user.photoURL,
-      });
+      Db.users.doc(user.uid).set(AppUser(
+            email: user.email,
+            displayName: displayName,
+            photoURL: user.photoURL,
+          ));
     }
   }
 }

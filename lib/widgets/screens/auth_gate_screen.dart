@@ -40,7 +40,7 @@ class AuthGateScreen extends StatelessWidget {
         Db.users.doc(Db.loggedFirebaseUser.uid).get().then((snapshot) {
           var userData = snapshot.data();
           if (userData != null) {
-            var oldAppUser = AppUserMapper.fromMap(userData);
+            var oldAppUser = userData;
             if (loggedAppUser != oldAppUser) {
               Db.users.doc(Db.loggedFirebaseUser.uid).update(loggedAppUser.toMap());
               // TODO update users data also in myContact collection in each user by query:

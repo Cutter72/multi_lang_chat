@@ -33,8 +33,8 @@ class UsersProvider with ChangeNotifier {
     return await usersQuery.get().then((snapshot) {
       List<AppUser> usersFromSnapshot = [];
       for (var user in snapshot.docs) {
-        print("My.Log.user=${AppUserMapper.fromMap(user.data()).toString()}");
-        usersFromSnapshot.add(AppUserMapper.fromMap(user.data()));
+        print("My.Log.user=${user.data()}");
+        usersFromSnapshot.add(user.data());
       }
       _queryUsersResult
         ..clear()
@@ -49,8 +49,8 @@ class UsersProvider with ChangeNotifier {
     });
   }
 
-  Query<Map<String, dynamic>> _prepareUsersQuery(Set<String> keywordsToSearch) {
-    Query<Map<String, dynamic>> query;
+  Query<AppUser> _prepareUsersQuery(Set<String> keywordsToSearch) {
+    Query<AppUser> query;
     if (keywordsToSearch.length > 10) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
       // https://firebase.google.com/docs/firestore/query-data/queries?hl=en&authuser=1#query_limitations

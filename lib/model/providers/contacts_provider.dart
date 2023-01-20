@@ -20,7 +20,7 @@ class ContactsProvider with ChangeNotifier {
         if (snapshot.data() == null) {
           return contacts;
         } else {
-          _contacts = ContactsMapper.fromMap(snapshot.data()!);
+          _contacts = snapshot.data();
           return contacts;
         }
       }).onError((error, stackTrace) => contacts);
