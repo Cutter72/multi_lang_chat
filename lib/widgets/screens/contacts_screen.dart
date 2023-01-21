@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/firestore/db.dart';
-import 'contacts_search_screen.dart';
+import '../../model/providers/contacts_provider.dart';
+import 'contacts_search/contacts_search_screen.dart';
 import 'user_settings_screen.dart';
 
 ///
@@ -16,6 +17,7 @@ class ContactsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _initContacts();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Contacts"),
@@ -25,8 +27,8 @@ class ContactsScreen extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-            children: [
-              ElevatedButton(
+        children: [
+          ElevatedButton(
                 child: Text("Log out"),
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
@@ -41,20 +43,20 @@ class ContactsScreen extends StatelessWidget {
               ElevatedButton(
                 child: Text("Create"),
                 onPressed: () {
-              Db.chatRooms.doc("${Db.luUid}").set({
-                "roleFor": {Db.luUid: "writerwer"}
-              }).then((value) {
-                Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
-                return null;
-              });
-            },
+                  Db.chatRooms.doc("${Db.luUid}").set({
+                    "roleFor": {Db.luUid: "writerwer"}
+                  }).then((value) {
+                    Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
+                    return null;
+                  });
+                },
               ),
               ElevatedButton(
                 child: Text("Read"),
                 onPressed: () {
                   Db.chatRooms
-                  .doc("${Db.luUid}/msgs/${Db.luUid}")
-                  .get()
+                      .doc("${Db.luUid}/msgs/${Db.luUid}")
+                      .get()
                       .then((snap) => print("Read msg work! data = $snap"));
                 },
               ),
@@ -63,24 +65,24 @@ class ContactsScreen extends StatelessWidget {
                 onPressed: () {
                   Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").update({"data": "Update msg work!"});
                   // Db.contacts
-              //     .where(FieldPath.fromString("pending.${Db.luUid}"),
-              //         arrayContains: loggedAppUser.toMap())
-              //     .then((value) => print(value));
+                  //     .where(FieldPath.fromString("pending.${Db.luUid}"),
+                  //         arrayContains: loggedAppUser.toMap())
+                  //     .then((value) => print(value));
                 },
-          ),
-          ElevatedButton(
-            child: Text("Delete"),
-            onPressed: () {
-              Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").delete()
-                  .then((_) => print("Delete msg work!"));
-            },
-          ),
-          ElevatedButton(
-            child: const Text("Find contact of me"),
-            onPressed: () {
-              Db.contacts
-                  .where(FieldPath.fromString("accepted.${Db.luUid}"), isNotEqualTo: null)
-                  .where(FieldPath.fromString("rejected.${Db.luUid}"), isNotEqualTo: null)
+              ),
+              ElevatedButton(
+                child: Text("Delete"),
+                onPressed: () {
+                  Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").delete()
+                      .then((_) => print("Delete msg work!"));
+                },
+              ),
+              ElevatedButton(
+                child: const Text("Find contact of me"),
+                onPressed: () {
+                  Db.contacts
+                      .where(FieldPath.fromString("accepted.${Db.luUid}"), isNotEqualTo: null)
+                      .where(FieldPath.fromString("rejected.${Db.luUid}"), isNotEqualTo: null)
                   .where(FieldPath.fromString("pending.${Db.luUid}"), isNotEqualTo: null)
                   .get()
                   .then((value) {
@@ -91,11 +93,24 @@ class ContactsScreen extends StatelessWidget {
             },
           ),
         ],
-          )),
+      )),
     );
   }
 
   void _goToContactsSearchScreen(BuildContext context) {
     Navigator.pushNamed(context, ContactsSearchScreen.routeName);
   }
+
+  void _initContacts() {
+    if (!_isContactsInitialized) {
+      ContactsProvider.fetchContacts().then((contacts) {
+        _isContactsInitialized = true;
+      }).onError((error, stackTrace) {
+        print(error);
+      });
+    }
+  }
 }
+
+// Outside of class to have a const constructor
+bool _isContactsInitialized = false;

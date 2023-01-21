@@ -8,13 +8,11 @@ import '../firestore/db.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class ContactsProvider with ChangeNotifier {
-  Contacts? _contacts;
+  static Contacts? _contacts;
 
-  Contacts get contacts => _contacts == null ? Contacts(accepted: {}, rejected: {}, pending: {}) : _contacts!;
+  static Contacts get contacts => _contacts == null ? Contacts(accepted: {}, rejected: {}, pending: {}) : _contacts!;
 
-  ContactsProvider();
-
-  Future<Contacts> fetchContacts() async {
+  static Future<Contacts> fetchContacts() async {
     if (_contacts == null) {
       return await Db.contacts.doc(Db.luUid).get().then((snapshot) {
         if (snapshot.data() == null) {

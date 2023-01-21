@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/app_globals.dart';
 import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
-import 'package:multi_lang_chat/widgets/contacts_search_result_list_item.dart';
 
-import '../model/firestore/app_user/app_user.dart';
-import '../model/firestore/contacts.dart';
+import '../../../model/firestore/app_user/app_user.dart';
+import 'contacts_search_result_list_item.dart';
 
 class ContactsSearchResult extends StatelessWidget {
   final Future<List<AppUser>> usersQuery;
 
-  final Contacts contacts;
-
   const ContactsSearchResult({
     Key? key,
     required this.usersQuery,
-    required this.contacts,
   }) : super(key: key);
 
   @override
@@ -31,10 +27,7 @@ class ContactsSearchResult extends StatelessWidget {
                   if (snapshot.data?.isEmpty ?? true) {
                     return const Align(alignment: Alignment.topCenter, child: ContentTextHHH("No users found."));
                   } else {
-                    return ContactsSearchResultListItem(
-                      user: snapshot.data?[index] ?? loggedAppUser,
-                      contacts: contacts,
-                    );
+                    return ContactsSearchResultListItem(user: snapshot.data?[index] ?? loggedAppUser);
                   }
                 },
                 itemCount: itemCount(snapshot.data),
