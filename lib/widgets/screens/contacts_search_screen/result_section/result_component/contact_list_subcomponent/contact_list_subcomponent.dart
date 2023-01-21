@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../model/firestore/app_user/app_user.dart';
-import '../../../../atoms/content_text.dart';
-import 'contact_list_item.dart';
+import '../../../../../../model/firestore/app_user/app_user.dart';
+import '../../../../../atoms/content_text.dart';
+import 'contact_list_item/contact_list_item.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -19,7 +19,7 @@ class ContactList extends StatelessWidget {
         if (users.isEmpty) {
           return const _NoUsersFound();
         } else {
-          return ContactsListItem(user: users[index]);
+          return ContactListItem(user: users[index]);
         }
       },
       itemCount: itemCount(users),

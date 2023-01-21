@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 
 import '../../../../../../model/firestore/app_user/app_user.dart';
-import 'contacts_list.dart';
+import 'contact_list_subcomponent/contact_list_subcomponent.dart';
 
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
 class ContactsSearchResult extends StatelessWidget {
   final Future<List<AppUser>> usersQuery;
 
@@ -18,7 +21,7 @@ class ContactsSearchResult extends StatelessWidget {
         future: usersQuery,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const _CircularIndicator();
+            return const _WaitingIndicator();
           } else {
             if (snapshot.hasData) {
               return ContactList(snapshot.data!);
@@ -30,8 +33,8 @@ class ContactsSearchResult extends StatelessWidget {
   }
 }
 
-class _CircularIndicator extends StatelessWidget {
-  const _CircularIndicator({
+class _WaitingIndicator extends StatelessWidget {
+  const _WaitingIndicator({
     Key? key,
   }) : super(key: key);
 

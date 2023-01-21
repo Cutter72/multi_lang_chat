@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../atoms/sub_title_text.dart';
 import '../../../atoms/text_input_field.dart';
 
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
 class InputSection extends StatelessWidget {
   const InputSection({
     Key? key,

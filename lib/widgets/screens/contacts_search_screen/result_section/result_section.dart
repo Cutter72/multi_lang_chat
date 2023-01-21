@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../model/providers/users_provider.dart';
 import '../../../atoms/sub_title_text.dart';
-import 'result_component/contacts_search_result_component.dart';
+import 'result_component/result_component.dart';
 
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
 class ResultSection extends StatelessWidget {
   const ResultSection({
     Key? key,

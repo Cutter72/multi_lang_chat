@@ -1,35 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../model/firestore/app_user/app_user.dart';
-import '../../../../../model/firestore/db.dart';
-import '../../../../../model/providers/contacts_provider.dart';
-import '../../../../atoms/sub_title_text.dart';
-import '../../../../atoms/title_text.dart';
-import 'contact_list_item_avatar.dart';
+import '../../../../../../../model/firestore/app_user/app_user.dart';
+import '../../../../../../../model/firestore/db.dart';
+import '../../../../../../../model/providers/contacts_provider.dart';
 
-class ContactsListItem extends StatelessWidget {
-  final AppUser user;
-
-  const ContactsListItem({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const double avatarSize = 48;
-    return Card(
-      child: ListTile(
-        leading: ContactListItemAvatar(photoUrl: user.photoURL, avatarSize: avatarSize),
-        title: TitleTextHHH(user.displayName!),
-        subtitle: SubTitleTextHHH(user.email!),
-        trailing: AddRemoveContactIconBtn(user),
-      ),
-    );
-  }
-}
-
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
 class AddRemoveContactIconBtn extends StatefulWidget {
   final AppUser user;
 
