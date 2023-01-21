@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/providers/users_provider.dart';
 import 'package:multi_lang_chat/widgets/screens/contacts_search/contacts_search_result.dart';
+import 'package:multi_lang_chat/widgets/screens/contacts_search/input_section.dart';
 
 import '../../atoms/sub_title_text.dart';
-import '../../atoms/text_input_field.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -42,14 +42,15 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Divider(),
-              const SubTitleTextHHH("Search by:"),
-              TextInputField("Name", controller: nameFieldController),
-              TextInputField("Email", controller: emailFieldController),
+              InputSection(
+                nameFieldController: nameFieldController,
+                emailFieldController: emailFieldController,
+              ),
               const Divider(),
               const SubTitleTextHHH("Results:"),
               Expanded(
                 child: ContactsSearchResult(
-                  usersQuery: _usersProvider.queryUsers(
+                  usersQuery: UsersProvider.queryUsers(
                     nameFieldController.value.text,
                     emailFieldController.value.text,
                   ),

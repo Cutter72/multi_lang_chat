@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import '../../model/firestore/db.dart';
 import '../firestore/app_user/app_user.dart';
@@ -10,14 +9,12 @@ import '../firestore/keywords_manager.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class UsersProvider with ChangeNotifier {
-  final KeywordsManager _keywordsManager = KeywordsManager();
-  final List<AppUser> _queryUsersResult = [];
-  final Set<String> _previousKeywordsToSearch = {};
+class UsersProvider {
+  static final KeywordsManager _keywordsManager = KeywordsManager();
+  static final List<AppUser> _queryUsersResult = [];
+  static final Set<String> _previousKeywordsToSearch = {};
 
-  UsersProvider();
-
-  Future<List<AppUser>> queryUsers(String byName, String byEmail) async {
+  static Future<List<AppUser>> queryUsers(String byName, String byEmail) async {
     if (byName.length < 3 && byEmail.length < 3) {
       return [];
     }
@@ -44,12 +41,11 @@ class UsersProvider with ChangeNotifier {
             return thisUser.compareTo(otherUser);
           },
         );
-      notifyListeners();
       return _queryUsersResult;
     });
   }
 
-  Query<AppUser> _prepareUsersQuery(Set<String> keywordsToSearch) {
+  static Query<AppUser> _prepareUsersQuery(Set<String> keywordsToSearch) {
     Query<AppUser> query;
     if (keywordsToSearch.length > 10) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
@@ -63,7 +59,7 @@ class UsersProvider with ChangeNotifier {
     return query;
   }
 
-  Set<String> _prepareKeywordsToSearch(String byName, String byEmail) {
+  static Set<String> _prepareKeywordsToSearch(String byName, String byEmail) {
     return _keywordsManager.splitIntoKeywords("$byName $byEmail");
   }
 }
