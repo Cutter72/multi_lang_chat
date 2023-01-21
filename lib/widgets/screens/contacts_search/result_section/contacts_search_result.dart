@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/app_globals.dart';
 import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 
-import '../../../model/firestore/app_user/app_user.dart';
+import '../../../../model/firestore/app_user/app_user.dart';
 import 'contacts_search_result_list_item.dart';
 
 class ContactsSearchResult extends StatelessWidget {

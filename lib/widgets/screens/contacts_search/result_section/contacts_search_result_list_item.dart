@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/model/providers/contacts_provider.dart';
-import 'package:multi_lang_chat/widgets/atoms/sub_title_text.dart';
-import 'package:multi_lang_chat/widgets/atoms/title_text.dart';
 
-import '../../../model/firestore/app_user/app_user.dart';
-import '../../../model/firestore/db.dart';
+import '../../../../model/firestore/app_user/app_user.dart';
+import '../../../../model/firestore/db.dart';
+import '../../../../model/providers/contacts_provider.dart';
+import '../../../atoms/sub_title_text.dart';
+import '../../../atoms/title_text.dart';
 import 'photo_url_broken.dart';
 
 class ContactsSearchResultListItem extends StatelessWidget {

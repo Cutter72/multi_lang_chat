@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../atoms/sub_title_text.dart';
-import '../../atoms/text_input_field.dart';
+import '../../../atoms/sub_title_text.dart';
+import '../../../atoms/text_input_field.dart';
 
 class InputSection extends StatelessWidget {
   const InputSection({

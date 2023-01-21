@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/providers/users_provider.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search/contacts_search_result.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search/input_section.dart';
+import 'package:multi_lang_chat/widgets/screens/contacts_search/input_section/input_section.dart';
 
-import '../../atoms/sub_title_text.dart';
+import 'result_section/result_section.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -40,6 +39,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Divider(),
               InputSection(
@@ -47,13 +47,10 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
                 emailFieldController: emailFieldController,
               ),
               const Divider(),
-              const SubTitleTextHHH("Results:"),
               Expanded(
-                child: ContactsSearchResult(
-                  usersQuery: UsersProvider.queryUsers(
-                    nameFieldController.value.text,
-                    emailFieldController.value.text,
-                  ),
+                child: ResultSection(
+                  nameFieldController: nameFieldController,
+                  emailFieldController: emailFieldController,
                 ),
               ),
               const Divider(),
