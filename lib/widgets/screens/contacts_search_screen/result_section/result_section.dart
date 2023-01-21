@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../model/providers/users_provider.dart';
 import '../../../atoms/sub_title_text.dart';
-import 'contacts_search_result.dart';
+import 'result_component/contacts_search_result_component.dart';
 
 class ResultSection extends StatelessWidget {
   const ResultSection({

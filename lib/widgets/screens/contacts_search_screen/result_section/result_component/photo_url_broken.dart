@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../atoms/content_text.dart';
+import '../../../../atoms/content_text.dart';
 
 class PhotoUrlBroken extends StatelessWidget {
   const PhotoUrlBroken({

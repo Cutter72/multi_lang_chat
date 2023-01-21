@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../model/firestore/app_user/app_user.dart';
-import '../../../../model/firestore/db.dart';
-import '../../../../model/providers/contacts_provider.dart';
-import '../../../atoms/sub_title_text.dart';
-import '../../../atoms/title_text.dart';
-import 'photo_url_broken.dart';
+import '../../../../../model/firestore/app_user/app_user.dart';
+import '../../../../../model/firestore/db.dart';
+import '../../../../../model/providers/contacts_provider.dart';
+import '../../../../atoms/sub_title_text.dart';
+import '../../../../atoms/title_text.dart';
+import 'contact_list_item_avatar.dart';
 
-class ContactsSearchResultListItem extends StatelessWidget {
+class ContactsListItem extends StatelessWidget {
   final AppUser user;
 
-  const ContactsSearchResultListItem({
+  const ContactsListItem({
     Key? key,
     required this.user,
   }) : super(key: key);
@@ -21,99 +21,25 @@ class ContactsSearchResultListItem extends StatelessWidget {
     const double avatarSize = 48;
     return Card(
       child: ListTile(
-        leading: _ContactListItemAvatar(photoUrl: user.photoURL, avatarSize: avatarSize),
+        leading: ContactListItemAvatar(photoUrl: user.photoURL, avatarSize: avatarSize),
         title: TitleTextHHH(user.displayName!),
         subtitle: SubTitleTextHHH(user.email!),
-        trailing: _AddRemoveContactIconBtn(user),
+        trailing: AddRemoveContactIconBtn(user),
       ),
     );
   }
 }
 
-class _ContactListItemAvatar extends StatelessWidget {
-  const _ContactListItemAvatar({
-    Key? key,
-    required this.photoUrl,
-    required this.avatarSize,
-  }) : super(key: key);
-
-  final String? photoUrl;
-  final double avatarSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return photoUrl != null
-        ? _ImageAvatar(photoUrl: photoUrl, avatarSize: avatarSize)
-        : _DefaultAvatar(avatarSize: avatarSize);
-  }
-}
-
-class _ImageAvatar extends StatelessWidget {
-  const _ImageAvatar({
-    Key? key,
-    required this.photoUrl,
-    required this.avatarSize,
-  }) : super(key: key);
-
-  final String? photoUrl;
-  final double avatarSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(
-      photoUrl!,
-      width: avatarSize,
-      height: avatarSize,
-      fit: BoxFit.cover,
-      alignment: Alignment.center,
-      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
-          frame == null ? const CircularProgressIndicator() : child,
-      errorBuilder: (context, error, stackTrace) => _PhotoUrlBroken(avatarSize: avatarSize),
-    );
-  }
-}
-
-class _PhotoUrlBroken extends StatelessWidget {
-  const _PhotoUrlBroken({
-    Key? key,
-    required this.avatarSize,
-  }) : super(key: key);
-
-  final double avatarSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return PhotoUrlBroken(avatarSize: avatarSize);
-  }
-}
-
-class _DefaultAvatar extends StatelessWidget {
-  const _DefaultAvatar({
-    Key? key,
-    required this.avatarSize,
-  }) : super(key: key);
-
-  final double avatarSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.account_circle,
-      size: avatarSize,
-    );
-  }
-}
-
-class _AddRemoveContactIconBtn extends StatefulWidget {
+class AddRemoveContactIconBtn extends StatefulWidget {
   final AppUser user;
 
-  const _AddRemoveContactIconBtn(this.user, {Key? key}) : super(key: key);
+  const AddRemoveContactIconBtn(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<_AddRemoveContactIconBtn> createState() => _AddRemoveContactIconBtnState();
+  State<AddRemoveContactIconBtn> createState() => _AddRemoveContactIconBtnState();
 }
 
-class _AddRemoveContactIconBtnState extends State<_AddRemoveContactIconBtn> {
+class _AddRemoveContactIconBtnState extends State<AddRemoveContactIconBtn> {
   bool isUserAlreadyInContacts = false;
 
   @override

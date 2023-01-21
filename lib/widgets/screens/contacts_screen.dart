@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/firestore/db.dart';
 import '../../model/providers/contacts_provider.dart';
-import 'contacts_search/contacts_search_screen.dart';
+import 'contacts_search_screen/contacts_search_screen.dart';
 import 'user_settings_screen.dart';
 
 ///

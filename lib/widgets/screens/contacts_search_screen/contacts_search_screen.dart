@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/providers/users_provider.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search/input_section/input_section.dart';
+import 'package:multi_lang_chat/widgets/screens/contacts_search_screen/input_section/input_section.dart';
 
 import 'result_section/result_section.dart';
 
