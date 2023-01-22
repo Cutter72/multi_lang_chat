@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../model/firestore/app_user/app_user.dart';
-import '../../../../../../atoms/sub_title_text.dart';
-import '../../../../../../atoms/title_text.dart';
-import 'avatar.dart';
+import '../../../model/firestore/app_user/app_user.dart';
+import '../../atoms/sub_title_text.dart';
+import '../../atoms/title_text.dart';
+import '../../molecules/avatar/avatar.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

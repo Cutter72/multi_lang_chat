@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../atoms/content_text.dart';
+import '../../atoms/content_text.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

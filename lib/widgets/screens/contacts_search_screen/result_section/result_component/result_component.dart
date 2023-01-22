@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../../model/firestore/app_user/app_user.dart';
 import '../../../../atoms/something_went_wrong.dart';
 import '../../../../atoms/waiting_indicator.dart';
-import 'contact_list_subcomponent/contact_list_item/add_remove_contact_icon_btn.dart';
-import 'contact_list_subcomponent/contact_list_subcomponent.dart';
+import '../../../../components/contact_list/contact_list.dart';
+import 'add_remove_contact_icon_btn.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

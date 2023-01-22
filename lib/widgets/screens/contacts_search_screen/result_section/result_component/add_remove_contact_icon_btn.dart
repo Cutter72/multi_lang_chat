@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../../../model/firestore/app_user/app_user.dart';
-import '../../../../../../../model/firestore/db.dart';
-import '../../../../../../../model/providers/contacts_provider.dart';
+import '../../../../../model/firestore/app_user/app_user.dart';
+import '../../../../../model/firestore/db.dart';
+import '../../../../../model/providers/contacts_provider.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

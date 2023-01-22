@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../model/firestore/contacts.dart';
 import '../../../atoms/something_went_wrong.dart';
 import '../../../atoms/waiting_indicator.dart';
-import '../../contacts_search_screen/result_section/result_component/contact_list_subcomponent/contact_list_subcomponent.dart';
+import '../../../components/contact_list/contact_list.dart';
 import 'open_chat_contact_icon_btn.dart';
 
 ///
