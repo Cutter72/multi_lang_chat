@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/model/providers/users_provider.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search_screen/input_section/input_section.dart';
 
+import '../../../model/providers/users_provider.dart';
+import 'input_section/input_section.dart';
 import 'result_section/result_section.dart';
 
 ///
@@ -34,28 +34,23 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
         appBar: AppBar(
           title: const Text("Contacts search"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Divider(),
-              InputSection(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InputSection(
+              nameFieldController: nameFieldController,
+              emailFieldController: emailFieldController,
+            ),
+            const Divider(),
+            Expanded(
+              child: ResultSection(
                 nameFieldController: nameFieldController,
                 emailFieldController: emailFieldController,
               ),
-              const Divider(),
-              Expanded(
-                child: ResultSection(
-                  nameFieldController: nameFieldController,
-                  emailFieldController: emailFieldController,
-                ),
-              ),
-              const Divider(),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

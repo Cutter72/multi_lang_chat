@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search_screen/result_section/result_component/contact_list_subcomponent/contact_list_item/image_avatar.dart';
+
+import 'image_avatar.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

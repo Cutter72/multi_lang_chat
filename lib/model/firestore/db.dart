@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:multi_lang_chat/model/firestore/app_user/app_user.dart';
 
+import 'app_user/app_user.dart';
 import 'contacts.dart';
 
 ///

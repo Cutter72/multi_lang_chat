@@ -23,7 +23,10 @@ class ResultSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SubTitleTextHHH("Results:"),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
+          child: SubTitleTextHHH("Results:"),
+        ),
         Expanded(
           child: ContactsSearchResult(
             usersQuery: UsersProvider.queryUsers(

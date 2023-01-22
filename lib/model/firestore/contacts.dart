@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:multi_lang_chat/model/firestore/app_user/app_user.dart';
+
+import 'app_user/app_user.dart';
 
 part 'contacts.mapper.dart';
 

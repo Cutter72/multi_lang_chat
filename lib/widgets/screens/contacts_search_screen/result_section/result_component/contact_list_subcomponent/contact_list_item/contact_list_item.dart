@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/widgets/screens/contacts_search_screen/result_section/result_component/contact_list_subcomponent/contact_list_item/add_remove_contact_icon_btn.dart';
 
 import '../../../../../../../model/firestore/app_user/app_user.dart';
 import '../../../../../../atoms/sub_title_text.dart';
@@ -11,10 +10,12 @@ import 'avatar.dart';
 ///
 class ContactListItem extends StatelessWidget {
   final AppUser user;
+  final Widget trailingBtn;
 
   const ContactListItem({
     Key? key,
     required this.user,
+    required this.trailingBtn,
   }) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class ContactListItem extends StatelessWidget {
         leading: Avatar(photoUrl: user.photoURL, avatarSize: avatarSize),
         title: TitleTextHHH(user.displayName!),
         subtitle: SubTitleTextHHH(user.email!),
-        trailing: AddRemoveContactIconBtn(user),
+        trailing: trailingBtn,
       ),
     );
   }

@@ -9,8 +9,9 @@ import 'contact_list_item/contact_list_item.dart';
 ///
 class ContactList extends StatelessWidget {
   final List<AppUser> users;
+  final Widget Function(AppUser) trailingBtn;
 
-  const ContactList(this.users, {Key? key}) : super(key: key);
+  const ContactList(this.users, {Key? key, required this.trailingBtn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class ContactList extends StatelessWidget {
         if (users.isEmpty) {
           return const _NoUsersFound();
         } else {
-          return ContactListItem(user: users[index]);
+          return ContactListItem(
+            user: users[index],
+            trailingBtn: trailingBtn(users[index]),
+          );
         }
       },
       itemCount: itemCount(users),

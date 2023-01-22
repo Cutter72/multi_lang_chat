@@ -18,14 +18,17 @@ class InputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SubTitleTextHHH("Search by:"),
-        TextInputField("Name", nameFieldController),
-        TextInputField("Email", emailFieldController),
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, top: 4.0, right: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SubTitleTextHHH("Search by:"),
+          TextInputField("Name", nameFieldController),
+          TextInputField("Email", emailFieldController),
+        ],
+      ),
     );
   }
 }
