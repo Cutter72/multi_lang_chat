@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../../../storage/persistent/firestore/providers/contacts_provider.dart';
+import '../../../chat_room_screen.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -22,7 +23,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   Widget build(BuildContext context) {
     isUserAlreadyInContacts = ContactsProvider.contacts.accepted.containsValue(widget.user);
     return IconButton(
-      onPressed: () => openChat(widget.user),
+      onPressed: () => goToChatRoom(widget.user),
       icon: const Icon(
         Icons.chat,
         color: Colors.green,
@@ -30,11 +31,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
     );
   }
 
-  openChat(AppUser user) {
-    // todo open chat_room_screen([participants])
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(user.toString()),
-    ));
+  goToChatRoom(AppUser user) {
+    Navigator.pushNamed(context, ChatRoomScreen.routeName);
   }
 }
