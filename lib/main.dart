@@ -7,9 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
 
 import 'firebase_options.dart';
-import 'model/app_globals.dart';
-import 'model/firestore/db.dart';
-import 'widgets/screens/app_root_screen.dart';
+import 'storage/persistent/firestore/db.dart';
+import 'storage/runtime/app_globals.dart';
+import 'widgets/single_use/screens/app_root_screen.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

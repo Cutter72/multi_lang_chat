@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:multi_lang_chat/widgets/screens/app_root_screen.dart';
+import 'package:multi_lang_chat/widgets/single_use/screens/app_root_screen.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

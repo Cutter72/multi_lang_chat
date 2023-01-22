@@ -1,4 +1,4 @@
-import 'package:multi_lang_chat/model/firestore/app_user/app_user.dart';
+import 'package:multi_lang_chat/model/passives/daos/app_user/app_user.dart';
 import 'package:test/test.dart';
 
 /// AppUser test class
