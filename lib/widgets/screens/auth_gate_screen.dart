@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../model/app_globals.dart';
 import '../../model/firestore/app_user/app_user.dart';
 import '../../model/firestore/db.dart';
-import 'contacts_screen.dart';
+import 'contacts_screen/contacts_screen.dart';
 import 'log_in_screen.dart';
 
 var _isUserChangesListenerInitialized = false;

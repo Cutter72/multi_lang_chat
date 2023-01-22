@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/widgets/atoms/content_text.dart';
 
 import '../../../../../../model/firestore/app_user/app_user.dart';
+import '../../../../atoms/something_went_wrong.dart';
+import '../../../../atoms/waiting_indicator.dart';
 import 'contact_list_subcomponent/contact_list_subcomponent.dart';
 
 ///
@@ -21,42 +22,14 @@ class ContactsSearchResult extends StatelessWidget {
         future: usersQuery,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const _WaitingIndicator();
+            return const WaitingIndicator();
           } else {
             if (snapshot.hasData) {
               return ContactList(snapshot.data!);
             } else {
-              return _SomethingWentWrong(snapshot.error!);
+              return SomethingWentWrong(snapshot.error!);
             }
           }
         });
-  }
-}
-
-class _WaitingIndicator extends StatelessWidget {
-  const _WaitingIndicator({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
-  }
-}
-
-class _SomethingWentWrong extends StatelessWidget {
-  final Object error;
-
-  const _SomethingWentWrong(
-    this.error, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ContentTextHHH("No data. Something went wrong: $error"),
-    );
   }
 }

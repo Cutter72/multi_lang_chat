@@ -15,6 +15,7 @@ class ContactList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemBuilder: (context, index) {
         if (users.isEmpty) {
           return const _NoUsersFound();
