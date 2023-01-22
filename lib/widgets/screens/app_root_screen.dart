@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/widgets/screens/developer_screen.dart';
 
 import 'auth_gate_screen.dart';
 import 'contacts_screen/contacts_screen.dart';
@@ -32,6 +33,9 @@ class AppRootScreen extends StatelessWidget {
         },
         UserSettingsScreen.routeName: (context) {
           return const UserSettingsScreen();
+        },
+        DeveloperScreen.routeName: (context) {
+          return const DeveloperScreen();
         },
       },
     );

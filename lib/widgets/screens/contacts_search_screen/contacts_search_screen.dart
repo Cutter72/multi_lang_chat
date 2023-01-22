@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/providers/users_provider.dart';
 import 'input_section/input_section.dart';
 import 'result_section/result_section.dart';
 
@@ -20,8 +19,6 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   final TextEditingController nameFieldController = TextEditingController();
 
   final TextEditingController emailFieldController = TextEditingController();
-
-  final _usersProvider = UsersProvider();
 
   bool _isFieldsListenersInitialized = false;
 
