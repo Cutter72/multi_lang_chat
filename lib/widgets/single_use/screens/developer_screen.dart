@@ -39,7 +39,7 @@ class DeveloperScreen extends StatelessWidget {
             ElevatedButton(
               child: Text("Create"),
               onPressed: () {
-                Db.chatRooms.doc("${Db.luUid}").set(ChatRoom(roleFor: {Db.luUid: "owner"})).then((value) {
+                Db.chatRooms.doc("${Db.luUid}").set(ChatRoom(uid: "uid", roleFor: {Db.luUid: "owner"})).then((value) {
                   // Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
                   return null;
                 });

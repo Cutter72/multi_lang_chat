@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
+import 'package:multi_lang_chat/model/passives/daos/chat_room_msg/chat_room_msg.dart';
 
+import '../../../storage/persistent/firestore/db.dart';
 import '../../numerous_use/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
 import '../../numerous_use/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 import 'contacts_search_screen/contacts_search_screen.dart';
@@ -16,6 +19,7 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final chatRoom = ModalRoute.of(context)?.settings.arguments as ChatRoom;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat room"),
@@ -34,13 +38,13 @@ class ChatRoomScreen extends StatelessWidget {
         children: [
           const Expanded(
               child: Center(
-            child: WaitingIndicator(),
-          )),
+                child: WaitingIndicator(),
+              )),
           Row(
             children: [
               Expanded(child: TextInputField("Type a message...", messageEditorController)),
               IconButton(
-                onPressed: () => sendMessage(messageEditorController.value.text),
+                onPressed: () => sendMessage(messageEditorController.value.text, chatRoom),
                 icon: const Icon(Icons.send),
               ),
             ],
@@ -58,7 +62,9 @@ class ChatRoomScreen extends StatelessWidget {
     Navigator.pushNamed(context, DeveloperScreen.routeName);
   }
 
-  void sendMessage(String message) {
-    // TODO
+  void sendMessage(String message, ChatRoom chatRoom) {
+    var msg = ChatRoomMsg.create(message, Db.luUid);
+    print(msg);
+    Db.chatRoomMsgs(chatRoom.uid).doc().set(msg);
   }
 }

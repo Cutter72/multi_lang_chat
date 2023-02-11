@@ -36,8 +36,8 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
     if (existingChatRoom != null) {
       goTo(existingChatRoom);
     } else {
-      var newChatRoom = ChatRoom.forPrivateConversation(loggedAppUser.uid!, targetUser.uid!);
-      Db.chatRooms.add(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
+      var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, loggedAppUser.uid!, targetUser.uid!);
+      Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
       goTo(newChatRoom);
     }
   }
@@ -53,7 +53,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
         if (querySnapshot.size > 0) {
           return querySnapshot.docs.first.data();
         } else {
-          // no existing chat room
+          // chat room for currentUserUid & targetUserUid not exist
           return null;
         }
       },

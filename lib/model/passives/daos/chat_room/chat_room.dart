@@ -7,10 +7,14 @@ part 'chat_room.mapper.dart';
 ///
 @MappableClass()
 class ChatRoom with ChatRoomMappable {
+  final String uid;
   final Map<String?, String> roleFor;
 
-  ChatRoom({required this.roleFor});
+  ChatRoom({required this.uid, required this.roleFor});
 
-  ChatRoom.forPrivateConversation(String currentUserId, String targetUserId)
-      : this(roleFor: {currentUserId: "owner", targetUserId: "owner"});
+  ChatRoom.forPrivateConversation(String uid, String currentUserId, String targetUserId)
+      : this(
+          uid: uid,
+          roleFor: {currentUserId: "owner", targetUserId: "owner"},
+        );
 }

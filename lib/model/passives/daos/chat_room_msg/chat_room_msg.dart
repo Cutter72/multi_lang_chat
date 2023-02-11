@@ -9,14 +9,16 @@ part 'chat_room_msg.mapper.dart';
 class ChatRoomMsg with ChatRoomMsgMappable {
   final Map<String?, String> roleFor;
   final String content;
-  final DateTime timeSent;
+  final int timeSentMillis;
 
-  ChatRoomMsg({required this.content, required this.timeSent, required this.roleFor});
+  ChatRoomMsg({required this.content, required this.timeSentMillis, required this.roleFor});
 
-  ChatRoomMsg.create(String content, String currentUserId)
+  ChatRoomMsg.create(String content, String ownerId)
       : this(
-          content: content,
-          timeSent: DateTime.now(),
-          roleFor: {currentUserId: "owner"},
-        );
+    content: content,
+    timeSentMillis: DateTime
+        .now()
+        .millisecondsSinceEpoch,
+    roleFor: {ownerId: "owner"},
+  );
 }
