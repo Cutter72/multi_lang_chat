@@ -10,8 +10,9 @@ import 'developer_screen.dart';
 ///
 class ChatRoomScreen extends StatelessWidget {
   static const routeName = '/chat_room';
+  final messageEditorController = TextEditingController();
 
-  const ChatRoomScreen({Key? key}) : super(key: key);
+  ChatRoomScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,14 @@ class ChatRoomScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Chat room"),
         actions: [
-          IconButton(onPressed: () => _goToContactsSearchScreen(context), icon: const Icon(Icons.person_search)),
-          IconButton(onPressed: () => _goToDeveloperScreen(context), icon: const Icon(Icons.developer_board)),
+          IconButton(
+            onPressed: () => _goToContactsSearchScreen(context),
+            icon: const Icon(Icons.person_search),
+          ),
+          IconButton(
+            onPressed: () => _goToDeveloperScreen(context),
+            icon: const Icon(Icons.developer_board),
+          ),
         ],
       ),
       body: Column(
@@ -31,8 +38,11 @@ class ChatRoomScreen extends StatelessWidget {
           )),
           Row(
             children: [
-              Expanded(child: TextInputField("Type a message...", TextEditingController())),
-              const IconButton(onPressed: null, icon: Icon(Icons.send)),
+              Expanded(child: TextInputField("Type a message...", messageEditorController)),
+              IconButton(
+                onPressed: () => sendMessage(messageEditorController.value.text),
+                icon: const Icon(Icons.send),
+              ),
             ],
           )
         ],
@@ -46,5 +56,9 @@ class ChatRoomScreen extends StatelessWidget {
 
   void _goToDeveloperScreen(BuildContext context) {
     Navigator.pushNamed(context, DeveloperScreen.routeName);
+  }
+
+  void sendMessage(String message) {
+    // TODO
   }
 }

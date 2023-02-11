@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
-import '../../../../../../storage/persistent/firestore/providers/contacts_provider.dart';
+import '../../../../../../model/passives/daos/chat_room/chat_room.dart';
+import '../../../../../../storage/persistent/firestore/db.dart';
+import '../../../../../../storage/runtime/app_globals.dart';
 import '../../../chat_room_screen.dart';
 
 ///
@@ -17,13 +20,10 @@ class OpenChatContactIconBtn extends StatefulWidget {
 }
 
 class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
-  bool isUserAlreadyInContacts = false;
-
   @override
   Widget build(BuildContext context) {
-    isUserAlreadyInContacts = ContactsProvider.contacts.accepted.containsValue(widget.user);
     return IconButton(
-      onPressed: () => goToChatRoom(widget.user),
+      onPressed: () => goToPrivateChatRoomWith(widget.user),
       icon: const Icon(
         Icons.chat,
         color: Colors.green,
@@ -31,7 +31,41 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
     );
   }
 
-  goToChatRoom(AppUser user) {
-    Navigator.pushNamed(context, ChatRoomScreen.routeName);
+  goToPrivateChatRoomWith(AppUser targetUser) async {
+    ChatRoom? existingChatRoom = await isChatRoomAlreadyExist(loggedAppUser.uid, targetUser.uid);
+    if (existingChatRoom != null) {
+      goTo(existingChatRoom);
+    } else {
+      var newChatRoom = ChatRoom.forPrivateConversation(loggedAppUser.uid!, targetUser.uid!);
+      Db.chatRooms.add(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
+      goTo(newChatRoom);
+    }
+  }
+
+  Future<ChatRoom?> isChatRoomAlreadyExist(String? currentUserUid, String? targetUserUid) async {
+    return await Db.chatRooms
+        .where(FieldPath.fromString("roleFor.$currentUserUid"), isEqualTo: "owner")
+        .where(FieldPath.fromString("roleFor.$targetUserUid"), isEqualTo: "owner")
+        .limit(1)
+        .get()
+        .then(
+      (querySnapshot) {
+        if (querySnapshot.size > 0) {
+          return querySnapshot.docs.first.data();
+        } else {
+          // no existing chat room
+          return null;
+        }
+      },
+    );
+  }
+
+  void goTo(ChatRoom chatRoomToGo) {
+    Navigator.pushNamed(context, ChatRoomScreen.routeName, arguments: chatRoomToGo);
+  }
+
+  handleError(Object? error, StackTrace stackTrace) {
+    print(error);
+    print(stackTrace);
   }
 }

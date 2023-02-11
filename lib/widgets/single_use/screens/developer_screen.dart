@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
 
 import '../../../storage/persistent/firestore/db.dart';
 import 'user_settings_screen.dart';
@@ -38,10 +39,8 @@ class DeveloperScreen extends StatelessWidget {
             ElevatedButton(
               child: Text("Create"),
               onPressed: () {
-                Db.chatRooms.doc("${Db.luUid}").set({
-                  "roleFor": {Db.luUid: "writerwer"}
-                }).then((value) {
-                  Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
+                Db.chatRooms.doc("${Db.luUid}").set(ChatRoom(roleFor: {Db.luUid: "owner"})).then((value) {
+                  // Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
                   return null;
                 });
               },

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
 
 import '../../../model/passives/daos/app_user/app_user.dart';
+import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../model/passives/daos/contacts/contacts.dart';
 
 ///
