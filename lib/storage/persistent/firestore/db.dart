@@ -37,11 +37,13 @@ class Db {
         toFirestore: (chatRoom, options) => chatRoom.toMap(),
       );
 
-  static CollectionReference<ChatRoomMsg> chatRoomMsgs(String chatRoomId) =>
-      instance.collection("$_chatRoomsCollectionPath/$chatRoomId/$_chatRoomsMsgsCollectionName").withConverter(
-            fromFirestore: (snapshot, options) => ChatRoomMsgMapper.fromMap(snapshot.data() ?? {}),
-            toFirestore: (chatRoomMsg, options) => chatRoomMsg.toMap(),
-          );
+  static CollectionReference<ChatRoomMsg> chatRoomMsgs(String chatRoomId) {
+    print("pathToMsgs: $_chatRoomsCollectionPath/$chatRoomId/$_chatRoomsMsgsCollectionName");
+    return instance.collection("$_chatRoomsCollectionPath/$chatRoomId/$_chatRoomsMsgsCollectionName").withConverter(
+          fromFirestore: (snapshot, options) => ChatRoomMsgMapper.fromMap(snapshot.data() ?? {}),
+          toFirestore: (chatRoomMsg, options) => chatRoomMsg.toMap(),
+        );
+  }
 
   static void updateAppUserData(AppUser loggedAppUser) {
     instance.runTransaction((transaction) async {

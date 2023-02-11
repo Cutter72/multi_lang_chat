@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
 import 'package:multi_lang_chat/model/passives/daos/chat_room_msg/chat_room_msg.dart';
+import 'package:multi_lang_chat/widgets/numerous_use/screens/sections/components/molecules/atoms/content_text_atom.dart';
 
 import '../../../storage/persistent/firestore/db.dart';
 import '../../numerous_use/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
@@ -36,10 +38,30 @@ class ChatRoomScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const Expanded(
-              child: Center(
-                child: WaitingIndicator(),
-              )),
+          Expanded(
+            child: StreamBuilder<QuerySnapshot<ChatRoomMsg>>(
+                stream: Db.chatRoomMsgs(chatRoom.uid).snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: WaitingIndicator(),
+                    );
+                  } else {
+                    if (snapshot.hasData) {
+                      var msgs = snapshot.data?.docs;
+                      msgs?.sort((a, b) => a.data().timeSentMillis - b.data().timeSentMillis);
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [...?msgs?.map((e) => ContentTextH("Message: ${e.data().content}")).toList()],
+                      );
+                    } else {
+                      return const Center(
+                        child: ContentTextH("No messages"),
+                      );
+                    }
+                  }
+                }),
+          ),
           Row(
             children: [
               Expanded(child: TextInputField("Type a message...", messageEditorController)),
