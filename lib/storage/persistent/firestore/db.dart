@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
 
 import '../../../model/passives/daos/app_user/app_user.dart';
 import '../../../model/passives/daos/contacts/contacts.dart';
@@ -29,7 +30,10 @@ class Db {
         toFirestore: (contacts, options) => contacts.toMap(),
       );
 
-  static CollectionReference<Map<String, dynamic>> get chatRooms => instance.collection(_chatRoomsCollectionPath);
+  static CollectionReference<ChatRoom> get chatRooms => instance.collection(_chatRoomsCollectionPath).withConverter(
+        fromFirestore: (snapshot, options) => ChatRoomMapper.fromMap(snapshot.data() ?? {}),
+        toFirestore: (chatRoom, options) => chatRoom.toMap(),
+      );
 
   static void updateAppUserData(AppUser loggedAppUser) {
     instance.runTransaction((transaction) async {
