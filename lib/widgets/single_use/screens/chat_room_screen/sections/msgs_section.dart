@@ -6,6 +6,7 @@ import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
 import '../../../../numerous_use/screens/sections/components/molecules/atoms/content_text_atom.dart';
 import '../../../../numerous_use/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
+import 'msg_bubble.dart';
 
 class MsgsSection extends StatelessWidget {
   const MsgsSection({
@@ -26,11 +27,13 @@ class MsgsSection extends StatelessWidget {
             );
           } else {
             if (snapshot.hasData) {
-              var msgs = snapshot.data?.docs;
-              msgs?.sort((a, b) => a.data().timeSentMillis - b.data().timeSentMillis);
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [...?msgs?.map((e) => ContentTextH("Message: ${e.data().content}")).toList()],
+              return SingleChildScrollView(
+                reverse: true,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: prepareMsgs(snapshot.data?.docs),
+                ),
               );
             } else {
               return const Center(
@@ -39,5 +42,28 @@ class MsgsSection extends StatelessWidget {
             }
           }
         });
+  }
+
+  List<Widget> prepareMsgs(List<QueryDocumentSnapshot<ChatRoomMsg>>? msgs) {
+    msgs?.sort((a, b) => a.data().timeSentMillis - b.data().timeSentMillis);
+    return [
+      ...?msgs?.map((msg) {
+        if (msg.data().roleFor[Db.luUid] == "owner") {
+          return MsgBubble(
+            content: msg.data().content,
+            timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
+            color: Colors.amberAccent,
+            alignment: Alignment.centerRight,
+          );
+        } else {
+          return MsgBubble(
+            content: msg.data().content,
+            timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
+            color: Colors.green,
+            alignment: Alignment.centerLeft,
+          );
+        }
+      }).toList(),
+    ];
   }
 }
