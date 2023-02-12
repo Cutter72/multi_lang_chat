@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'auth_gate_screen.dart';
-import 'chat_room_screen.dart';
+import 'chat_room_screen/chat_room_screen.dart';
 import 'contacts_screen/contacts_screen.dart';
 import 'contacts_search_screen/contacts_search_screen.dart';
 import 'developer_screen.dart';

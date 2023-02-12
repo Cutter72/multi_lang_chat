@@ -5,7 +5,7 @@ import '../../../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../../storage/runtime/app_globals.dart';
-import '../../../chat_room_screen.dart';
+import '../../../chat_room_screen/chat_room_screen.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
