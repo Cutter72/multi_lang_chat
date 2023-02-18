@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_lang_chat/model/passives/daos/chat_room/chat_room.dart';
 
+import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import 'user_settings_screen.dart';
 
@@ -83,6 +84,24 @@ class DeveloperScreen extends StatelessWidget {
                     print("MY.LOG.contacts: ${element.data()}");
                   });
                 });
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Crashlytics test crash"),
+              onPressed: () {
+                throw Exception("Test crash MSG");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Crashlytics test Future crash"),
+              onPressed: () async {
+                throw Exception("Test Future crash MSG");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Crashlytics log MSG"),
+              onPressed: () {
+                FirebaseCrashlytics.instance.log("Crashlytics log MSG");
               },
             ),
           ],
