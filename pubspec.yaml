@@ -45,6 +45,8 @@ dependencies:
   dart_mappable: ^2.0.0-dev.11
   # https://pub.dev/packages/firebase_crashlytics
   firebase_crashlytics: ^3.0.12
+  logging: ^1.1.1
+  logging_to_logcat: ^0.1.1
 
 dev_dependencies:
   flutter_test:

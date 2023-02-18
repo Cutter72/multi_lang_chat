@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -7,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
+import 'package:logging/logging.dart';
+import 'package:logging_to_logcat/logging_to_logcat.dart';
 
 import 'firebase_options.dart';
 import 'storage/persistent/firestore/db.dart';
@@ -17,11 +21,25 @@ import 'widgets/single_use/screens/app_root_screen.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 void main() async {
+  await initLogger();
   await initFirebase();
   await initCrashlytics();
   await initLocale();
   initFirebaseAuthUiProviders();
   runApp(const AppRootScreen());
+}
+
+Future<void> initLogger() async {
+  Logger.root.level = Level.ALL;
+  if (Platform.isAndroid) {
+    await Logger.root.activateLogcat();
+  } else {
+    Logger.root.onRecord.listen((record) {
+      // Logs can be intercepted here and used i.e. to write them to file
+      // Print to console if not Android platform
+      print(record.message);
+    });
+  }
 }
 
 bool _isLocaleInitialized = false;

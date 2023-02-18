@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/actives/app_logger.dart';
 import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import 'user_settings_screen.dart';
@@ -102,6 +103,42 @@ class DeveloperScreen extends StatelessWidget {
               child: const Text("Crashlytics log MSG"),
               onPressed: () {
                 FirebaseCrashlytics.instance.log("Crashlytics log MSG");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log verbose"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).v("Verbose message");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log debug"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).d("Debug message");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log info"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).i("Info message");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log warn"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).w("Warn message");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log error"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).e("Error message");
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Log WTF"),
+              onPressed: () {
+                AppLogger(runtimeType.toString()).wtf("WTF message");
               },
             ),
           ],
