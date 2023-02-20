@@ -32,17 +32,17 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   goToPrivateChatRoomWith(AppUser targetUser) async {
-    ChatRoom? existingChatRoom = await isChatRoomAlreadyExist(loggedAppUser.uid, targetUser.uid);
+    ChatRoom? existingChatRoom = await resolveExistingChatRoom(laUid, targetUser.uid);
     if (existingChatRoom != null) {
       goTo(existingChatRoom);
     } else {
-      var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, loggedAppUser.uid!, targetUser.uid!);
+      var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, laUid, targetUser.uid!);
       Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
       goTo(newChatRoom);
     }
   }
 
-  Future<ChatRoom?> isChatRoomAlreadyExist(String? currentUserUid, String? targetUserUid) async {
+  Future<ChatRoom?> resolveExistingChatRoom(String? currentUserUid, String? targetUserUid) async {
     return await Db.chatRooms
         .where(FieldPath.fromString("roleFor.$currentUserUid"), isEqualTo: "owner")
         .where(FieldPath.fromString("roleFor.$targetUserUid"), isEqualTo: "owner")
