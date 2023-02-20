@@ -39,6 +39,12 @@ class DeveloperScreen extends StatelessWidget {
               },
             ),
             ElevatedButton(
+              child: Text("Delete FirebaseFirestore clearPersistence"),
+              onPressed: () {
+                Db.instance.clearPersistence();
+              },
+            ),
+            ElevatedButton(
               child: Text("Create"),
               onPressed: () {
                 Db.chatRooms.doc("${Db.luUid}").set(ChatRoom(uid: "uid", roleFor: {Db.luUid: "owner"})).then((value) {
