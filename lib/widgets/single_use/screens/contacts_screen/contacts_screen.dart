@@ -8,11 +8,16 @@ import 'sections/accepted_contacts_section.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class ContactsScreen extends StatelessWidget {
+class ContactsScreen extends StatefulWidget {
   static const routeName = '/contacts';
 
   const ContactsScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ContactsScreen> createState() => _ContactsScreenState();
+}
+
+class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,10 +33,10 @@ class ContactsScreen extends StatelessWidget {
   }
 
   void _goToContactsSearchScreen(BuildContext context) {
-    Navigator.pushNamed(context, ContactsSearchScreen.routeName);
+    Navigator.pushNamed(context, ContactsSearchScreen.routeName).then((value) => setState(() {}));
   }
 
   void _goToDeveloperScreen(BuildContext context) {
-    Navigator.pushNamed(context, DeveloperScreen.routeName);
+    Navigator.pushNamed(context, DeveloperScreen.routeName).then((value) => setState(() {}));
   }
 }
