@@ -14,7 +14,7 @@ class AppLogger {
   final String className;
 
   AppLogger(this.className) {
-    _logging = Logger(className);
+    _logging = Logger("");
     if (Platform.isAndroid) {
       logFormat = _androidFormat;
     } else {
@@ -51,10 +51,11 @@ class AppLogger {
     _logging.log(logLevel, logFormat(levelSymbol, tag, message), error, stackTrace);
   }
 
-  String _androidFormat(Object? levelSymbol, Object? tag, Object? message) => "${_prepareTag(tag)}$message";
+  String _androidFormat(Object? levelSymbol, Object? tag, Object? message) =>
+      "[$className${_prepareTag(tag)}]\n$message";
 
   String _otherFormat(Object? levelSymbol, Object? tag, Object? message) =>
-      "$levelSymbol/$className: ${_prepareTag(tag)}$message";
+      "[$levelSymbol/$className${_prepareTag(tag)}]\n$message";
 
-  String _prepareTag(Object? tag) => tag != null ? "[$tag] " : "";
+  String _prepareTag(Object? tag) => tag != null ? "/$tag" : "";
 }
