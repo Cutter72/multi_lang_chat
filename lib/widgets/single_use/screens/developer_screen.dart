@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../model/actives/app_logger.dart';
 import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
+import '../../../storage/runtime/app_globals.dart';
 import 'user_settings_screen.dart';
 
 ///
@@ -27,64 +28,61 @@ class DeveloperScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              child: Text("Log out"),
+              child: const Text("Log out"),
               onPressed: () {
                 FirebaseAuth.instance.signOut();
               },
             ),
             ElevatedButton(
-              child: Text("Go to user settings"),
+              child: const Text("Go to user settings"),
               onPressed: () {
                 Navigator.pushNamed(context, UserSettingsScreen.routeName);
               },
             ),
             ElevatedButton(
-              child: Text("Delete FirebaseFirestore clearPersistence"),
+              child: const Text("Delete FirebaseFirestore clearPersistence"),
               onPressed: () {
                 Db.instance.clearPersistence();
               },
             ),
             ElevatedButton(
-              child: Text("Create"),
+              child: const Text("Create"),
               onPressed: () {
-                Db.chatRooms.doc("${Db.luUid}").set(ChatRoom(uid: "uid", roleFor: {Db.luUid: "owner"})).then((value) {
-                  // Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").set({"data": "Create msg work!wer"});
+                Db.chatRooms.doc(lauUid).set(ChatRoom(uid: "uid", roleFor: {lauUid: "owner"})).then((value) {
+                  // Db.chatRooms.doc("${laUid}/msgs/${laUid}").set({"data": "Create msg work!wer"});
                   return null;
                 });
               },
             ),
             ElevatedButton(
-              child: Text("Read"),
+              child: const Text("Read"),
               onPressed: () {
-                Db.chatRooms
-                    .doc("${Db.luUid}/msgs/${Db.luUid}")
-                    .get()
-                    .then((snap) => print("Read msg work! data = $snap"));
+                Db.chatRooms.doc("$lauUid/msgs/$lauUid").get().then((snap) => print("Read msg work! data = $snap"));
               },
             ),
             ElevatedButton(
-              child: Text("Update"),
+              child: const Text("Update"),
               onPressed: () {
-                Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").update({"data": "Update msg work!"});
+                Db.chatRooms.doc("$lauUid/msgs/$lauUid").update({"data": "Update msg work!"});
                 // Db.contacts
-                //     .where(FieldPath.fromString("pending.${Db.luUid}"),
+                //     .where(FieldPath.fromString("pending.${laUid}"),
                 //         arrayContains: loggedAppUser.toMap())
                 //     .then((value) => print(value));
               },
             ),
             ElevatedButton(
-              child: Text("Delete"),
+              child: const Text("Delete"),
               onPressed: () {
-                Db.chatRooms.doc("${Db.luUid}/msgs/${Db.luUid}").delete().then((_) => print("Delete msg work!"));
+                Db.chatRooms.doc("$lauUid/msgs/$lauUid").delete().then((_) => print("Delete msg work!"));
               },
             ),
             ElevatedButton(
               child: const Text("Find contact of me"),
               onPressed: () {
                 Db.contacts
-                    .where(FieldPath.fromString("accepted.${Db.luUid}"), isNotEqualTo: null)
-                    .where(FieldPath.fromString("rejected.${Db.luUid}"), isNotEqualTo: null)
-                    .where(FieldPath.fromString("pending.${Db.luUid}"), isNotEqualTo: null)
+                    .where(FieldPath.fromString("accepted.$lauUid"), isNotEqualTo: null)
+                    .where(FieldPath.fromString("rejected.$lauUid"), isNotEqualTo: null)
+                    .where(FieldPath.fromString("pending.$lauUid"), isNotEqualTo: null)
                     .get()
                     .then((value) {
                   value.docs.forEach((element) {

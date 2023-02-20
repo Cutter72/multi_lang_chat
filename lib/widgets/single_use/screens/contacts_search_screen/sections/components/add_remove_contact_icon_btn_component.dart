@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../../storage/persistent/firestore/providers/contacts_provider.dart';
+import '../../../../../../storage/runtime/app_globals.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -44,7 +45,7 @@ class _AddRemoveContactIconBtnState extends State<AddRemoveContactIconBtn> {
   }
 
   void _removeContactFromDb(AppUser user) {
-    Db.contacts.doc(Db.luUid).set(ContactsProvider.contacts, SetOptions(merge: true)).onError((error, stackTrace) {
+    Db.contacts.doc(lauUid).set(ContactsProvider.contacts, SetOptions(merge: true)).onError((error, stackTrace) {
       _addContactToMemory(user);
     });
   }
@@ -61,7 +62,7 @@ class _AddRemoveContactIconBtnState extends State<AddRemoveContactIconBtn> {
 
   void _addContactToDb(AppUser user) {
     Db.contacts
-        .doc(Db.luUid)
+        .doc(lauUid)
         .set(ContactsProvider.contacts, SetOptions(merge: true))
         .onError((error, stackTrace) => _removeContactFromMemory(user));
   }

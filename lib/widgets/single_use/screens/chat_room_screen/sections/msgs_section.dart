@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
+import '../../../../../storage/runtime/app_globals.dart';
 import '../../../../numerous_use/screens/sections/components/molecules/atoms/content_text_atom.dart';
 import '../../../../numerous_use/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 import 'msg_bubble.dart';
@@ -48,7 +49,7 @@ class MsgsSection extends StatelessWidget {
     msgs?.sort((a, b) => a.data().timeSentMillis - b.data().timeSentMillis);
     return [
       ...?msgs?.map((msg) {
-        if (msg.data().roleFor[Db.luUid] == "owner") {
+        if (msg.data().roleFor[lauUid] == "owner") {
           return MsgBubble(
             content: msg.data().content,
             timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),

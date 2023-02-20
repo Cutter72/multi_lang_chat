@@ -32,11 +32,11 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   goToPrivateChatRoomWith(AppUser targetUser) async {
-    ChatRoom? existingChatRoom = await resolveExistingChatRoom(laUid, targetUser.uid);
+    ChatRoom? existingChatRoom = await resolveExistingChatRoom(lauUid, targetUser.uid);
     if (existingChatRoom != null) {
       goTo(existingChatRoom);
     } else {
-      var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, laUid, targetUser.uid!);
+      var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, lauUid, targetUser.uid!);
       Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
       goTo(newChatRoom);
     }

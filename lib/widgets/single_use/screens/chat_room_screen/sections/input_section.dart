@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
+import '../../../../../storage/runtime/app_globals.dart';
 import '../../../../numerous_use/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
 
 class InputSection extends StatelessWidget {
@@ -29,7 +30,7 @@ class InputSection extends StatelessWidget {
   }
 
   void sendMessage(String message, ChatRoom chatRoom) {
-    var msg = ChatRoomMsg.create(message, Db.luUid);
+    var msg = ChatRoomMsg.create(message, lauUid);
     print(msg);
     Db.chatRoomMsgs(chatRoom.uid).doc().set(msg);
   }

@@ -53,13 +53,13 @@ class UsersProvider {
       // https://firebase.google.com/docs/firestore/query-data/queries?hl=en&authuser=1#query_limitations
       query = Db.users
           .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10))
-          .where(FieldPath.documentId, isNotEqualTo: laUid);
+          .where(FieldPath.documentId, isNotEqualTo: lauUid);
     } else {
       // Only one arrayContains or arrayContainsAny clause per query is allowed in Firestore.
       // https://firebase.google.com/docs/firestore/query-data/queries?authuser=1#array_membership
       query = Db.users
           .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList())
-          .where(FieldPath.documentId, isNotEqualTo: laUid);
+          .where(FieldPath.documentId, isNotEqualTo: lauUid);
     }
     return query;
   }
