@@ -7,6 +7,8 @@ import '../../model/passives/daos/app_user/app_user.dart';
 ///
 late AppUser loggedAppUser;
 
+String get laUid => loggedAppUser.uid ?? "";
+
 final List<AuthProvider> authProviders = [EmailAuthProvider()];
 
 const loremIpsum =

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../model/actives/keywords_splitter.dart';
 import '../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../model/passives/keywords.dart';
+import '../../../runtime/app_globals.dart';
 import '../db.dart';
 
 ///
@@ -50,11 +51,15 @@ class UsersProvider {
     if (keywordsToSearch.length > 10) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
       // https://firebase.google.com/docs/firestore/query-data/queries?hl=en&authuser=1#query_limitations
-      query = Db.users.where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10));
+      query = Db.users
+          .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10))
+          .where(FieldPath.documentId, isNotEqualTo: laUid);
     } else {
       // Only one arrayContains or arrayContainsAny clause per query is allowed in Firestore.
       // https://firebase.google.com/docs/firestore/query-data/queries?authuser=1#array_membership
-      query = Db.users.where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList());
+      query = Db.users
+          .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList())
+          .where(FieldPath.documentId, isNotEqualTo: laUid);
     }
     return query;
   }
