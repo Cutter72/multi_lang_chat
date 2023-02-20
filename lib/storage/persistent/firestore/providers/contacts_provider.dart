@@ -13,17 +13,13 @@ class ContactsProvider with ChangeNotifier {
   static Contacts get contacts => _contacts == null ? Contacts(accepted: {}, rejected: {}, pending: {}) : _contacts!;
 
   static Future<Contacts> fetchContacts() async {
-    if (_contacts == null) {
-      return await Db.contacts.doc(Db.luUid).get().then((snapshot) {
-        if (snapshot.data() == null) {
-          return contacts;
-        } else {
-          _contacts = snapshot.data();
-          return contacts;
-        }
-      }).onError((error, stackTrace) => contacts);
-    } else {
-      return contacts;
-    }
+    return await Db.contacts.doc(Db.luUid).get().then((snapshot) {
+      if (snapshot.data() == null) {
+        return contacts;
+      } else {
+        _contacts = snapshot.data();
+        return contacts;
+      }
+    }).onError((error, stackTrace) => contacts);
   }
 }
