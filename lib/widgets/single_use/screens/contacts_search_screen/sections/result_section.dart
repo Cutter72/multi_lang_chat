@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../storage/persistent/firestore/providers/users_provider.dart';
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
 import 'components/result_component.dart';
 
 ///

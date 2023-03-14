@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

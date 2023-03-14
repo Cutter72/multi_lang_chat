@@ -4,7 +4,7 @@ import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../storage/runtime/app_globals.dart';
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
 
 class InputSection extends StatelessWidget {
   const InputSection({

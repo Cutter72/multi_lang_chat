@@ -5,8 +5,8 @@ import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../storage/runtime/app_globals.dart';
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/content_text_atom.dart';
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 import 'msg_bubble.dart';
 
 class MsgsSection extends StatelessWidget {

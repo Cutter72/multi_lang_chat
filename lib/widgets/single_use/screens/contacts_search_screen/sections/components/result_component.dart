@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
-import '../../../../../numerous_use/screens/sections/components/contact_list_component.dart';
-import '../../../../../numerous_use/screens/sections/components/molecules/atoms/something_went_wrong_atom.dart';
-import '../../../../../numerous_use/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
+import '../../../../../common/screens/sections/components/contact_list_component.dart';
+import '../../../../../common/screens/sections/components/molecules/atoms/something_went_wrong_atom.dart';
+import '../../../../../common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 import 'add_remove_contact_icon_btn_component.dart';
 
 ///

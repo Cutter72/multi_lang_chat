@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../model/passives/daos/app_user/app_user.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import '../../../storage/runtime/app_globals.dart';
-import '../../numerous_use/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
+import '../../common/screens/sections/components/molecules/atoms/sub_title_text_atom.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>

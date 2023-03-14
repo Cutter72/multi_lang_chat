@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../numerous_use/screens/sections/components/molecules/atoms/content_text_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 
 class MsgBubble extends StatelessWidget {
   final String content;
