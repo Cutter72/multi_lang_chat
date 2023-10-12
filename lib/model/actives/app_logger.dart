@@ -7,18 +7,23 @@ import 'package:logging/logging.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class AppLogger {
-  final _crashlytics = FirebaseCrashlytics.instance;
-  late final Logger _logging;
-  late final Function logFormat;
+  final FirebaseCrashlytics _crashlytics;
 
-  final String className;
+  final Logger _logger;
+  final Function _logFormat;
+  final String _className;
 
-  AppLogger(this.className) {
-    _logging = Logger("");
+  const AppLogger._create(logFormat, logging, className, crashlytics)
+      : _logFormat = logFormat,
+        _logger = logging,
+        _className = className,
+        _crashlytics = crashlytics;
+
+  factory AppLogger.get(String className) {
     if (Platform.isAndroid) {
-      logFormat = _androidFormat;
+      return AppLogger._create(_androidFormat, Logger(className), className, FirebaseCrashlytics.instance);
     } else {
-      logFormat = _otherFormat;
+      return AppLogger._create(_otherFormat, Logger(className), className, FirebaseCrashlytics.instance);
     }
   }
 
@@ -47,15 +52,15 @@ class AppLogger {
   }
 
   void _log(Level logLevel, String levelSymbol, Object? message, {Object? tag, Object? error, StackTrace? stackTrace}) {
-    _crashlytics.log(_otherFormat(levelSymbol, tag, message));
-    _logging.log(logLevel, logFormat(levelSymbol, tag, message), error, stackTrace);
+    _crashlytics.log(_otherFormat(_className, levelSymbol, tag, message));
+    _logger.log(logLevel, _logFormat(_className, levelSymbol, tag, message), error, stackTrace);
   }
 
-  String _androidFormat(Object? levelSymbol, Object? tag, Object? message) =>
-      "[$className${_prepareTag(tag)}]\n$message";
+  static String _androidFormat(Object? className, Object? levelSymbol, Object? tag, Object? message) =>
+      "${_prepareCustomTag(tag)}$message";
 
-  String _otherFormat(Object? levelSymbol, Object? tag, Object? message) =>
-      "[$levelSymbol/$className${_prepareTag(tag)}]\n$message";
+  static String _otherFormat(Object? className, Object? levelSymbol, Object? tag, Object? message) =>
+      "$levelSymbol/$className: ${_prepareCustomTag(tag)}$message";
 
-  String _prepareTag(Object? tag) => tag != null ? "/$tag" : "";
+  static String _prepareCustomTag(Object? tag) => tag != null ? "[$tag] " : "";
 }

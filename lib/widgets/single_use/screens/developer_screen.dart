@@ -112,37 +112,37 @@ class DeveloperScreen extends StatelessWidget {
             ElevatedButton(
               child: const Text("Log verbose"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).v("Verbose message");
+                AppLogger.get(runtimeType.toString()).v("Verbose message");
               },
             ),
             ElevatedButton(
               child: const Text("Log debug"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).d("Debug message");
+                AppLogger.get(runtimeType.toString()).d("Debug message");
               },
             ),
             ElevatedButton(
               child: const Text("Log info"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).i("Info message");
+                AppLogger.get(runtimeType.toString()).i("Info message");
               },
             ),
             ElevatedButton(
               child: const Text("Log warn"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).w("Warn message");
+                AppLogger.get(runtimeType.toString()).w("Warn message");
               },
             ),
             ElevatedButton(
               child: const Text("Log error"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).e("Error message");
+                AppLogger.get(runtimeType.toString()).e("Error message");
               },
             ),
             ElevatedButton(
               child: const Text("Log WTF"),
               onPressed: () {
-                AppLogger(runtimeType.toString()).wtf("WTF message");
+                AppLogger.get(runtimeType.toString()).wtf("WTF message");
               },
             ),
           ],

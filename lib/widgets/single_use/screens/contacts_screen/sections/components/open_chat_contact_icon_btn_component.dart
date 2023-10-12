@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:multi_lang_chat/model/actives/app_logger.dart';
 
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../../../model/passives/daos/chat_room/chat_room.dart';
@@ -12,8 +13,9 @@ import '../../../chat_room_screen/chat_room_screen.dart';
 ///
 class OpenChatContactIconBtn extends StatefulWidget {
   final AppUser user;
+  final AppLogger logger = AppLogger.get("OpenChatContactIconBtn");
 
-  const OpenChatContactIconBtn(this.user, {Key? key}) : super(key: key);
+  OpenChatContactIconBtn(this.user, {Key? key}) : super(key: key);
 
   @override
   State<OpenChatContactIconBtn> createState() => _OpenChatContactIconBtnState();
