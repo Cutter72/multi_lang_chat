@@ -69,7 +69,6 @@ Future<void> initCrashlytics() async {
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    // FirebaseCrashlytics.instance.crash();
     return false;
   };
 }

@@ -11,11 +11,12 @@ import '../../../chat_room_screen/chat_room_screen.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("OpenChatContactIconBtn");
+
 class OpenChatContactIconBtn extends StatefulWidget {
   final AppUser user;
-  final AppLogger logger = AppLogger.get("OpenChatContactIconBtn");
 
-  OpenChatContactIconBtn(this.user, {Key? key}) : super(key: key);
+  const OpenChatContactIconBtn(this.user, {Key? key}) : super(key: key);
 
   @override
   State<OpenChatContactIconBtn> createState() => _OpenChatContactIconBtnState();
@@ -67,7 +68,6 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   handleError(Object? error, StackTrace stackTrace) {
-    print(error);
-    print(stackTrace);
+    _logger.e("Failed to create new chat room", stackTrace: stackTrace, error: error);
   }
 }
