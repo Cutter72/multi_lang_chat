@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../model/actives/app_logger.dart';
 import '../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../contacts_search_screen/contacts_search_screen.dart';
 import '../developer_screen.dart';
@@ -9,6 +10,8 @@ import 'sections/msgs_section.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("ChatRoomScreen");
+
 class ChatRoomScreen extends StatelessWidget {
   static const routeName = '/chat_room';
   final messageEditorController = TextEditingController();
@@ -47,10 +50,12 @@ class ChatRoomScreen extends StatelessWidget {
   }
 
   void _goToContactsSearchScreen(BuildContext context) {
+    _logger.v("_goToContactsSearchScreen");
     Navigator.pushNamed(context, ContactsSearchScreen.routeName);
   }
 
   void _goToDeveloperScreen(BuildContext context) {
+    _logger.v("_goToDeveloperScreen");
     Navigator.pushNamed(context, DeveloperScreen.routeName);
   }
 }

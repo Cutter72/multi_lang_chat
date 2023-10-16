@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../model/actives/app_logger.dart';
 import '../../../../storage/persistent/firestore/providers/contacts_provider.dart';
 import '../contacts_search_screen/contacts_search_screen.dart';
 import '../developer_screen.dart';
@@ -8,6 +9,8 @@ import 'sections/accepted_contacts_section.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("ContactsScreen");
+
 class ContactsScreen extends StatefulWidget {
   static const routeName = '/contacts';
 
@@ -33,10 +36,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   void _goToContactsSearchScreen(BuildContext context) {
+    _logger.v("_goToContactsSearchScreen");
     Navigator.pushNamed(context, ContactsSearchScreen.routeName).then((value) => setState(() {}));
   }
 
   void _goToDeveloperScreen(BuildContext context) {
+    _logger.v("_goToDeveloperScreen");
     Navigator.pushNamed(context, DeveloperScreen.routeName).then((value) => setState(() {}));
   }
 }

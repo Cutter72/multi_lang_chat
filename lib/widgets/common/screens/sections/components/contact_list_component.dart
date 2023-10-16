@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../model/actives/app_logger.dart';
 import '../../../../../model/passives/daos/app_user/app_user.dart';
 import 'contact_list_item_component.dart';
 import 'molecules/atoms/content_text_atom.dart';
@@ -7,6 +8,8 @@ import 'molecules/atoms/content_text_atom.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("ContactList");
+
 class ContactList extends StatelessWidget {
   final List<AppUser> users;
   final Widget Function(AppUser) trailingBtn;
@@ -26,11 +29,12 @@ class ContactList extends StatelessWidget {
           );
         }
       },
-      itemCount: itemCount(users),
+      itemCount: getMinimumItemCount(users),
     );
   }
 
-  int? itemCount(List<AppUser> data) {
+  int? getMinimumItemCount(List<AppUser> data) {
+    _logger.v("getMinimumItemCount");
     // minimum 1 to show No items text if null or empty
     return data.isNotEmpty ? data.length : 1;
   }

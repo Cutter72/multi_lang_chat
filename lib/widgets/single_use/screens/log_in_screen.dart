@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../model/actives/app_logger.dart';
 import '../../../model/passives/daos/app_user/app_user.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import '../../../storage/runtime/app_globals.dart';
@@ -10,6 +11,8 @@ import '../../common/screens/sections/components/molecules/atoms/sub_title_text_
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("LogInScreen");
+
 class LogInScreen extends StatelessWidget {
   const LogInScreen({Key? key}) : super(key: key);
 
@@ -38,6 +41,7 @@ class LogInScreen extends StatelessWidget {
   }
 
   void createUser(User? user) {
+    _logger.v("createUser");
     if (user != null) {
       var displayName = user.displayName;
       if (displayName == null && user.email != null) {

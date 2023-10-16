@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../../model/actives/app_logger.dart';
 import 'sections/input_section.dart';
 import 'sections/result_section.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("ContactsSearchScreen");
+
 class ContactsSearchScreen extends StatefulWidget {
   static const routeName = '/contacts-search';
 
@@ -54,6 +57,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   }
 
   void initTextFieldsListeners() {
+    _logger.v("initTextFieldsListeners");
     if (!_isFieldsListenersInitialized) {
       nameFieldController.addListener(fieldsListener);
       emailFieldController.addListener(fieldsListener);
@@ -62,6 +66,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   }
 
   void fieldsListener() {
+    _logger.v("fieldsListener");
     setState(() {});
   }
 }

@@ -12,6 +12,8 @@ import 'user_settings_screen.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("DeveloperScreen");
+
 class DeveloperScreen extends StatelessWidget {
   static const routeName = '/developer';
 
@@ -57,7 +59,7 @@ class DeveloperScreen extends StatelessWidget {
             ElevatedButton(
               child: const Text("Read"),
               onPressed: () {
-                Db.chatRooms.doc("$lauUid/msgs/$lauUid").get().then((snap) => print("Read msg work! data = $snap"));
+                Db.chatRooms.doc("$lauUid/msgs/$lauUid").get().then((snap) => _logger.d("Read msg work! data = $snap"));
               },
             ),
             ElevatedButton(
@@ -67,13 +69,13 @@ class DeveloperScreen extends StatelessWidget {
                 // Db.contacts
                 //     .where(FieldPath.fromString("pending.${laUid}"),
                 //         arrayContains: loggedAppUser.toMap())
-                //     .then((value) => print(value));
+                //     .then((value) => _logger.d(value));
               },
             ),
             ElevatedButton(
               child: const Text("Delete"),
               onPressed: () {
-                Db.chatRooms.doc("$lauUid/msgs/$lauUid").delete().then((_) => print("Delete msg work!"));
+                Db.chatRooms.doc("$lauUid/msgs/$lauUid").delete().then((_) => _logger.d("Delete msg work!"));
               },
             ),
             ElevatedButton(
@@ -86,7 +88,7 @@ class DeveloperScreen extends StatelessWidget {
                     .get()
                     .then((value) {
                   value.docs.forEach((element) {
-                    print("MY.LOG.contacts: ${element.data()}");
+                    _logger.d("MY.LOG.contacts: ${element.data()}");
                   });
                 });
               },
@@ -112,37 +114,37 @@ class DeveloperScreen extends StatelessWidget {
             ElevatedButton(
               child: const Text("Log verbose"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).v("Verbose message");
+                _logger.v("Verbose message");
               },
             ),
             ElevatedButton(
               child: const Text("Log debug"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).d("Debug message");
+                _logger.d("Debug message");
               },
             ),
             ElevatedButton(
               child: const Text("Log info"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).i("Info message");
+                _logger.i("Info message");
               },
             ),
             ElevatedButton(
               child: const Text("Log warn"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).w("Warn message");
+                _logger.w("Warn message");
               },
             ),
             ElevatedButton(
               child: const Text("Log error"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).e("Error message");
+                _logger.e("Error message");
               },
             ),
             ElevatedButton(
               child: const Text("Log WTF"),
               onPressed: () {
-                AppLogger.get(runtimeType.toString()).wtf("WTF message");
+                _logger.wtf("What a Terrible Failure message");
               },
             ),
           ],

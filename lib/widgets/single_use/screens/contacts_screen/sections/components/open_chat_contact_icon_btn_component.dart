@@ -35,6 +35,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   goToPrivateChatRoomWith(AppUser targetUser) async {
+    _logger.v("goToPrivateChatRoomWith");
     ChatRoom? existingChatRoom = await resolveExistingChatRoom(lauUid, targetUser.uid);
     if (existingChatRoom != null) {
       goTo(existingChatRoom);
@@ -46,6 +47,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   Future<ChatRoom?> resolveExistingChatRoom(String? currentUserUid, String? targetUserUid) async {
+    _logger.v("resolveExistingChatRoom");
     return await Db.chatRooms
         .where(FieldPath.fromString("roleFor.$currentUserUid"), isEqualTo: "owner")
         .where(FieldPath.fromString("roleFor.$targetUserUid"), isEqualTo: "owner")
@@ -64,6 +66,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   void goTo(ChatRoom chatRoomToGo) {
+    _logger.v("goTo: ${chatRoomToGo.uid}");
     Navigator.pushNamed(context, ChatRoomScreen.routeName, arguments: chatRoomToGo);
   }
 

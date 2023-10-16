@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../model/actives/app_logger.dart';
 import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../storage/runtime/app_globals.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/text_input_field_atom.dart';
+
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
+final AppLogger _logger = AppLogger.get("InputSection");
 
 class InputSection extends StatelessWidget {
   const InputSection({
@@ -30,8 +36,9 @@ class InputSection extends StatelessWidget {
   }
 
   void sendMessage(String message, ChatRoom chatRoom) {
+    _logger.v("sendMessage");
     var msg = ChatRoomMsg.create(message, lauUid);
-    print(msg);
+    _logger.i("Msg: $msg");
     Db.chatRoomMsgs(chatRoom.uid).doc().set(msg);
   }
 }

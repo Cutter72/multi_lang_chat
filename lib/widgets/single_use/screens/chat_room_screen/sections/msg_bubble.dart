@@ -3,6 +3,9 @@ import 'package:intl/intl.dart';
 
 import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 
+///
+/// @author Paweł Drelich <drelich_pawel@o2.pl>
+///
 class MsgBubble extends StatelessWidget {
   final String content;
   final DateTime timeSent;
