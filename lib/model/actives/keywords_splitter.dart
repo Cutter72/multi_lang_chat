@@ -1,8 +1,13 @@
+import 'app_logger.dart';
+
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("KeywordsSplitter");
+
 class KeywordsSplitter {
   Set<String> splitIntoKeywords(String? data) {
+    _logger.v("splitIntoKeywords");
     // All Except: [^
     // Any Letter In Any Language \p{L}
     // Digits \d
