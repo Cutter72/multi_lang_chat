@@ -26,7 +26,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => goToPrivateChatRoomWith(widget.user),
+      onPressed: () => _goToPrivateChatRoomWith(widget.user),
       icon: const Icon(
         Icons.chat,
         color: Colors.green,
@@ -34,19 +34,25 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
     );
   }
 
-  goToPrivateChatRoomWith(AppUser targetUser) async {
+  _goToPrivateChatRoomWith(AppUser targetUser) async {
     _logger.v("goToPrivateChatRoomWith");
-    ChatRoom? existingChatRoom = await resolveExistingChatRoom(lauUid, targetUser.uid);
+    ChatRoom? existingChatRoom = await _resolveExistingChatRoom(lauUid, targetUser.uid);
     if (existingChatRoom != null) {
-      goTo(existingChatRoom);
+      _goTo(existingChatRoom);
     } else {
       var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, lauUid, targetUser.uid!);
-      Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) => handleError(error, stackTrace));
-      goTo(newChatRoom);
+      _saveNewPrivateChatRoomToDb(newChatRoom);
+      _goTo(newChatRoom);
     }
   }
 
-  Future<ChatRoom?> resolveExistingChatRoom(String? currentUserUid, String? targetUserUid) async {
+  void _saveNewPrivateChatRoomToDb(ChatRoom newChatRoom) {
+    _logger.d("saveNewPrivateChatRoomToDb: ${newChatRoom.uid}");
+    Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) =>
+        _logger.asyncE("Failed to create a new chat room", stackTrace: stackTrace, error: error));
+  }
+
+  Future<ChatRoom?> _resolveExistingChatRoom(String? currentUserUid, String? targetUserUid) async {
     _logger.v("resolveExistingChatRoom");
     return await Db.chatRooms
         .where(FieldPath.fromString("roleFor.$currentUserUid"), isEqualTo: "owner")
@@ -56,21 +62,19 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
         .then(
       (querySnapshot) {
         if (querySnapshot.size > 0) {
+          _logger.d("Chat room for target $targetUserUid exist");
           return querySnapshot.docs.first.data();
         } else {
-          // chat room for currentUserUid & targetUserUid not exist
+          _logger.d("Chat room for target $targetUserUid not exist");
           return null;
         }
       },
-    );
+    ).onError((error, stackTrace) =>
+            _logger.asyncE("Failed to resolve an existing chat room", stackTrace: stackTrace, error: error));
   }
 
-  void goTo(ChatRoom chatRoomToGo) {
+  void _goTo(ChatRoom chatRoomToGo) {
     _logger.d("goTo: ${chatRoomToGo.uid}");
     Navigator.pushNamed(context, ChatRoomScreen.routeName, arguments: chatRoomToGo);
-  }
-
-  handleError(Object? error, StackTrace stackTrace) {
-    _logger.e("Failed to create new chat room", stackTrace: stackTrace, error: error);
   }
 }

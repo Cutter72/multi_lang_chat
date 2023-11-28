@@ -87,9 +87,9 @@ class DeveloperScreen extends StatelessWidget {
                     .where(FieldPath.fromString("pending.$lauUid"), isNotEqualTo: null)
                     .get()
                     .then((value) {
-                  value.docs.forEach((element) {
+                  for (var element in value.docs) {
                     _logger.d("MY.LOG.contacts: ${element.data()}");
-                  });
+                  }
                 });
               },
             ),

@@ -74,7 +74,7 @@ class Db {
 
   static void _updateAppUserDataInDocument(
       Transaction transaction, QueryDocumentSnapshot<Contacts> docSnapshot, AppUser loggedAppUser) {
-    _logger.d("updateAppUserDataInDocument: ${docSnapshot.id}");
+    _logger.d("_updateAppUserDataInDocument: ${docSnapshot.id}");
     transaction.update(docSnapshot.reference, docSnapshot.data().update(loggedAppUser).toMap());
   }
 }

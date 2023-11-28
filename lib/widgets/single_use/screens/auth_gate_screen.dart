@@ -48,13 +48,17 @@ class AuthGateScreen extends StatelessWidget {
 
   void _userDataChangeListener(updatedUser) {
     _logger.v("_userChangeListener");
-    _setupLoggedUserGlobally(updatedUser);
-    Db.users.doc(lauUid).get().then((snapshot) {
-      if (_isUserDataOutdated(snapshot.data())) {
-        Db.updateAppUserData(loggedAppUser);
-      }
-      return null;
-    });
+    if (updatedUser != null) {
+      _setupLoggedUserGlobally(updatedUser);
+      Db.users.doc(lauUid).get().then((snapshot) {
+        if (_isUserDataOutdated(snapshot.data())) {
+          Db.updateAppUserData(loggedAppUser);
+        }
+        return null;
+      });
+    } else {
+      _logger.v("User logged out");
+    }
   }
 
   bool _isUserDataOutdated(AppUser? oldAppUserData) {
