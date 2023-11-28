@@ -39,7 +39,7 @@ class MsgsSection extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: prepareMsgs(snapshot.data?.docs),
+                  children: _prepareMsgs(snapshot.data?.docs),
                 ),
               );
             } else {
@@ -51,27 +51,41 @@ class MsgsSection extends StatelessWidget {
         });
   }
 
-  List<Widget> prepareMsgs(List<QueryDocumentSnapshot<ChatRoomMsg>>? msgs) {
-    _logger.v("prepareMsgs");
+  List<Widget> _prepareMsgs(List<QueryDocumentSnapshot<ChatRoomMsg>>? msgs) {
+    _logger.v("_prepareMsgs");
     msgs?.sort((a, b) => a.data().timeSentMillis - b.data().timeSentMillis);
     return [
       ...?msgs?.map((msg) {
-        if (msg.data().roleFor[lauUid] == "owner") {
-          return MsgBubble(
-            content: msg.data().content,
-            timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
-            color: Colors.amberAccent,
-            alignment: Alignment.centerRight,
-          );
+        if (_isMsgOwner(msg)) {
+          return _prepareOwnerMsgBubble(msg);
         } else {
-          return MsgBubble(
-            content: msg.data().content,
-            timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
-            color: Colors.green,
-            alignment: Alignment.centerLeft,
-          );
+          return _prepareMsgBubble(msg);
         }
       }).toList(),
     ];
+  }
+
+  bool _isMsgOwner(QueryDocumentSnapshot<ChatRoomMsg> msg) {
+    return msg.data().roleFor[lauUid] == "owner";
+  }
+
+  MsgBubble _prepareOwnerMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
+    _logger.v("_prepareOwnerMsgBubble: ${msg.id}");
+    return MsgBubble(
+      content: msg.data().content,
+      timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
+      color: Colors.amberAccent,
+      alignment: Alignment.centerRight,
+    );
+  }
+
+  MsgBubble _prepareMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
+    _logger.v("_prepareMsgBubble: ${msg.id}");
+    return MsgBubble(
+      content: msg.data().content,
+      timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
+      color: Colors.green,
+      alignment: Alignment.centerLeft,
+    );
   }
 }

@@ -14,6 +14,7 @@ import '../db.dart';
 final AppLogger _logger = AppLogger.get("UsersProvider");
 
 class UsersProvider {
+  static const int _wordsLimit = 10;
   static final KeywordsSplitter _keywordsSplitter = KeywordsSplitter();
   static final List<AppUser> _queryUsersResult = [];
   static final Set<String> _previousKeywordsToSearch = {};
@@ -42,7 +43,7 @@ class UsersProvider {
         ..clear()
         ..addAll(usersFromSnapshot)
         ..sort(
-              (thisUser, otherUser) {
+          (thisUser, otherUser) {
             return thisUser.compareTo(otherUser);
           },
         );
@@ -50,27 +51,37 @@ class UsersProvider {
     });
   }
 
+  static Set<String> _prepareKeywordsToSearch(String byName, String byEmail) {
+    _logger.v("_prepareKeywordsToSearch");
+    return _keywordsSplitter.splitIntoKeywords("$byName $byEmail");
+  }
+
   static Query<AppUser> _prepareUsersQuery(Set<String> keywordsToSearch) {
     _logger.v("_prepareUsersQuery");
     Query<AppUser> query;
-    if (keywordsToSearch.length > 10) {
+    if (keywordsToSearch.length > _wordsLimit) {
       // Query of different keywords in Firestore is limited to 10 on a single field.
       // https://firebase.google.com/docs/firestore/query-data/queries?hl=en&authuser=1#query_limitations
-      query = Db.users
-          .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, 10))
-          .where(FieldPath.documentId, isNotEqualTo: lauUid);
+      query = _prepareWordsLimitedQuery(keywordsToSearch, _wordsLimit);
     } else {
       // Only one arrayContains or arrayContainsAny clause per query is allowed in Firestore.
       // https://firebase.google.com/docs/firestore/query-data/queries?authuser=1#array_membership
-      query = Db.users
-          .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList())
-          .where(FieldPath.documentId, isNotEqualTo: lauUid);
+      query = _prepareWordsQuery(keywordsToSearch);
     }
     return query;
   }
 
-  static Set<String> _prepareKeywordsToSearch(String byName, String byEmail) {
-    _logger.v("_prepareKeywordsToSearch");
-    return _keywordsSplitter.splitIntoKeywords("$byName $byEmail");
+  static Query<AppUser> _prepareWordsLimitedQuery(Set<String> keywordsToSearch, int wordsLimit) {
+    _logger.v("_prepareWordsLimitedQuery");
+    return Db.users
+        .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList().sublist(0, wordsLimit))
+        .where(FieldPath.documentId, isNotEqualTo: lauUid);
+  }
+
+  static Query<AppUser> _prepareWordsQuery(Set<String> keywordsToSearch) {
+    _logger.v("_prepareWordsQuery");
+    return Db.users
+        .where(Keywords.keywordsKey, arrayContainsAny: keywordsToSearch.toList())
+        .where(FieldPath.documentId, isNotEqualTo: lauUid);
   }
 }

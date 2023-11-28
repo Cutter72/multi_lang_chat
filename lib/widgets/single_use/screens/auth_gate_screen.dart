@@ -24,12 +24,12 @@ class AuthGateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    initUserChangesListener();
+    _initUserDataChangeListener();
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          setupLoggedUserGlobally(snapshot.data);
+          _setupLoggedUserGlobally(snapshot.data);
           return const ContactsScreen();
         }
         return const LogInScreen();
@@ -37,29 +37,35 @@ class AuthGateScreen extends StatelessWidget {
     );
   }
 
-  void initUserChangesListener() {
-    _logger.v("initUserChangesListener");
+  void _initUserDataChangeListener() {
+    _logger.v("_initUserDataChangeListener");
     if (_isUserChangesListenerInitialized) {
-      FirebaseAuth.instance.userChanges().listen((updatedUser) {
-        setupLoggedUserGlobally(updatedUser);
-        Db.users.doc(lauUid).get().then((snapshot) {
-          var userData = snapshot.data();
-          if (userData != null) {
-            var oldAppUser = userData;
-            if (loggedAppUser != oldAppUser) {
-              Db.updateAppUserData(loggedAppUser);
-            }
-          }
-          return null;
-        });
-      });
+      _logger.v("_initUserDataChangeListener");
+      FirebaseAuth.instance.userChanges().listen(_userDataChangeListener);
     }
     _isUserChangesListenerInitialized = true;
   }
 
-  void setupLoggedUserGlobally(User? user) {
-    _logger.v("setupLoggedUserGlobally");
+  void _userDataChangeListener(updatedUser) {
+    _logger.v("_userChangeListener");
+    _setupLoggedUserGlobally(updatedUser);
+    Db.users.doc(lauUid).get().then((snapshot) {
+      if (_isUserDataOutdated(snapshot.data())) {
+        Db.updateAppUserData(loggedAppUser);
+      }
+      return null;
+    });
+  }
+
+  bool _isUserDataOutdated(AppUser? oldAppUserData) {
+    var isUserDataOutdated = oldAppUserData != null && loggedAppUser != oldAppUserData;
+    _logger.d("_isUserDataOutdated: $_isUserDataOutdated");
+    return isUserDataOutdated;
+  }
+
+  void _setupLoggedUserGlobally(User? user) {
     if (user != null) {
+      _logger.d("_setupLoggedUserGlobally: ${user.uid}");
       Db.loggedFirebaseUser = user;
       loggedAppUser = AppUser.fromUser(user);
       FirebaseCrashlytics.instance.setUserIdentifier("${loggedAppUser.email}, ${loggedAppUser.uid}");

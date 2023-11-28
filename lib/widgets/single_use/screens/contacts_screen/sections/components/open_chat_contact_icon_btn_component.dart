@@ -66,7 +66,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   }
 
   void goTo(ChatRoom chatRoomToGo) {
-    _logger.v("goTo: ${chatRoomToGo.uid}");
+    _logger.d("goTo: ${chatRoomToGo.uid}");
     Navigator.pushNamed(context, ChatRoomScreen.routeName, arguments: chatRoomToGo);
   }
 

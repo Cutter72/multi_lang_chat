@@ -48,7 +48,7 @@ class Db {
   }
 
   static CollectionReference<ChatRoomMsg> chatRoomMsgs(String chatRoomId) {
-    _logger.v("chatRoomMsgs: $chatRoomId");
+    _logger.d("chatRoomMsgs: $chatRoomId");
     return instance.collection("$_chatRoomsCollectionPath/$chatRoomId/$_chatRoomsMsgsCollectionName").withConverter(
           fromFirestore: (snapshot, options) => ChatRoomMsgMapper.fromMap(snapshot.data() ?? {}),
           toFirestore: (chatRoomMsg, options) => chatRoomMsg.toMap(),
@@ -56,7 +56,7 @@ class Db {
   }
 
   static void updateAppUserData(AppUser loggedAppUser) {
-    _logger.v("updateAppUserData");
+    _logger.d("updateAppUserData: ${loggedAppUser.uid}");
     instance.runTransaction((transaction) async {
       transaction.set(users.doc(lauUid), loggedAppUser);
       await contacts
@@ -66,9 +66,15 @@ class Db {
           .get()
           .then((queryResult) {
         for (var docSnapshot in queryResult.docs) {
-          transaction.update(docSnapshot.reference, docSnapshot.data().update(loggedAppUser).toMap());
+          _updateAppUserDataInDocument(transaction, docSnapshot, loggedAppUser);
         }
       });
     });
+  }
+
+  static void _updateAppUserDataInDocument(
+      Transaction transaction, QueryDocumentSnapshot<Contacts> docSnapshot, AppUser loggedAppUser) {
+    _logger.d("updateAppUserDataInDocument: ${docSnapshot.id}");
+    transaction.update(docSnapshot.reference, docSnapshot.data().update(loggedAppUser).toMap());
   }
 }
