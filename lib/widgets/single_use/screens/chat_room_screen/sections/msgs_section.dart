@@ -26,7 +26,9 @@ class MsgsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<ChatRoomMsg>>(
-        stream: Db.chatRoomMsgs(chatRoom.uid).snapshots(),
+        stream: Db.chatRoomMsgs(chatRoom.uid)
+            .snapshots()
+            .handleError((err) => _logger.eAsync("MsgsSection.stream.err: $err")),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

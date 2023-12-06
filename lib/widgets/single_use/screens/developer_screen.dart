@@ -7,6 +7,7 @@ import '../../../model/actives/app_logger.dart';
 import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import '../../../storage/runtime/app_globals.dart';
+import 'auth_gate_screen.dart';
 import 'user_settings_screen.dart';
 
 ///
@@ -33,6 +34,7 @@ class DeveloperScreen extends StatelessWidget {
               child: const Text("Log out"),
               onPressed: () {
                 FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, AuthGateScreen.routeName);
               },
             ),
             ElevatedButton(

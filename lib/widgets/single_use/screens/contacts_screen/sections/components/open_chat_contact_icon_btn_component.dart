@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_lang_chat/model/actives/app_logger.dart';
+import 'package:multi_lang_chat/widgets/common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 
 import '../../../../../../model/passives/daos/app_user/app_user.dart';
 import '../../../../../../model/passives/daos/chat_room/chat_room.dart';
@@ -23,33 +24,46 @@ class OpenChatContactIconBtn extends StatefulWidget {
 }
 
 class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
+  var _isWaitingToOpenChat = false;
+
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () => _goToPrivateChatRoomWith(widget.user),
-      icon: const Icon(
-        Icons.chat,
-        color: Colors.green,
-      ),
-    );
+    _logger.e("build._isWaitingToOpenChat: $_isWaitingToOpenChat");
+    if (_isWaitingToOpenChat) {
+      return const IconButton(
+        onPressed: null,
+        icon: WaitingIndicator(),
+      );
+    } else {
+      return IconButton(
+        onPressed: () => _goToPrivateChatRoomWith(widget.user),
+        icon: const Icon(
+          Icons.chat,
+          color: Colors.green,
+        ),
+      );
+    }
   }
 
   _goToPrivateChatRoomWith(AppUser targetUser) async {
     _logger.v("goToPrivateChatRoomWith");
+    setState(() {
+      _isWaitingToOpenChat = true;
+    });
     ChatRoom? existingChatRoom = await _resolveExistingChatRoom(lauUid, targetUser.uid);
     if (existingChatRoom != null) {
       _goTo(existingChatRoom);
     } else {
       var newChatRoom = ChatRoom.forPrivateConversation(Db.chatRooms.doc().id, lauUid, targetUser.uid!);
-      _saveNewPrivateChatRoomToDb(newChatRoom);
+      await _saveNewPrivateChatRoomToDb(newChatRoom);
       _goTo(newChatRoom);
     }
   }
 
-  void _saveNewPrivateChatRoomToDb(ChatRoom newChatRoom) {
+  _saveNewPrivateChatRoomToDb(ChatRoom newChatRoom) async {
     _logger.d("saveNewPrivateChatRoomToDb: ${newChatRoom.uid}");
-    Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) =>
-        _logger.asyncE("Failed to create a new chat room", stackTrace: stackTrace, error: error));
+    await Db.chatRooms.doc(newChatRoom.uid).set(newChatRoom).onError((error, stackTrace) =>
+        _logger.eAsync("Failed to create a new chat room", stackTrace: stackTrace, error: error));
   }
 
   Future<ChatRoom?> _resolveExistingChatRoom(String? currentUserUid, String? targetUserUid) async {
@@ -70,11 +84,14 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
         }
       },
     ).onError((error, stackTrace) =>
-            _logger.asyncE("Failed to resolve an existing chat room", stackTrace: stackTrace, error: error));
+            _logger.eAsync("Failed to resolve an existing chat room", stackTrace: stackTrace, error: error));
   }
 
   void _goTo(ChatRoom chatRoomToGo) {
     _logger.d("goTo: ${chatRoomToGo.uid}");
     Navigator.pushNamed(context, ChatRoomScreen.routeName, arguments: chatRoomToGo);
+    setState(() {
+      _isWaitingToOpenChat = false;
+    });
   }
 }

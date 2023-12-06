@@ -47,7 +47,7 @@ class AppLogger {
     _log(Level.SEVERE, "E", message, tag: tag);
   }
 
-  asyncE(Object? message, {Object? tag, Object? error, StackTrace? stackTrace}) async {
+  eAsync(Object? message, {Object? tag, Object? error, StackTrace? stackTrace}) async {
     _log(Level.SEVERE, "E", message, tag: tag);
   }
 
