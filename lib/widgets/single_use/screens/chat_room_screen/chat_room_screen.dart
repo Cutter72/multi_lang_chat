@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../model/actives/app_logger.dart';
-import '../../../../model/passives/daos/chat_room/chat_room.dart';
+import '../../../../model/passives/dtos/chat_room_data.dart';
 import '../contacts_search_screen/contacts_search_screen.dart';
 import '../developer_screen.dart';
 import 'sections/input_section.dart';
@@ -20,10 +20,10 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatRoom = ModalRoute.of(context)?.settings.arguments as ChatRoom;
+    final chatRoomData = ModalRoute.of(context)?.settings.arguments as ChatRoomData;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Chat room"),
+        title: Text("${chatRoomData.contactAppUser.displayName}"),
         actions: [
           IconButton(
             onPressed: () => _goToContactsSearchScreen(context),
@@ -38,11 +38,11 @@ class ChatRoomScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: MsgsSection(chatRoom: chatRoom),
+            child: MsgsSection(chatRoom: chatRoomData.chatRoom),
           ),
           InputSection(
             messageEditorController: messageEditorController,
-            chatRoom: chatRoom,
+            chatRoom: chatRoomData.chatRoom,
           )
         ],
       ),

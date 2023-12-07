@@ -43,8 +43,8 @@ class _AvatarUrlBroken extends StatelessWidget {
     return SizedBox(
       height: avatarSize,
       width: avatarSize,
-      child: Stack(
-        children: const [
+      child: const Stack(
+        children: [
           Align(
             alignment: Alignment.centerRight,
             child: Icon(

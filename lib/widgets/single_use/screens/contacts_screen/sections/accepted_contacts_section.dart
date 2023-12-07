@@ -27,7 +27,7 @@ class AcceptedContactsSection extends StatelessWidget {
           } else {
             if (snapshot.hasData) {
               return ContactList(snapshot.data!.accepted.values.toList(),
-                  trailingBtn: (user) => OpenChatContactIconBtn(user));
+                  trailingBtn: (contactUser) => OpenChatContactIconBtn(contactUser));
             } else {
               return SomethingWentWrong(snapshot.error!);
             }
