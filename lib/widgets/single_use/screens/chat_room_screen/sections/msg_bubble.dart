@@ -11,12 +11,14 @@ class MsgBubble extends StatelessWidget {
   final DateTime timeSent;
   final Color color;
   final AlignmentGeometry alignment;
+  final bool isOwner;
 
   const MsgBubble({
     required this.content,
     required this.timeSent,
     required this.color,
     required this.alignment,
+    required this.isOwner,
     Key? key,
   }) : super(key: key);
 
@@ -27,11 +29,7 @@ class MsgBubble extends StatelessWidget {
       child: Container(
           decoration: BoxDecoration(
             color: color,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(6),
-              topRight: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
-            ),
+            borderRadius: _prepareBorderRadius(isOwner),
           ),
           margin: const EdgeInsets.all(2),
           padding: const EdgeInsets.all(6),
@@ -44,5 +42,21 @@ class MsgBubble extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  BorderRadius _prepareBorderRadius(bool isOwner) {
+    if (isOwner) {
+      return const BorderRadius.only(
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),
+        bottomLeft: Radius.circular(6),
+      );
+    } else {
+      return const BorderRadius.only(
+        topLeft: Radius.circular(6),
+        topRight: Radius.circular(6),
+        bottomRight: Radius.circular(6),
+      );
+    }
   }
 }
