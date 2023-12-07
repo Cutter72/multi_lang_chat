@@ -57,7 +57,7 @@ class AuthGateScreen extends StatelessWidget {
         return null;
       });
     } else {
-      _logger.v("User logged out");
+      _logger.v("User not logged");
     }
   }
 

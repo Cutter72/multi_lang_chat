@@ -35,7 +35,7 @@ class DeveloperScreen extends StatelessWidget {
               child: const Text("Log out"),
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushReplacementNamed(context, AuthGateScreen.routeName);
+                Navigator.pushNamedAndRemoveUntil(context, AuthGateScreen.routeName, (route) => false);
               },
             ),
             ElevatedButton(
