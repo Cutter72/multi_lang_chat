@@ -21,12 +21,20 @@ import 'widgets/single_use/screens/app_root_screen.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initLogger();
   await initFirebase();
   await initCrashlytics();
   await initLocale();
   initFirebaseAuthUiProviders();
+  initTranslator();
   runApp(const AppRootScreen());
+}
+
+void initTranslator() {
+  if (!_isTranslatorInitialized) {
+    // Translator().init();
+  }
 }
 
 Future<void> initLogger() async {
@@ -44,10 +52,10 @@ Future<void> initLogger() async {
 
 bool _isLocaleInitialized = false;
 bool _isFirebaseInitialized = false;
+bool _isTranslatorInitialized = false;
 
 Future<void> initFirebase() async {
   if (!_isFirebaseInitialized) {
-    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

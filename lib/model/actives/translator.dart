@@ -2,12 +2,15 @@
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 abstract class Translator {
+  /// Initializes a translator
+  void init();
+
   /// Translate given text from sourceLanguage to targetLanguage
-  String translate(String text, String sourceLanguage, String targetLanguage);
+  Future<String> translate(String text, String sourceLanguage, String targetLanguage);
 
   /// Translate given text from auto detected language to targetLanguage
-  String autoTranslateTo(String text, String targetLanguage);
+  Future<String> autoTranslateTo(String text, String targetLanguage);
 
   /// Get alphabetically sorted languages available to use
-  List<String> getAvailableLanguages();
+  Map<String, String> getAvailableLanguages();
 }

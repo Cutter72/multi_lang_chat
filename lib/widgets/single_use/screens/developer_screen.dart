@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/actives/app_logger.dart';
+import '../../../model/actives/google_translator2.dart';
 import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import '../../../storage/runtime/app_globals.dart';
@@ -47,6 +48,15 @@ class DeveloperScreen extends StatelessWidget {
               child: const Text("Delete FirebaseFirestore clearPersistence"),
               onPressed: () {
                 Db.instance.clearPersistence();
+              },
+            ),
+            ElevatedButton(
+              child: const Text("Translate"),
+              onPressed: () {
+                var translator = MyGoogleTranslator();
+                var textToTranslate = "To jest tkast który powinien zostać przetłumaczony.";
+                _logger.e("Original: $textToTranslate");
+                translator.autoTranslateTo(textToTranslate, "en").then((value) => _logger.e("Translated: $value"));
               },
             ),
             ElevatedButton(

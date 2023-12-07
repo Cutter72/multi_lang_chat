@@ -36,7 +36,6 @@ class UsersProvider {
     return await usersQuery.get().then((snapshot) {
       List<AppUser> usersFromSnapshot = [];
       for (var user in snapshot.docs) {
-        print("My.Log.user=${user.data()}");
         usersFromSnapshot.add(user.data());
       }
       _queryUsersResult

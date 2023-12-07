@@ -30,10 +30,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
   Widget build(BuildContext context) {
     _logger.e("build._isWaitingToOpenChat: $_isWaitingToOpenChat");
     if (_isWaitingToOpenChat) {
-      return const IconButton(
-        onPressed: null,
-        icon: WaitingIndicator(),
-      );
+      return const FittedBox(child: WaitingIndicator());
     } else {
       return IconButton(
         onPressed: () => _goToPrivateChatRoomWith(widget.user),
