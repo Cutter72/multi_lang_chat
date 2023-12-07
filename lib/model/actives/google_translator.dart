@@ -1,26 +1,23 @@
-import 'package:google_translate/google_translate.dart';
 import 'package:multi_lang_chat/model/actives/translator.dart';
+import 'package:translator/translator.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class GoogleTranslator implements Translator {
+class MyGoogleTranslator implements Translator {
+  final _translator = GoogleTranslator();
+
   @override
-  void init() {
-    GoogleTranslate.initialize(
-      apiKey: "AIzaSyA3jW_Fy9eqaeDA-Lh0qNm8LbXjhJW-ay8",
-      targetLanguage: "it",
-    );
-  }
+  void init() {}
 
   @override
   Future<String> translate(String text, String sourceLanguage, String targetLanguage) async {
-    return await text.translate(sourceLanguage: sourceLanguage, targetLanguage: targetLanguage);
+    return await _translator.translate(text, from: sourceLanguage, to: targetLanguage).then((value) => value.text);
   }
 
   @override
   Future<String> autoTranslateTo(String text, String targetLanguage) async {
-    return await text.translate(sourceLanguage: null, targetLanguage: targetLanguage);
+    return await _translator.translate(text, to: targetLanguage).then((value) => value.text);
   }
 
   @override
@@ -30,7 +27,6 @@ class GoogleTranslator implements Translator {
 }
 
 const _langs = {
-  'auto': 'Automatic',
   'af': 'Afrikaans',
   'sq': 'Albanian',
   'am': 'Amharic',

@@ -4,7 +4,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 
 import '../../../model/actives/app_logger.dart';
-import '../../../model/actives/google_translator2.dart';
+import '../../../model/actives/google_translator.dart';
 import '../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../storage/persistent/firestore/db.dart';
 import '../../../storage/runtime/app_globals.dart';
