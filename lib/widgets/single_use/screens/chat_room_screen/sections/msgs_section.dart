@@ -74,26 +74,20 @@ class MsgsSection extends StatelessWidget {
   MsgBubble _prepareOwnerMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
     _logger.v("_prepareOwnerMsgBubble: ${msg.id}");
     return MsgBubble(
-      content: _prepareContent(msg),
+      content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: true,
+      chatRoomData: chatRoomData,
     );
   }
 
   MsgBubble _prepareMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
     _logger.v("_prepareMsgBubble: ${msg.id}");
     return MsgBubble(
-      content: _prepareContent(msg),
+      content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: false,
+      chatRoomData: chatRoomData,
     );
-  }
-
-  String _prepareContent(QueryDocumentSnapshot<ChatRoomMsg> msg) {
-    if (chatRoomData.isTranslationEnabled) {
-      return msg.data().content; // todo translate
-    } else {
-      return msg.data().content;
-    }
   }
 }

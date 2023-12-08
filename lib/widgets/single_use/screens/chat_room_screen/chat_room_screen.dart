@@ -42,7 +42,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
             anchorTapClosesMenu: true,
             menuChildren: _translator.getAvailableLanguages().values.map<MenuItemButton>((String value) {
               return MenuItemButton(
-                onPressed: () => _setSelectedLanguage(value),
+                onPressed: () => _setSelectedLanguage(_translator.getLanguageKey(value)),
                 child: ContentTextHHH(
                   value,
                 ),
@@ -81,8 +81,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     );
   }
 
-  void _setSelectedLanguage(String? selectedLanguage) {
+  void _setSelectedLanguage(String selectedLanguageKey) {
     _logger.v("_setSelectedLanguage");
-    _chatRoomData.selectedLanguageKey = _translator.getLanguageKey(selectedLanguage);
+    if (selectedLanguageKey != _chatRoomData.selectedLanguageKey) {
+      setState(() {
+        _chatRoomData.selectedLanguageKey = selectedLanguageKey;
+      });
+    }
   }
 }

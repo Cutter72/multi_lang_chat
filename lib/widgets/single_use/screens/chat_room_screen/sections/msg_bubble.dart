@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:translator/translator.dart';
 
+import '../../../../../model/actives/app_logger.dart';
+import '../../../../../model/passives/dtos/chat_room_data.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
+import '../../../../common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+final AppLogger _logger = AppLogger.get("MsgBubble");
+
 class MsgBubble extends StatelessWidget {
   final String content;
   final DateTime timeSent;
   final bool isOwner;
+  final ChatRoomData chatRoomData;
 
   const MsgBubble({
     required this.content,
     required this.timeSent,
     required this.isOwner,
+    required this.chatRoomData,
     Key? key,
   }) : super(key: key);
 
@@ -41,7 +49,16 @@ class MsgBubble extends StatelessWidget {
                 ),
                 Padding(
                   padding: _preparePadding(isOwner),
-                  child: ContentTextHH(content),
+                  child: FutureBuilder(
+                    future: _translateContentIfNeeded(content),
+                    builder: (ctx, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const WaitingIndicator();
+                      } else {
+                        return ContentTextHH("${snapshot.data}");
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
@@ -94,6 +111,18 @@ class MsgBubble extends StatelessWidget {
       return const EdgeInsets.only(left: 2);
     } else {
       return const EdgeInsets.only(right: 2);
+    }
+  }
+
+  Future<String> _translateContentIfNeeded(String content) async {
+    if (chatRoomData.isTranslationEnabled && !isOwner) {
+      return await content
+          .translate(to: chatRoomData.selectedLanguageKey)
+          .then((value) => "${value.text} ($content)")
+          .onError((error, stackTrace) =>
+              _logger.eAsync("Error translating msg content", error: error, stackTrace: stackTrace));
+    } else {
+      return content;
     }
   }
 }
