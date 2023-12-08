@@ -76,8 +76,6 @@ class MsgsSection extends StatelessWidget {
     return MsgBubble(
       content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
-      color: Colors.amberAccent,
-      alignment: Alignment.centerRight,
       isOwner: true,
     );
   }
@@ -87,8 +85,6 @@ class MsgsSection extends StatelessWidget {
     return MsgBubble(
       content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
-      color: Colors.green,
-      alignment: Alignment.centerLeft,
       isOwner: false,
     );
   }
