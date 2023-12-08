@@ -111,6 +111,9 @@ class _AddContactIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Icon(Icons.person_add);
+    return const Icon(
+      Icons.person_add,
+      color: Colors.deepPurpleAccent,
+    );
   }
 }

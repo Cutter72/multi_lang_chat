@@ -27,11 +27,11 @@ class ChatRoomScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () => _goToContactsSearchScreen(context),
-            icon: const Icon(Icons.person_search),
+            icon: const Icon(Icons.person_search, color: Colors.deepPurpleAccent),
           ),
           IconButton(
             onPressed: () => _goToDeveloperScreen(context),
-            icon: const Icon(Icons.developer_board),
+            icon: const Icon(Icons.developer_board, color: Colors.deepPurpleAccent),
           ),
         ],
       ),

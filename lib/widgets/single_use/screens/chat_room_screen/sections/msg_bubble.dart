@@ -61,7 +61,7 @@ class MsgBubble extends StatelessWidget {
     if (isOwner) {
       return Colors.black;
     } else {
-      return Colors.deepPurple;
+      return Colors.deepPurpleAccent;
     }
   }
 

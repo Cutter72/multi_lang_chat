@@ -37,7 +37,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
         onPressed: () => _goToPrivateChatRoomWith(widget.contactAppUser),
         icon: const Icon(
           Icons.chat,
-          color: Colors.green,
+          color: Colors.deepPurpleAccent,
         ),
       );
     }

@@ -29,7 +29,7 @@ class InputSection extends StatelessWidget {
         Expanded(child: TextInputField("Type a message...", messageEditorController)),
         IconButton(
           onPressed: () => sendMessage(messageEditorController.value.text, chatRoom),
-          icon: const Icon(Icons.send),
+          icon: const Icon(Icons.send, color: Colors.deepPurpleAccent),
         ),
       ],
     );

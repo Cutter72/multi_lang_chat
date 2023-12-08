@@ -27,8 +27,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
       appBar: AppBar(
         title: const Text("Contacts"),
         actions: [
-          IconButton(onPressed: () => _goToContactsSearchScreen(context), icon: const Icon(Icons.person_search)),
-          IconButton(onPressed: () => _goToDeveloperScreen(context), icon: const Icon(Icons.developer_board)),
+          IconButton(
+              onPressed: () => _goToContactsSearchScreen(context),
+              icon: const Icon(Icons.person_search, color: Colors.deepPurpleAccent)),
+          IconButton(
+              onPressed: () => _goToDeveloperScreen(context),
+              icon: const Icon(Icons.developer_board, color: Colors.deepPurpleAccent)),
         ],
       ),
       body: AcceptedContactsSection(contactsQuery: ContactsProvider.fetchContacts()),
