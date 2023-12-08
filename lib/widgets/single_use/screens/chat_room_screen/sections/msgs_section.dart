@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/actives/app_logger.dart';
-import '../../../../../model/passives/daos/chat_room/chat_room.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
+import '../../../../../model/passives/dtos/chat_room_data.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
 import '../../../../../storage/runtime/app_globals.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
@@ -18,15 +18,15 @@ final AppLogger _logger = AppLogger.get("MsgsSection");
 class MsgsSection extends StatelessWidget {
   const MsgsSection({
     Key? key,
-    required this.chatRoom,
+    required this.chatRoomData,
   }) : super(key: key);
 
-  final ChatRoom chatRoom;
+  final ChatRoomData chatRoomData;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<ChatRoomMsg>>(
-        stream: Db.chatRoomMsgs(chatRoom.uid)
+        stream: Db.chatRoomMsgs(chatRoomData.chatRoom.uid)
             .snapshots()
             .handleError((err) => _logger.eAsync("MsgsSection.stream.err: $err")),
         builder: (context, snapshot) {
@@ -74,7 +74,7 @@ class MsgsSection extends StatelessWidget {
   MsgBubble _prepareOwnerMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
     _logger.v("_prepareOwnerMsgBubble: ${msg.id}");
     return MsgBubble(
-      content: msg.data().content,
+      content: _prepareContent(msg),
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: true,
     );
@@ -83,9 +83,17 @@ class MsgsSection extends StatelessWidget {
   MsgBubble _prepareMsgBubble(QueryDocumentSnapshot<ChatRoomMsg> msg) {
     _logger.v("_prepareMsgBubble: ${msg.id}");
     return MsgBubble(
-      content: msg.data().content,
+      content: _prepareContent(msg),
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: false,
     );
+  }
+
+  String _prepareContent(QueryDocumentSnapshot<ChatRoomMsg> msg) {
+    if (chatRoomData.isTranslationEnabled) {
+      return msg.data().content; // todo translate
+    } else {
+      return msg.data().content;
+    }
   }
 }

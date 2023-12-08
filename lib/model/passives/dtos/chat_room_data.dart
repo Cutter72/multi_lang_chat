@@ -12,6 +12,8 @@ part 'chat_room_data.mapper.dart';
 class ChatRoomData with ChatRoomDataMappable {
   final ChatRoom chatRoom;
   final AppUser contactAppUser;
+  bool isTranslationEnabled = false;
+  String selectedLanguageKey = "";
 
   ChatRoomData({required this.chatRoom, required this.contactAppUser});
 }

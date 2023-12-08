@@ -24,6 +24,10 @@ class MyGoogleTranslator implements Translator {
   Map<String, String> getAvailableLanguages() {
     return _langs;
   }
+
+  String getLanguageKey(String? selectedLanguage) {
+    return _langs.keys.firstWhere((key) => _langs[key] == selectedLanguage, orElse: () => "");
+  }
 }
 
 const _langs = {
@@ -41,8 +45,8 @@ const _langs = {
   'ca': 'Catalan',
   'ceb': 'Cebuano',
   'ny': 'Chichewa',
-  'zh-cn': 'Chinese Simplified',
-  'zh-tw': 'Chinese Traditional',
+  'zh-cn': 'Chinese Sim.',
+  'zh-tw': 'Chinese Tra.',
   'co': 'Corsican',
   'hr': 'Croatian',
   'cs': 'Czech',
@@ -78,7 +82,7 @@ const _langs = {
   'kk': 'Kazakh',
   'km': 'Khmer',
   'ko': 'Korean',
-  'ku': 'Kurdish (Kurmanji)',
+  'ku': 'Kurdish/Kurmanji',
   'ky': 'Kyrgyz',
   'lo': 'Lao',
   'la': 'Latin',
@@ -93,7 +97,7 @@ const _langs = {
   'mi': 'Maori',
   'mr': 'Marathi',
   'mn': 'Mongolian',
-  'my': 'Myanmar (Burmese)',
+  'my': 'Myanmar/Burmese',
   'ne': 'Nepali',
   'no': 'Norwegian',
   'ps': 'Pashto',

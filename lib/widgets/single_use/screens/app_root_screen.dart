@@ -39,7 +39,7 @@ class AppRootScreen extends StatelessWidget {
           return const DeveloperScreen();
         },
         ChatRoomScreen.routeName: (context) {
-          return ChatRoomScreen();
+          return const ChatRoomScreen();
         },
       },
     );
