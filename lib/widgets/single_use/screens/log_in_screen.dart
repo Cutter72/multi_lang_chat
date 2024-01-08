@@ -13,8 +13,8 @@ import '../../common/screens/sections/components/molecules/atoms/sub_title_text_
 ///
 final AppLogger _logger = AppLogger.get("LogInScreen");
 
-class LogInScreen extends StatelessWidget {
-  const LogInScreen({Key? key}) : super(key: key);
+class AuthenticationScreen extends StatelessWidget {
+  const AuthenticationScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class LogInScreen extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: action == AuthAction.signIn
-              ? const SubTitleTextHH('Welcome to Multi lang chat, please sign in!')
-              : const SubTitleTextHH('Welcome to Multi lang chat, please sign up!'),
+              ? const SubTitleTextHH('Welcome to Multi lang chat! Please sign in.')
+              : const SubTitleTextHH('Welcome to Multi lang chat! Please register.'),
         );
       },
     );
@@ -51,7 +51,7 @@ class LogInScreen extends StatelessWidget {
       Db.users.doc(user.uid).set(AppUser(
             email: user.email,
             displayName: displayName,
-            photoURL: user.photoURL,
+            photoUrl: user.photoURL,
           ));
     }
   }

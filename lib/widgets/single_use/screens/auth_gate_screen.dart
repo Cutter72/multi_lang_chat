@@ -32,7 +32,7 @@ class AuthGateScreen extends StatelessWidget {
           _setupLoggedUserGlobally(snapshot.data);
           return const ContactsScreen();
         }
-        return const LogInScreen();
+        return const AuthenticationScreen();
       },
     );
   }

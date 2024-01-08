@@ -20,6 +20,10 @@ import 'widgets/single_use/screens/app_root_screen.dart';
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
+bool _isLocaleInitialized = false;
+bool _isFirebaseInitialized = false;
+bool _isTranslatorInitialized = false;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLogger();
@@ -49,10 +53,6 @@ Future<void> initLogger() async {
     });
   }
 }
-
-bool _isLocaleInitialized = false;
-bool _isFirebaseInitialized = false;
-bool _isTranslatorInitialized = false;
 
 Future<void> initFirebase() async {
   if (!_isFirebaseInitialized) {

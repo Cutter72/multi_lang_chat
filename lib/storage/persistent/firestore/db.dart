@@ -61,8 +61,8 @@ class Db {
       transaction.set(users.doc(lauUid), loggedAppUser);
       await contacts
           .where(FieldPath.fromString("accepted.$lauUid"), isNotEqualTo: null)
-          .where(FieldPath.fromString("rejected.$lauUid"), isNotEqualTo: null)
-          .where(FieldPath.fromString("pending.$lauUid"), isNotEqualTo: null)
+          // .where(FieldPath.fromString("rejected.$lauUid"), isNotEqualTo: null) todo '!hasNotEqualTo': You cannot use '!=' filters more than once.
+          // .where(FieldPath.fromString("pending.$lauUid"), isNotEqualTo: null) todo '!hasNotEqualTo': You cannot use '!=' filters more than once.
           .get()
           .then((queryResult) {
         for (var docSnapshot in queryResult.docs) {

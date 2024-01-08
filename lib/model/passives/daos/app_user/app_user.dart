@@ -15,9 +15,9 @@ class AppUser extends Keywords with AppUserMappable implements Comparable<AppUse
   final String? uid;
   final String? email;
   final String? displayName;
-  final String? photoURL;
+  final String? photoUrl;
 
-  AppUser({super.keywords, this.uid, this.email, this.displayName, this.photoURL})
+  AppUser({super.keywords, this.uid, this.email, this.displayName, this.photoUrl})
       : super.from(searchableTexts: [
           email?.split("@").first,
           displayName,
@@ -27,7 +27,7 @@ class AppUser extends Keywords with AppUserMappable implements Comparable<AppUse
       : uid = user.uid,
         email = user.email,
         displayName = user.displayName,
-        photoURL = user.photoURL,
+        photoUrl = user.photoURL,
         super.from(searchableTexts: [
           user.email?.split("@").first,
           user.displayName,

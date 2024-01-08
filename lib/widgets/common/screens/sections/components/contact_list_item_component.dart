@@ -23,7 +23,7 @@ class ContactListItem extends StatelessWidget {
     const double avatarSize = 48;
     return Card(
       child: ListTile(
-        leading: Avatar(photoUrl: user.photoURL, avatarSize: avatarSize),
+        leading: Avatar(photoUrl: user.photoUrl, avatarSize: avatarSize),
         title: TitleTextHHH(user.displayName!),
         subtitle: SubTitleTextHHH(user.email!),
         trailing: trailingBtn,
