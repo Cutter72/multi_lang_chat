@@ -27,6 +27,7 @@ class MsgsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<ChatRoomMsg>>(
         stream: Db.chatRoomMsgs(chatRoomData.chatRoom.uid)
+            .limit(72) // Hardcoded limit should be transformed to paging mechanism
             .snapshots()
             .handleError((err) => _logger.eAsync("MsgsSection.stream.err: $err")),
         builder: (context, snapshot) {

@@ -17,6 +17,8 @@ class AppRootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Multi lang chat",
+      // hides debug badge
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
