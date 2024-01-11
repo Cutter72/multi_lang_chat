@@ -11,7 +11,7 @@ import '../../common/screens/sections/components/molecules/atoms/sub_title_text_
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-final AppLogger _logger = AppLogger.get("LogInScreen");
+final AppLogger _logger = AppLogger.get("AuthenticationScreen");
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class AuthenticationScreen extends StatelessWidget {
         AuthStateChangeAction<AuthState>(
           (context, state) {
             if (state is UserCreated) {
-              createUser(FirebaseAuth.instance.currentUser);
+              _createUser(FirebaseAuth.instance.currentUser);
             }
           },
         )
@@ -40,19 +40,25 @@ class AuthenticationScreen extends StatelessWidget {
     );
   }
 
-  void createUser(User? user) {
+  void _createUser(User? user) {
     _logger.v("createUser");
     if (user != null) {
-      var displayName = user.displayName;
-      if (displayName == null && user.email != null) {
-        displayName = user.email?.split("@").first ?? "anonymous";
-        user.updateDisplayName(displayName);
-      }
       Db.users.doc(user.uid).set(AppUser(
             email: user.email,
-            displayName: displayName,
+            displayName: _prepareDisplayName(user),
             photoUrl: user.photoURL,
           ));
     }
+  }
+
+  String _prepareDisplayName(User user) {
+    late String displayName;
+    if (user.displayName == null) {
+      displayName = user.email?.split("@").first ?? "anonymous";
+      user.updateDisplayName(displayName);
+    } else {
+      displayName = user.displayName!;
+    }
+    return displayName;
   }
 }
