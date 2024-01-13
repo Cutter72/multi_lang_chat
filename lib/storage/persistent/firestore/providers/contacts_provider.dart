@@ -27,4 +27,10 @@ class ContactsProvider with ChangeNotifier {
       }
     }).onError((error, stackTrace) => contacts);
   }
+
+  static void resetContacts() async {
+    _logger.v("resetContacts");
+    _contacts = null;
+    fetchContacts();
+  }
 }

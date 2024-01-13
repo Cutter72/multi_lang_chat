@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../model/actives/app_logger.dart';
 import '../../../model/passives/daos/app_user/app_user.dart';
 import '../../../storage/persistent/firestore/db.dart';
+import '../../../storage/persistent/firestore/providers/contacts_provider.dart';
 import '../../../storage/runtime/app_globals.dart';
 import 'contacts_screen/contacts_screen.dart';
 import 'log_in_screen.dart';
@@ -70,9 +71,11 @@ class AuthGateScreen extends StatelessWidget {
   void _setupLoggedUserGlobally(User? user) {
     if (user != null) {
       _logger.d("_setupLoggedUserGlobally: ${user.uid}");
+      ContactsProvider.resetContacts();
       Db.loggedFirebaseUser = user;
       loggedAppUser = AppUser.fromUser(user);
-      FirebaseCrashlytics.instance.setUserIdentifier("${loggedAppUser.email}, ${loggedAppUser.uid}");
+      FirebaseCrashlytics.instance
+          .setUserIdentifier("${loggedAppUser.email}, ${loggedAppUser.uid}");
     }
   }
 }
