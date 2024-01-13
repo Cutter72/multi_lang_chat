@@ -71,11 +71,11 @@ class AuthGateScreen extends StatelessWidget {
   void _setupLoggedUserGlobally(User? user) {
     if (user != null) {
       _logger.d("_setupLoggedUserGlobally: ${user.uid}");
-      ContactsProvider.resetContacts();
       Db.loggedFirebaseUser = user;
       loggedAppUser = AppUser.fromUser(user);
       FirebaseCrashlytics.instance
           .setUserIdentifier("${loggedAppUser.email}, ${loggedAppUser.uid}");
+      ContactsProvider.resetContacts();
     }
   }
 }

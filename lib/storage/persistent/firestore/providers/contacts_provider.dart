@@ -14,7 +14,9 @@ final AppLogger _logger = AppLogger.get("ContactsProvider");
 class ContactsProvider with ChangeNotifier {
   static Contacts? _contacts;
 
-  static Contacts get contacts => _contacts == null ? Contacts(accepted: {}, rejected: {}, pending: {}) : _contacts!;
+  static Contacts get contacts => _contacts == null
+      ? Contacts(accepted: {}, rejected: {}, pending: {})
+      : _contacts!;
 
   static Future<Contacts> fetchContacts() async {
     _logger.v("fetchContacts");
