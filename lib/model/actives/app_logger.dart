@@ -7,7 +7,7 @@ import 'package:logging/logging.dart';
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 class AppLogger {
-  final FirebaseCrashlytics _crashlytics;
+  final FirebaseCrashlytics? _crashlytics;
 
   final Logger _logger;
   final Function _logFormat;
@@ -20,10 +20,16 @@ class AppLogger {
         _crashlytics = crashlytics;
 
   factory AppLogger.get(String className) {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return AppLogger._create(
+          _androidFormat, Logger(className), className, null);
+    }
     if (Platform.isAndroid) {
-      return AppLogger._create(_androidFormat, Logger(className), className, FirebaseCrashlytics.instance);
+      return AppLogger._create(_androidFormat, Logger(className), className,
+          FirebaseCrashlytics.instance);
     } else {
-      return AppLogger._create(_otherFormat, Logger(className), className, FirebaseCrashlytics.instance);
+      return AppLogger._create(_otherFormat, Logger(className), className,
+          FirebaseCrashlytics.instance);
     }
   }
 
@@ -56,8 +62,9 @@ class AppLogger {
   }
 
   void _log(Level logLevel, String levelSymbol, Object? message, {Object? tag, Object? error, StackTrace? stackTrace}) {
-    _crashlytics.log(_otherFormat(_className, levelSymbol, tag, message));
-    _logger.log(logLevel, _logFormat(_className, levelSymbol, tag, message), error, stackTrace);
+    _crashlytics?.log(_otherFormat(_className, levelSymbol, tag, message));
+    _logger.log(logLevel, _logFormat(_className, levelSymbol, tag, message),
+        error, stackTrace);
   }
 
   static String _androidFormat(Object? className, Object? levelSymbol, Object? tag, Object? message) =>

@@ -12,9 +12,21 @@ void main() {
       'splitIntoKeywords(String? data) splits the string into keywords list with min length of 3 chars and removed special chars',
       () {
     // GIVEN
-        var givenData = ' fo o \t -,999, 112.12- \n b_ar \\ ,baz   加入百度 推广   14/R75    ąćń  صب الخير'
+        var givenData =
+        ' fo o \t -,999, 112.12- \n b_ar \\ ,baz   加入百度 推广   14/R75    ąćń  صب الخير'
         ' 좋 은아침 baz \n `~!@#\$%^&*()_+-おはよ={}[]|\\:\';"<>?,./';
-    var expected = ['999', '11212', 'bar', 'baz', '加入百度', '14R75', 'ąćń', 'الخير', '은아침', 'おはよ'];
+    var expected = [
+      '999',
+      '11212',
+      'bar',
+      'baz',
+      '加入百度',
+      '14r75',
+      'ąćń',
+      'الخير',
+      '은아침',
+      'おはよ'
+    ];
 
     // WHEN
     var actual = KeywordsSplitter().splitIntoKeywords(givenData);
