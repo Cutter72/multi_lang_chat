@@ -32,6 +32,7 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          titleSpacing: -12,
           title: const Text("Contacts search"),
         ),
         body: Column(

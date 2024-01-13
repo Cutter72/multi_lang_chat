@@ -4,6 +4,7 @@ import '../../../../model/actives/app_logger.dart';
 import '../../../../storage/persistent/firestore/providers/contacts_provider.dart';
 import '../contacts_search_screen/contacts_search_screen.dart';
 import '../developer_screen.dart';
+import '../user_settings_screen.dart';
 import 'sections/accepted_contacts_section.dart';
 
 ///
@@ -25,27 +26,38 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 8,
         title: const Text("Contacts"),
         actions: [
           IconButton(
               onPressed: () => _goToContactsSearchScreen(context),
-              icon: const Icon(Icons.person_search, color: Colors.deepPurpleAccent)),
+              icon: const Icon(Icons.person_search,
+                  color: Colors.deepPurpleAccent)),
           IconButton(
-              onPressed: () => _goToDeveloperScreen(context),
-              icon: const Icon(Icons.developer_board, color: Colors.deepPurpleAccent)),
+              onPressed: () => _goToUserSettingsScreen(context),
+              icon: const Icon(Icons.settings, color: Colors.deepPurpleAccent)),
         ],
       ),
-      body: AcceptedContactsSection(contactsQuery: ContactsProvider.fetchContacts()),
+      body: AcceptedContactsSection(
+          contactsQuery: ContactsProvider.fetchContacts()),
     );
   }
 
   void _goToContactsSearchScreen(BuildContext context) {
     _logger.v("_goToContactsSearchScreen");
-    Navigator.pushNamed(context, ContactsSearchScreen.routeName).then((value) => setState(() {}));
+    Navigator.pushNamed(context, ContactsSearchScreen.routeName)
+        .then((value) => setState(() {}));
+  }
+
+  void _goToUserSettingsScreen(BuildContext context) {
+    _logger.v("_goToUserSettingsScreen");
+    Navigator.pushNamed(context, UserSettingsScreen.routeName)
+        .then((value) => setState(() {}));
   }
 
   void _goToDeveloperScreen(BuildContext context) {
     _logger.v("_goToDeveloperScreen");
-    Navigator.pushNamed(context, DeveloperScreen.routeName).then((value) => setState(() {}));
+    Navigator.pushNamed(context, DeveloperScreen.routeName)
+        .then((value) => setState(() {}));
   }
 }

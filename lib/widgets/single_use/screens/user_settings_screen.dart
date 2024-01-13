@@ -16,6 +16,7 @@ class UserSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ProfileScreen(
       appBar: AppBar(
+        titleSpacing: -12,
         title: const SelectionContainer.disabled(child: Text("User settings")),
       ),
       avatarPlaceholderColor: Colors.orange,

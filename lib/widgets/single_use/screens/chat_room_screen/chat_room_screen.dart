@@ -35,14 +35,19 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     }
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: -12,
         title: Text("${_chatRoomData.contactAppUser.displayName}"),
         actions: [
           MenuAnchor(
             controller: _menuController,
             anchorTapClosesMenu: true,
-            menuChildren: _translator.getAvailableLanguages().values.map<MenuItemButton>((String value) {
+            menuChildren: _translator
+                .getAvailableLanguages()
+                .values
+                .map<MenuItemButton>((String value) {
               return MenuItemButton(
-                onPressed: () => _setSelectedLanguage(_translator.getLanguageKey(value)),
+                onPressed: () =>
+                    _setSelectedLanguage(_translator.getLanguageKey(value)),
                 child: ContentTextHHH(
                   value,
                 ),
