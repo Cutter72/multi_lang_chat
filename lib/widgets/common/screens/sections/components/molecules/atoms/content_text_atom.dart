@@ -15,7 +15,6 @@ class _ContentText extends Text {
       : super(
           data,
           style: style,
-          textAlign: TextAlign.justify,
         );
 }
 

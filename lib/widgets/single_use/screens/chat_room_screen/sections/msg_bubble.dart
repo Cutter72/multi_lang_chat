@@ -133,7 +133,7 @@ class MsgBubble extends StatelessWidget {
     if (chatRoomData.isTranslationEnabled && !isOwner) {
       return await content
           .translate(to: chatRoomData.selectedLanguageKey)
-          .then((value) => "${value.text} ($content)")
+          .then((value) => "${value.text}\n($content)")
           .onError((error, stackTrace) =>
               _logger.eAsync("Error translating msg content", error: error, stackTrace: stackTrace));
     } else {
