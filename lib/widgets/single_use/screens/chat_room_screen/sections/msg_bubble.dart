@@ -33,10 +33,12 @@ class MsgBubble extends StatelessWidget {
       child: Card(
           surfaceTintColor: _prepareCardColor(isOwner),
           elevation: 4,
-          shape: RoundedRectangleBorder(borderRadius: _prepareBorderRadius(isOwner)),
-          margin: const EdgeInsets.all(4),
+          shape: RoundedRectangleBorder(
+              borderRadius: _prepareBorderRadius(isOwner)),
+          margin: _prepareMargin(isOwner),
           child: Padding(
-            padding: const EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
+            padding:
+                const EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: _prepareCardContentAlignment(isOwner),
@@ -44,7 +46,12 @@ class MsgBubble extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 2, right: 2),
                   child: ContentTextHHH(
-                    DateFormat.E(Intl.systemLocale).add_d().add_LLL().add_y().add_Hms().format(timeSent),
+                    DateFormat.E(Intl.systemLocale)
+                        .add_d()
+                        .add_LLL()
+                        .add_y()
+                        .add_Hms()
+                        .format(timeSent),
                   ),
                 ),
                 Padding(
@@ -103,6 +110,14 @@ class MsgBubble extends StatelessWidget {
       return CrossAxisAlignment.end;
     } else {
       return CrossAxisAlignment.start;
+    }
+  }
+
+  EdgeInsets _prepareMargin(bool isOwner) {
+    if (isOwner) {
+      return const EdgeInsets.only(left: 30, right: 4, top: 4, bottom: 4);
+    } else {
+      return const EdgeInsets.only(right: 30, left: 4, top: 4, bottom: 4);
     }
   }
 
