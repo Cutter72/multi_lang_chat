@@ -49,7 +49,7 @@ class _NoUsersFound extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Align(
       alignment: Alignment.topCenter,
-      child: ContentTextHHH("No users found."),
+      child: ContentTextHHH("No contacts."),
     );
   }
 }

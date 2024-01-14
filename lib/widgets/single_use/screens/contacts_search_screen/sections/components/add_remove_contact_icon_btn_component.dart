@@ -42,7 +42,7 @@ class _AddRemoveContactIconBtnState extends State<AddRemoveContactIconBtn> {
     _logger.v("_removeContact");
     _removeContactFromMemory(user);
     _removeContactFromDb(user);
-    ContactsProvider.resetContacts();
+    ContactsProvider.resetCachedContacts();
   }
 
   void _removeContactFromMemory(AppUser user) {
@@ -62,7 +62,7 @@ class _AddRemoveContactIconBtnState extends State<AddRemoveContactIconBtn> {
     _logger.v("_addContact");
     _addContactToMemory(user);
     _addContactToDb(user);
-    ContactsProvider.resetContacts();
+    ContactsProvider.resetCachedContacts();
   }
 
   void _addContactToMemory(AppUser user) {

@@ -10,13 +10,12 @@ import '../../../storage/runtime/app_globals.dart';
 import 'contacts_screen/contacts_screen.dart';
 import 'log_in_screen.dart';
 
-var _isUserChangesListenerInitialized = false;
-
 /// Widget to control authentication state and handle login/register flow.
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 final AppLogger _logger = AppLogger.get("AuthGateScreen");
+var _isUserChangesListenerInitialized = false;
 
 class AuthGateScreen extends StatelessWidget {
   static const routeName = "/auth-gate";
@@ -63,8 +62,9 @@ class AuthGateScreen extends StatelessWidget {
   }
 
   bool _isUserDataOutdated(AppUser? oldAppUserData) {
-    var isUserDataOutdated = oldAppUserData != null && loggedAppUser != oldAppUserData;
-    _logger.d("_isUserDataOutdated: $_isUserDataOutdated");
+    var isUserDataOutdated =
+        oldAppUserData != null && loggedAppUser != oldAppUserData;
+    _logger.d("_isUserDataOutdated: $isUserDataOutdated");
     return isUserDataOutdated;
   }
 
@@ -75,7 +75,7 @@ class AuthGateScreen extends StatelessWidget {
       loggedAppUser = AppUser.fromUser(user);
       FirebaseCrashlytics.instance
           .setUserIdentifier("${loggedAppUser.email}, ${loggedAppUser.uid}");
-      ContactsProvider.resetContacts();
+      ContactsProvider.resetCachedContacts();
     }
   }
 }
