@@ -15,8 +15,11 @@ class SomethingWentWrong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ContentTextHHH("Something went wrong: $error"),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: ContentTextHHH("Something went wrong:\n$error"),
+      ),
     );
   }
 }

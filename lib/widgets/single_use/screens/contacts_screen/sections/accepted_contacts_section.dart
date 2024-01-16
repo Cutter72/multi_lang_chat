@@ -21,13 +21,15 @@ class AcceptedContactsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: contactsQuery,
-        builder: (ctx, snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const WaitingIndicator();
           } else {
             if (snapshot.hasData) {
-              return ContactList(snapshot.data!.accepted.values.toList(),
-                  trailingBtn: (contactUser) => OpenChatContactIconBtn(contactUser));
+              return ContactList(
+                users: snapshot.data!.accepted.values.toList(),
+                trailingBtn: (contact) => OpenChatContactIconBtn(contact),
+              );
             } else {
               return SomethingWentWrong(snapshot.error!);
             }

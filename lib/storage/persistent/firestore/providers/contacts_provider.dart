@@ -27,7 +27,7 @@ class ContactsProvider with ChangeNotifier {
         _contacts = snapshot.data();
         return contacts;
       }
-    }).onError((error, stackTrace) => contacts);
+    });
   }
 
   static void resetCachedContacts() async {

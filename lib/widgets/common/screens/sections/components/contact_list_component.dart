@@ -14,7 +14,8 @@ class ContactList extends StatelessWidget {
   final List<AppUser> users;
   final Widget Function(AppUser) trailingBtn;
 
-  const ContactList(this.users, {Key? key, required this.trailingBtn}) : super(key: key);
+  const ContactList({required this.users, required this.trailingBtn, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

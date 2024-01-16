@@ -60,7 +60,7 @@ class MsgBubble extends StatelessWidget {
                     future: _translateContentIfNeeded(content),
                     builder: (ctx, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const WaitingIndicator();
+                        return IntrinsicWidth(child: const WaitingIndicator());
                       } else {
                         return ContentTextHH("${snapshot.data}");
                       }
@@ -134,8 +134,10 @@ class MsgBubble extends StatelessWidget {
       return await content
           .translate(to: chatRoomData.selectedLanguageKey)
           .then((value) => "${value.text}\n($content)")
-          .onError((error, stackTrace) =>
-              _logger.eAsync("Error translating msg content", error: error, stackTrace: stackTrace));
+          .onError((error, stackTrace) => _logger.eAsync(
+              "Error translating msg content",
+              error: error,
+              stackTrace: stackTrace));
     } else {
       return content;
     }
