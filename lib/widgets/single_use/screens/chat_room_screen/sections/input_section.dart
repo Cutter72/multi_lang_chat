@@ -15,30 +15,35 @@ final AppLogger _logger = AppLogger.get("InputSection");
 class InputSection extends StatelessWidget {
   const InputSection({
     Key? key,
-    required this.messageEditorController,
-    required this.chatRoom,
-  }) : super(key: key);
+    required TextEditingController messageEditorController,
+    required ChatRoom chatRoom,
+  })  : _chatRoom = chatRoom,
+        _messageEditorController = messageEditorController,
+        super(key: key);
 
-  final TextEditingController messageEditorController;
-  final ChatRoom chatRoom;
+  final TextEditingController _messageEditorController;
+  final ChatRoom _chatRoom;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: TextInputField("Type a message...", messageEditorController)),
+        Expanded(
+            child:
+                TextInputField("Type a message...", _messageEditorController)),
         IconButton(
-          onPressed: () => sendMessage(messageEditorController.value.text, chatRoom),
+          onPressed: () => sendMessage(),
           icon: const Icon(Icons.send, color: Colors.deepPurpleAccent),
         ),
       ],
     );
   }
 
-  void sendMessage(String message, ChatRoom chatRoom) {
+  void sendMessage() {
     _logger.v("sendMessage");
-    var msg = ChatRoomMsg.create(message, lauUid);
+    var msg = ChatRoomMsg.create(_messageEditorController.value.text, lauUid);
     _logger.i("Msg: $msg");
-    Db.chatRoomMsgs(chatRoom.uid).doc().set(msg);
+    Db.chatRoomMsgs(_chatRoom.uid).doc().set(msg);
+    _messageEditorController.clear();
   }
 }
