@@ -18,7 +18,10 @@ class TextInputField extends StatelessWidget {
         child: TextField(
           maxLines: 1,
           decoration: InputDecoration(
-              labelText: labelText, border: const OutlineInputBorder(), contentPadding: const EdgeInsets.all(8)),
+            labelText: labelText,
+            border: const OutlineInputBorder(),
+            contentPadding: const EdgeInsets.all(8),
+          ),
           controller: controller,
         ));
   }

@@ -20,14 +20,12 @@ class ContactsSearchScreen extends StatefulWidget {
 
 class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
   final TextEditingController nameFieldController = TextEditingController();
-
   final TextEditingController emailFieldController = TextEditingController();
-
   bool _isFieldsListenersInitialized = false;
 
   @override
   Widget build(BuildContext context) {
-    initTextFieldsListeners();
+    _initTextFieldsListeners();
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -57,16 +55,16 @@ class _ContactsSearchScreenState extends State<ContactsSearchScreen> {
     );
   }
 
-  void initTextFieldsListeners() {
+  void _initTextFieldsListeners() {
     _logger.v("initTextFieldsListeners");
     if (!_isFieldsListenersInitialized) {
-      nameFieldController.addListener(fieldsListener);
-      emailFieldController.addListener(fieldsListener);
+      nameFieldController.addListener(_updateState);
+      emailFieldController.addListener(_updateState);
       _isFieldsListenersInitialized = true;
     }
   }
 
-  void fieldsListener() {
+  void _updateState() {
     _logger.v("fieldsListener");
     setState(() {});
   }

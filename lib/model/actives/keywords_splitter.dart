@@ -16,7 +16,7 @@ class KeywordsSplitter {
     // r"[^\p{L}\d\s]"
     if (data != null && data.length >= 3) {
       return (data
-              .replaceAll(RegExp(r"[^\p{L}\d\s]", unicode: true), "")
+              .replaceAll(RegExp(r"[^\p{L}\d\s]", unicode: true), " ")
               .trim()
               .toLowerCase()
               .split(RegExp(r"\s+"))

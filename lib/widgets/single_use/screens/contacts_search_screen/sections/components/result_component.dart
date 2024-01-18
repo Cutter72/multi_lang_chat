@@ -27,8 +27,9 @@ class ContactsSearchResult extends StatelessWidget {
           } else {
             if (snapshot.hasData) {
               return ContactList(
-                  users: snapshot.data!,
-                  trailingBtn: (user) => AddRemoveContactIconBtn(user));
+                users: snapshot.data!,
+                trailingBtn: (user) => AddRemoveContactIconBtn(user),
+              );
             } else {
               return SomethingWentWrong(snapshot.error!);
             }
