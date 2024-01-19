@@ -2,9 +2,6 @@
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 abstract class Translator {
-  /// Initializes a translator
-  void init();
-
   /// Translate given text from sourceLanguage to targetLanguage
   Future<String> translate(String text, String sourceLanguage, String targetLanguage);
 

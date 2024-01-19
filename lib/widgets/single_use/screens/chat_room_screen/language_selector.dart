@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../model/actives/app_logger.dart';
-import '../../../../model/actives/google_translator.dart';
+import '../../../../model/actives/google_translator_impl.dart';
 import '../../../../model/passives/dtos/chat_room_data.dart';
 import '../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 
@@ -19,7 +19,7 @@ class LanguageSelector extends StatelessWidget {
     Key? key,
     required ChatRoomData charRoomData,
     required void Function(String languageKey) onChange,
-    required MyGoogleTranslator translator,
+    required GoogleTranslatorImpl translator,
   })  : _translator = translator,
         _charRoomData = charRoomData,
         _onChange = onChange,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../model/actives/app_logger.dart';
-import '../../../../model/actives/google_translator.dart';
+import '../../../../model/actives/google_translator_impl.dart';
 import '../../../../model/passives/dtos/chat_room_data.dart';
 import 'language_selector.dart';
 import 'sections/input_section.dart';
@@ -24,7 +24,7 @@ class ChatRoomScreen extends StatefulWidget {
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   final _messageEditorController = TextEditingController();
-  final _translator = MyGoogleTranslator();
+  final _translator = GoogleTranslatorImpl();
   late ChatRoomData _chatRoomData;
 
   @override

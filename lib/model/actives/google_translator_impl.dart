@@ -1,23 +1,26 @@
-import 'package:multi_lang_chat/model/actives/translator.dart';
 import 'package:translator/translator.dart';
+
+import 'translator.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-class MyGoogleTranslator implements Translator {
+class GoogleTranslatorImpl implements Translator {
   final _translator = GoogleTranslator();
 
   @override
-  void init() {}
-
-  @override
-  Future<String> translate(String text, String sourceLanguage, String targetLanguage) async {
-    return await _translator.translate(text, from: sourceLanguage, to: targetLanguage).then((value) => value.text);
+  Future<String> translate(
+      String text, String sourceLanguage, String targetLanguage) async {
+    return await _translator
+        .translate(text, from: sourceLanguage, to: targetLanguage)
+        .then((value) => value.text);
   }
 
   @override
   Future<String> autoTranslateTo(String text, String targetLanguage) async {
-    return await _translator.translate(text, to: targetLanguage).then((value) => value.text);
+    return await _translator
+        .translate(text, to: targetLanguage)
+        .then((transaltion) => transaltion.text);
   }
 
   @override
@@ -26,7 +29,8 @@ class MyGoogleTranslator implements Translator {
   }
 
   String getLanguageKey(String? selectedLanguage) {
-    return _langs.keys.firstWhere((key) => _langs[key] == selectedLanguage, orElse: () => "");
+    return _langs.keys
+        .firstWhere((key) => _langs[key] == selectedLanguage, orElse: () => "");
   }
 }
 
