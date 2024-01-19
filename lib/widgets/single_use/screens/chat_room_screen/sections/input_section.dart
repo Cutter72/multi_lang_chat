@@ -29,8 +29,10 @@ class InputSection extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-            child:
-                TextInputField("Type a message...", _messageEditorController)),
+            child: TextInputField(
+          "Type a message...",
+          _messageEditorController,
+        )),
         IconButton(
           onPressed: () => sendMessage(),
           icon: const Icon(Icons.send, color: Colors.deepPurpleAccent),

@@ -11,7 +11,7 @@ abstract class Translator {
   });
 
   /// Get alphabetically sorted language keys with their
-  /// english names that are available to use
+  /// english names that are available to use for example 'en' - 'English'
   Map<String, String> getAvailableLanguages();
 
   /// Parse language name to language key for example 'English' to 'en'

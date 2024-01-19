@@ -11,8 +11,8 @@ part 'chat_room_data.mapper.dart';
 @MappableClass()
 class ChatRoomData with ChatRoomDataMappable {
   final ChatRoom chatRoom;
-  final AppUser contactAppUser;
+  final AppUser contact;
   bool isTranslationEnabled = false;
 
-  ChatRoomData({required this.chatRoom, required this.contactAppUser});
+  ChatRoomData({required this.chatRoom, required this.contact});
 }

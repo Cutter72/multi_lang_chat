@@ -90,7 +90,7 @@ class _OpenChatContactIconBtnState extends State<OpenChatContactIconBtn> {
     Navigator.pushNamed(context, ChatRoomScreen.routeName,
         arguments: ChatRoomData(
           chatRoom: chatRoomToGo,
-          contactAppUser: contactAppUserToTextWith,
+          contact: contactAppUserToTextWith,
         ));
     setState(() {
       _isWaitingToOpenChat = false;

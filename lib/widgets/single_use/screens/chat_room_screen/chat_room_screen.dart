@@ -34,7 +34,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: -14,
-        title: Text("${_chatRoomData.contactAppUser.displayName}"),
+        title: Text("${_chatRoomData.contact.displayName}"),
         actions: [
           LanguageSelector(
             onChange: _onLanguageChange,
