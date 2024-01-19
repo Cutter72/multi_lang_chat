@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:translator/translator.dart';
 
 import '../../../../../model/actives/app_logger.dart';
 import '../../../../../model/passives/dtos/chat_room_data.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
+import 'msg_bubble_date_time.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
@@ -43,17 +43,7 @@ class MsgBubble extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: _prepareCardContentAlignment(isOwner),
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 2, right: 2),
-                  child: ContentTextHHH(
-                    DateFormat.E(Intl.systemLocale)
-                        .add_d()
-                        .add_LLL()
-                        .add_y()
-                        .add_Hms()
-                        .format(timeSent),
-                  ),
-                ),
+                MsgBubbleDateTime(timeSent: timeSent),
                 Padding(
                   padding: _preparePadding(isOwner),
                   child: FutureBuilder(
@@ -129,17 +119,17 @@ class MsgBubble extends StatelessWidget {
     }
   }
 
-  Future<String> _translateContentIfNeeded(String content) async {
+  Future<String> _translateContentIfNeeded(String originalText) async {
     if (chatRoomData.isTranslationEnabled && !isOwner) {
-      return await content
+      return await originalText
           .translate(to: chatRoomData.selectedLanguageKey)
-          .then((value) => "${value.text}\n($content)")
+          .then((translation) => '${translation.text}\n"$originalText"')
           .onError((error, stackTrace) => _logger.eAsync(
               "Error translating msg content",
               error: error,
               stackTrace: stackTrace));
     } else {
-      return content;
+      return originalText;
     }
   }
 }
