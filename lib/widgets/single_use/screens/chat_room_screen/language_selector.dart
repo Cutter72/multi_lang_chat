@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../model/actives/app_logger.dart';
-import '../../../../model/actives/google_translator_impl.dart';
-import '../../../../model/passives/dtos/chat_room_data.dart';
+import '../../../../model/actives/translator.dart';
 import '../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 
 ///
@@ -11,17 +10,14 @@ import '../../../common/screens/sections/components/molecules/atoms/content_text
 final AppLogger _logger = AppLogger.get("LanguageSelector");
 
 class LanguageSelector extends StatelessWidget {
-  final _charRoomData;
   final _onChange;
-  final _translator;
+  final Translator _translator;
 
   const LanguageSelector({
     Key? key,
-    required ChatRoomData charRoomData,
     required void Function(String languageKey) onChange,
-    required GoogleTranslatorImpl translator,
+    required Translator translator,
   })  : _translator = translator,
-        _charRoomData = charRoomData,
         _onChange = onChange,
         super(key: key);
 
@@ -34,18 +30,19 @@ class LanguageSelector extends StatelessWidget {
       menuChildren: _translator
           .getAvailableLanguages()
           .values
-          .map<MenuItemButton>((String value) {
+          .map<MenuItemButton>((String language) {
         return MenuItemButton(
-          onPressed: () => _onChange(_translator.getLanguageKey(value)),
-          child: ContentTextHHH(
-            value,
-          ),
+          onPressed: () => _onChange(_translator.parseToLanguageKey(language)),
+          child: ContentTextHHH(language),
         );
       }).toList(),
       child: TextButton.icon(
-        label: Text(_charRoomData.selectedLanguageKey.toUpperCase()),
+        label: Text(_translator.getDefaultTargetLanguageKey().toUpperCase()),
         onPressed: () => _menuController.open(),
-        icon: const Icon(Icons.g_translate, color: Colors.deepPurpleAccent),
+        icon: const Icon(
+          Icons.g_translate,
+          color: Colors.deepPurpleAccent,
+        ),
       ),
     );
   }

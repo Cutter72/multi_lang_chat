@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../model/actives/app_logger.dart';
+import '../../../../../model/actives/translator.dart';
 import '../../../../../model/passives/daos/chat_room_msg/chat_room_msg.dart';
 import '../../../../../model/passives/dtos/chat_room_data.dart';
 import '../../../../../storage/persistent/firestore/db.dart';
@@ -18,18 +19,24 @@ final AppLogger _logger = AppLogger.get("MsgsSection");
 class MsgsSection extends StatelessWidget {
   const MsgsSection({
     Key? key,
-    required this.chatRoomData,
-  }) : super(key: key);
+    required ChatRoomData chatRoomData,
+    required Translator translator,
+  })  : _chatRoomData = chatRoomData,
+        _translator = translator,
+        super(key: key);
 
-  final ChatRoomData chatRoomData;
+  final ChatRoomData _chatRoomData;
+  final Translator _translator;
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<ChatRoomMsg>>(
-        stream: Db.chatRoomMsgs(chatRoomData.chatRoom.uid)
-            .limit(72) // Hardcoded limit should be transformed to paging mechanism
+        stream: Db.chatRoomMsgs(_chatRoomData.chatRoom.uid)
+            .limit(
+                72) // Hardcoded limit should be transformed to paging mechanism
             .snapshots()
-            .handleError((err) => _logger.eAsync("MsgsSection.stream.err: $err")),
+            .handleError(
+                (err) => _logger.eAsync("MsgsSection.stream.err: $err")),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -78,7 +85,8 @@ class MsgsSection extends StatelessWidget {
       content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: true,
-      chatRoomData: chatRoomData,
+      isTranslationEnabled: _chatRoomData.isTranslationEnabled,
+      translator: _translator,
     );
   }
 
@@ -88,7 +96,8 @@ class MsgsSection extends StatelessWidget {
       content: msg.data().content,
       timeSent: DateTime.fromMillisecondsSinceEpoch(msg.data().timeSentMillis),
       isOwner: false,
-      chatRoomData: chatRoomData,
+      isTranslationEnabled: _chatRoomData.isTranslationEnabled,
+      translator: _translator,
     );
   }
 }

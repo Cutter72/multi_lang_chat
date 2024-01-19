@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:translator/translator.dart';
 
 import '../../../../../model/actives/app_logger.dart';
-import '../../../../../model/passives/dtos/chat_room_data.dart';
+import '../../../../../model/actives/translator.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/content_text_atom.dart';
 import '../../../../common/screens/sections/components/molecules/atoms/waiting_indicator_atom.dart';
 import 'msg_bubble_date_time.dart';
@@ -13,41 +12,48 @@ import 'msg_bubble_date_time.dart';
 final AppLogger _logger = AppLogger.get("MsgBubble");
 
 class MsgBubble extends StatelessWidget {
-  final String content;
-  final DateTime timeSent;
-  final bool isOwner;
-  final ChatRoomData chatRoomData;
+  final String _content;
+  final DateTime _timeSent;
+  final bool _isOwner;
+  final bool _isTranslationEnabled;
+  final Translator _translator;
 
   const MsgBubble({
-    required this.content,
-    required this.timeSent,
-    required this.isOwner,
-    required this.chatRoomData,
+    required String content,
+    required DateTime timeSent,
+    required bool isOwner,
+    required bool isTranslationEnabled,
+    required translator,
     Key? key,
-  }) : super(key: key);
+  })  : _content = content,
+        _timeSent = timeSent,
+        _isOwner = isOwner,
+        _isTranslationEnabled = isTranslationEnabled,
+        _translator = translator,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: _prepareCardAlignment(isOwner),
+      alignment: _prepareCardAlignment(_isOwner),
       child: Card(
-          surfaceTintColor: _prepareCardColor(isOwner),
+          surfaceTintColor: _prepareCardColor(_isOwner),
           elevation: 4,
           shape: RoundedRectangleBorder(
-              borderRadius: _prepareBorderRadius(isOwner)),
-          margin: _prepareMargin(isOwner),
+              borderRadius: _prepareBorderRadius(_isOwner)),
+          margin: _prepareMargin(_isOwner),
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 4, right: 4, top: 2, bottom: 2),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: _prepareCardContentAlignment(isOwner),
+              crossAxisAlignment: _prepareCardContentAlignment(_isOwner),
               children: [
-                MsgBubbleDateTime(timeSent: timeSent),
+                MsgBubbleDateTime(timeSent: _timeSent),
                 Padding(
-                  padding: _preparePadding(isOwner),
+                  padding: _preparePadding(_isOwner),
                   child: FutureBuilder(
-                    future: _translateContentIfNeeded(content),
+                    future: _translateContentIfNeeded(_content),
                     builder: (ctx, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return IntrinsicWidth(child: const WaitingIndicator());
@@ -120,10 +126,10 @@ class MsgBubble extends StatelessWidget {
   }
 
   Future<String> _translateContentIfNeeded(String originalText) async {
-    if (chatRoomData.isTranslationEnabled && !isOwner) {
-      return await originalText
-          .translate(to: chatRoomData.selectedLanguageKey)
-          .then((translation) => '${translation.text}\n"$originalText"')
+    if (_isTranslationEnabled && !_isOwner) {
+      return await _translator
+          .translate(originalText)
+          .then((translation) => '${translation}\n"$originalText"')
           .onError((error, stackTrace) => _logger.eAsync(
               "Error translating msg content",
               error: error,

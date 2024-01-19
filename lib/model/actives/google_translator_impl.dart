@@ -7,19 +7,17 @@ import 'translator.dart';
 ///
 class GoogleTranslatorImpl implements Translator {
   final _translator = GoogleTranslator();
+  var _defaultTartgetLanguageKey = _langs.keys.first;
 
   @override
-  Future<String> translate(
-      String text, String sourceLanguage, String targetLanguage) async {
+  Future<String> translate(String text,
+      {String? sourceLanguage, String? targetLanguage}) async {
     return await _translator
-        .translate(text, from: sourceLanguage, to: targetLanguage)
-        .then((value) => value.text);
-  }
-
-  @override
-  Future<String> autoTranslateTo(String text, String targetLanguage) async {
-    return await _translator
-        .translate(text, to: targetLanguage)
+        .translate(
+          text,
+          from: sourceLanguage ?? 'auto',
+          to: targetLanguage ?? _defaultTartgetLanguageKey,
+        )
         .then((transaltion) => transaltion.text);
   }
 
@@ -28,9 +26,22 @@ class GoogleTranslatorImpl implements Translator {
     return _langs;
   }
 
-  String getLanguageKey(String? selectedLanguage) {
-    return _langs.keys
-        .firstWhere((key) => _langs[key] == selectedLanguage, orElse: () => "");
+  @override
+  String parseToLanguageKey(String? language) {
+    return _langs.keys.firstWhere(
+      (key) => _langs[key] == language,
+      orElse: () => _defaultTartgetLanguageKey,
+    );
+  }
+
+  @override
+  String getDefaultTargetLanguageKey() {
+    return _defaultTartgetLanguageKey;
+  }
+
+  @override
+  void setDefaultTargetLanguageKey(String languageKey) {
+    _defaultTartgetLanguageKey = languageKey;
   }
 }
 

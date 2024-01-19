@@ -50,8 +50,6 @@ dependencies:
   logging: ^1.1.1
   # https://pub.dev/packages/logging_to_logcat
   logging_to_logcat: ^1.0.0
-  # https://pub.dev/packages/google_translate
-  google_translate: ^0.0.6
   # https://pub.dev/packages/translator
   translator: ^0.1.7
 

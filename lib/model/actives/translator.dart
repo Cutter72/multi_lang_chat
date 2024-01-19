@@ -2,12 +2,24 @@
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
 abstract class Translator {
-  /// Translate given text from sourceLanguage to targetLanguage
-  Future<String> translate(String text, String sourceLanguage, String targetLanguage);
+  /// Translate given text from sourceLanguage (auto detect if absent)
+  /// to targetLanguage (default value if absent).
+  Future<String> translate(
+    String text, {
+    String? sourceLanguage,
+    String? targetLanguage,
+  });
 
-  /// Translate given text from auto detected language to targetLanguage
-  Future<String> autoTranslateTo(String text, String targetLanguage);
-
-  /// Get alphabetically sorted language keys with their english names that are available to use
+  /// Get alphabetically sorted language keys with their
+  /// english names that are available to use
   Map<String, String> getAvailableLanguages();
+
+  /// Parse language name to language key for example 'English' to 'en'
+  String parseToLanguageKey(String language);
+
+  /// Return default language key for example 'en'
+  String getDefaultTargetLanguageKey();
+
+  /// Set default language key for example 'en'
+  void setDefaultTargetLanguageKey(String languageKey);
 }
