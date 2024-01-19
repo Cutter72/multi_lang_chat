@@ -130,10 +130,11 @@ class MsgBubble extends StatelessWidget {
       return await _translator
           .translate(originalText)
           .then((translation) => '${translation}\n"$originalText"')
-          .onError((error, stackTrace) => _logger.eAsync(
-              "Error translating msg content",
-              error: error,
-              stackTrace: stackTrace));
+          .onError((error, stackTrace) {
+        var errorMsg = "Error translating msg content";
+        _logger.e(errorMsg, error: error, stackTrace: stackTrace);
+        return errorMsg;
+      });
     } else {
       return originalText;
     }
