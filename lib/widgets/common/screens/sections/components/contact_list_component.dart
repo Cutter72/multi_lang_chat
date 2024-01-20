@@ -30,14 +30,9 @@ class ContactList extends StatelessWidget {
           );
         }
       },
-      itemCount: getMinimumItemCount(users),
+      // minimum 1 to show No items text if null or empty
+      itemCount: users.isEmpty ? 1 : users.length,
     );
-  }
-
-  int? getMinimumItemCount(List<AppUser> data) {
-    _logger.v("getMinimumItemCount");
-    // minimum 1 to show No items text if null or empty
-    return data.isNotEmpty ? data.length : 1;
   }
 }
 

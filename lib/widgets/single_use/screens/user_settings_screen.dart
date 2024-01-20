@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +18,29 @@ class UserSettingsScreen extends StatelessWidget {
     return ProfileScreen(
       appBar: AppBar(
         titleSpacing: -12,
-        title: const SelectionContainer.disabled(child: Text("User settings")),
+        title: const Text("User settings"),
       ),
-      avatarPlaceholderColor: Colors.orange,
+      avatarPlaceholderColor: Colors.purple,
       providers: authProviders,
       actions: [
         SignedOutAction((context) {
           Navigator.pushReplacementNamed(context, AuthGateScreen.routeName);
         }),
+        AccountDeletedAction((context, user) {
+          deleteUserData(user);
+        }),
+        DisplayNameChangedAction((context, oldName, newName) {
+          updateUserDisplayName(newName);
+        }),
       ],
     );
+  }
+
+  void updateUserDisplayName(String context) {
+    // todo
+  }
+
+  void deleteUserData(User user) {
+    // todo
   }
 }
