@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'text_styles.dart';
+import '../../../../../../../storage/persistent/text_styles.dart';
 
 /// Content text to show
 ///
@@ -15,7 +15,6 @@ class _ContentText extends Text {
       : super(
           data,
           style: style,
-          textAlign: TextAlign.justify,
         );
 }
 

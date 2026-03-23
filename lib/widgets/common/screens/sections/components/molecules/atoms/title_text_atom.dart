@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'text_styles.dart';
+import '../../../../../../../storage/persistent/text_styles.dart';
 
 /// Title text to show as a bold headline
 ///

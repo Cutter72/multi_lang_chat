@@ -27,6 +27,8 @@ apply plugin: 'com.google.gms.google-services'
 // END: FlutterFire Configuration
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+// https://firebase.flutter.dev/docs/crashlytics/overview/
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion flutter.compileSdkVersion

@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fba;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+
+import '../../model/passives/daos/app_user/app_user.dart';
 
 ///
 /// @author Paweł Drelich <drelich_pawel@o2.pl>
 ///
-late FirebaseFirestore db;
-late fba.User loggedUser;
+late AppUser loggedAppUser;
+
+String get lauUid => loggedAppUser.uid ?? "";
 
 final List<AuthProvider> authProviders = [EmailAuthProvider()];
 
