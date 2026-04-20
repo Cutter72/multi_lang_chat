@@ -12,3 +12,9 @@ A messenger for Android and iOS that allows you to translate messages into any l
 * Firebase Authentication
 * Crashlytics
 * Dart Mappable (freezed alternative)
+
+### Screenshots
+
+![Screenshots 1](screenshots/1.jpg)
+![Screenshots 2](screenshots/2.jpg)
+![Screenshots 3](screenshots/3.jpg)
